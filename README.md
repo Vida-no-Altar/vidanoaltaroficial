@@ -4,7 +4,15 @@ Site estático oficial do projeto cristão Vida no Altar. A base continua leve, 
 
 ## Como rodar localmente
 
-Não há dependências obrigatórias para publicar. Para preview com URL local, use Node.js:
+Use Node.js 20 ou superior.
+
+Para preview com URL local:
+
+~~~powershell
+npm start
+~~~
+
+ou:
 
 ~~~powershell
 node serve.mjs
@@ -21,6 +29,26 @@ Também é possível abrir o arquivo index.html diretamente no navegador, mas a 
 ~~~powershell
 Start-Process .\index.html
 ~~~
+
+## Como testar
+
+Antes de publicar ou commitar mudanças, rode:
+
+~~~powershell
+npm test
+~~~
+
+Esse teste valida:
+
+- JSON de conteúdo;
+- sitemap;
+- links internos;
+- arquivos referenciados pelo HTML/CSS;
+- configuração do painel `/admin/`;
+- ausência de links/canais provisórios indesejados;
+- rotas principais servidas localmente.
+
+Também existe uma verificação automática no GitHub Actions em todo push, pull request e execução manual.
 
 ## Conteúdo editável
 

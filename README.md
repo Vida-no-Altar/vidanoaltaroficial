@@ -24,18 +24,32 @@ Start-Process .\index.html
 
 ## Como alterar links
 
-Os links sociais estão no arquivo index.html. Procure por href="#" nos botões e cards e substitua pelos links reais quando estiverem disponíveis.
+Os links sociais estão no arquivo index.html. Procure pelos endereços atuais e substitua quando necessário.
 
-Links preparados nesta V1:
+Links oficiais usados nesta V1:
 
-- YouTube: #
-- Instagram: #
-- TikTok: #
+- YouTube: https://www.youtube.com/@vidanoaltar.oficial
+- Instagram: https://www.instagram.com/vidanoaltar.oficial
+- TikTok: https://www.tiktok.com/@vidanoaltar.oficial
 - E-mail: mailto:contato@vidanoaltaroficial.com.br
 
 ## Como alterar o e-mail
 
 Troque contato@vidanoaltaroficial.com.br no arquivo index.html.
+
+## Como trocar a logo
+
+O arquivo usado no header e no footer fica em:
+
+~~~text
+public/images/logo-vida-no-altar.svg
+~~~
+
+Para usar uma versão PNG/WebP oficial sem fundo:
+
+1. Coloque a imagem otimizada em public/images/.
+2. No arquivo index.html, altere os dois caminhos public/images/logo-vida-no-altar.svg para o novo arquivo.
+3. Prefira uma versão quadrada, com fundo transparente, para funcionar bem no header e no footer.
 
 ## Como trocar a imagem do hero
 

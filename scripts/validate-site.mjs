@@ -47,6 +47,10 @@ function collectMatches(text, regex, group = 1) {
   return [...text.matchAll(regex)].map((match) => match[group]);
 }
 
+function hasNoIndexNoFollow(text) {
+  return /<meta\s+name="robots"\s+content="noindex,\s*nofollow"\s*\/>/i.test(text);
+}
+
 async function validateJson() {
   const data = await readJson('content/site-content.json');
 
@@ -110,9 +114,9 @@ async function validateHtmlAndAssets() {
   check(html.includes('assets/vna-agents.css'), 'index.html precisa carregar vna-agents.css.');
   check(html.includes('data-vna-agent="public"'), 'index.html precisa carregar o Assistente VnA publico.');
   check(admin.includes('assistente.html'), 'admin/index.html precisa ter atalho para o Assistente Admin.');
-  check(admin.includes('meta name="robots" content="noindex, nofollow"'), 'admin/index.html precisa ser noindex,nofollow.');
+  check(hasNoIndexNoFollow(admin), 'admin/index.html precisa ser noindex,nofollow.');
   check(adminAssistant.includes('data-vna-agent="admin"'), 'admin/assistente.html precisa carregar o Assistente Admin.');
-  check(adminAssistant.includes('meta name="robots" content="noindex, nofollow"'), 'admin/assistente.html precisa ser noindex,nofollow.');
+  check(hasNoIndexNoFollow(adminAssistant), 'admin/assistente.html precisa ser noindex,nofollow.');
   check(robots.includes('Disallow: /admin/'), 'robots.txt precisa bloquear /admin/.');
   check(sitemap.includes('<urlset'), 'sitemap.xml precisa ter urlset.');
   check(docs.includes('Assistentes VnA'), 'docs/agentes-vna.md precisa documentar os assistentes.');

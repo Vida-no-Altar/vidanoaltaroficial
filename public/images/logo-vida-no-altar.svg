@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Vida no Altar</title>
+  <desc id="desc">Marca Vida no Altar com livro aberto, chama e arco dourado.</desc>
+  <defs>
+    <style>
+      .ink{fill:none;stroke:#262523;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}
+      .gold{fill:none;stroke:#d9b752;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}
+      .word{fill:#262523;font-family:Arial,Helvetica,sans-serif;font-weight:800;letter-spacing:8px}
+      .tag{fill:#4d4740;font-family:Arial,Helvetica,sans-serif;font-weight:400;letter-spacing:2px}
+    </style>
+  </defs>
+  <rect width="1200" height="1200" fill="#f2ebdf"/>
+  <path class="gold" d="M164 536c20-204 204-362 436-362s416 158 436 362"/>
+  <path class="ink" d="M164 536c6-60 26-118 58-170M978 366c32 52 52 110 58 170"/>
+  <path class="gold" d="M184 768c70 154 228 258 416 258s346-104 416-258"/>
+  <path class="ink" d="M218 768c76 132 218 218 382 218s306-86 382-218"/>
+  <path class="gold" d="M584 390c-36-58 40-84 18-144 70 62 82 126 20 188"/>
+  <path class="gold" d="M632 432c48-76 20-126-22-170"/>
+  <path class="ink" d="M424 402c84 22 144 58 178 116M776 402c-84 22-144 58-178 116"/>
+  <path class="ink" d="M350 456h184c44 0 76 20 96 58 20-38 52-58 96-58h124"/>
+  <path class="ink" d="M350 502h198c38 0 68 18 82 50 14-32 44-50 82-50h138"/>
+  <path class="ink" d="M350 548h214c30 0 50 16 56 42h20c6-26 26-42 56-42h154"/>
+  <path class="gold" d="M350 586h214c24 0 38 14 44 34h44c6-20 20-34 44-34h154"/>
+  <path class="ink" d="M350 624h230c18 0 22 28 50 28s32-28 50-28h170"/>
+  <path class="ink" d="M490 336l42 24M710 336l-42 24"/>
+  <path class="ink" d="M396 426c64-12 118-4 164 24M804 426c-64-12-118-4-164 24"/>
+  <text class="word" x="600" y="716" font-size="128" text-anchor="middle">VIDA NO ALTAR</text>
+  <text class="tag" x="600" y="820" font-size="46" text-anchor="middle">Presença que transforma</text>
+</svg>

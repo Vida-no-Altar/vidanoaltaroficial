@@ -69,7 +69,10 @@ const iconPaths = {
 };
 
 function asText(value) {
-  return typeof value === "string" ? value : "";
+  if (typeof value === "string") return value;
+  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (value && typeof value === "object" && typeof value.line === "string") return value.line;
+  return "";
 }
 
 function setTextByKey(key, value) {
@@ -104,12 +107,14 @@ function updateDocumentMeta(meta = {}) {
 function setHeroImage(image) {
   const value = asText(image);
   if (!value) return;
-  const safeValue = value.replace(/["\\]/g, "");
+  const safeValue = value.replace(/["\\\n\r]/g, "");
   document.documentElement.style.setProperty("--hero-image", `url("${safeValue}")`);
 }
 
 function normalizeEmail(value) {
-  const raw = asText(value);
+  const raw = asText(value).trim();
+  if (!raw) return { label: "", href: "" };
+
   const label = raw.replace(/^mailto:/i, "");
   return {
     label,

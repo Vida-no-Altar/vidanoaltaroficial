@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Vida no Altar | Presença que transforma gerações",
+    "description": "Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.",
+    "keywords": "Vida no Altar, devocional cristão, jovens cristãos, estudo bíblico, Café no Altar, Conhecendo os Evangelhos, conteúdo gospel",
+    "url": "https://vidanoaltaroficial.com.br/",
+    "image": "https://vidanoaltaroficial.com.br/public/images/og-image.jpg"
+  },
+  "brand": {
+    "name": "VIDA NO ALTAR",
+    "shortName": "VnA",
+    "slogan": "Presença que transforma gerações.",
+    "footerPhrase": "Conteúdo cristão para uma fé real no dia a dia."
+  },
+  "links": {
+    "youtube": "https://www.youtube.com/@vidanoaltar.oficial",
+    "instagram": "https://www.instagram.com/vidanoaltar.oficial",
+    "tiktok": "https://www.tiktok.com/@vidanoaltar.oficial",
+    "email": "contato@vidanoaltaroficial.com.br"
+  },
+  "hero": {
+    "eyebrow": "Central oficial do Vida no Altar",
+    "title": "VIDA NO ALTAR",
+    "subtitle": "Presença que transforma gerações.",
+    "text": "Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.",
+    "image": "public/images/hero-devocional.webp"
+  },
+  "startHere": {
+    "eyebrow": "Primeiros passos",
+    "title": "Comece por aqui",
+    "description": "Escolha um caminho para conhecer melhor o Vida no Altar.",
+    "cards": [
+      {
+        "title": "Café no Altar",
+        "description": "Devocionais matinais de segunda a sexta para começar o dia com Deus de forma simples, bíblica e prática.",
+        "cta": "Ver devocionais",
+        "href": "https://www.instagram.com/vidanoaltar.oficial",
+        "icon": "devotional"
+      },
+      {
+        "title": "Conhecendo os Evangelhos",
+        "description": "Uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé.",
+        "cta": "Assistir série",
+        "href": "https://www.youtube.com/@vidanoaltar.oficial",
+        "icon": "gospels"
+      },
+      {
+        "title": "Biblioteca V.A",
+        "description": "Livros cristãos comentados para fortalecer a fé, a mente e a vida prática.",
+        "cta": "Conhecer projeto",
+        "href": "https://www.instagram.com/vidanoaltar.oficial",
+        "icon": "library"
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Iniciativas",
+    "title": "Projetos do VnA",
+    "description": "O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.",
+    "items": [
+      {
+        "title": "Café no Altar",
+        "type": "Devocional matinal",
+        "description": "Reflexões curtas, bíblicas e práticas para começar o dia com direção.",
+        "featured": true
+      },
+      {
+        "title": "Conhecendo os Evangelhos",
+        "type": "Série bíblica",
+        "description": "Estudos em vídeo para entender o contexto, a mensagem e a profundidade dos Evangelhos.",
+        "featured": true
+      },
+      {
+        "title": "Biblioteca V.A",
+        "type": "Livros cristãos comentados",
+        "description": "Conteúdos baseados em leituras cristãs para amadurecimento espiritual e intelectual.",
+        "featured": true
+      },
+      {
+        "title": "Vida no Altar Covers",
+        "type": "Louvor e música",
+        "description": "Canções cristãs no teclado e momentos de adoração com identidade simples e verdadeira.",
+        "featured": false
+      },
+      {
+        "title": "Conexão Gospel",
+        "type": "Eventos, reviews e bastidores",
+        "description": "Coberturas, conversas e conteúdos sobre o universo cristão com olhar jovem e relevante.",
+        "featured": false
+      },
+      {
+        "title": "V.A Kids",
+        "type": "Conteúdo infantil cristão",
+        "description": "Histórias bíblicas e conteúdos educativos para crianças, com linguagem simples e visual criativo.",
+        "featured": false
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "Sobre",
+    "title": "Sobre o Vida no Altar",
+    "intro": "O Vida no Altar nasceu para ajudar uma geração a viver uma fé cristã real, bíblica e prática. Aqui você encontra devocionais, estudos bíblicos, louvor, reflexões e conteúdos pensados para jovens, adolescentes e toda a igreja.",
+    "presenceLines": [
+      "Não é sobre aparência.",
+      "É sobre presença."
+    ],
+    "text": "Com uma linguagem simples e uma visão de excelência, o VnA busca conectar a Palavra de Deus com a rotina, as decisões, os desafios e o propósito de cada pessoa."
+  },
+  "featuredContent": {
+    "eyebrow": "Para assistir e refletir",
+    "title": "Conteúdos em destaque",
+    "items": [
+      {
+        "title": "O que Deus espera de você",
+        "category": "Café no Altar",
+        "description": "Uma reflexão curta sobre entrega, obediência e vida com propósito.",
+        "cta": "Ver conteúdo",
+        "href": "https://www.instagram.com/vidanoaltar.oficial"
+      },
+      {
+        "title": "O que aconteceu entre Malaquias e Mateus?",
+        "category": "Conhecendo os Evangelhos",
+        "description": "A história dos 400 anos de silêncio e como Deus preparou o cenário para a chegada de Jesus.",
+        "cta": "Assistir",
+        "href": "https://www.youtube.com/@vidanoaltar.oficial"
+      },
+      {
+        "title": "Todo mundo tem um próximo desafio",
+        "category": "Fé e Trabalho",
+        "description": "Uma reflexão com linguagem de videogame sobre coragem, propósito e 2 Timóteo 1:7.",
+        "cta": "Ver conteúdo",
+        "href": "https://www.instagram.com/vidanoaltar.oficial"
+      },
+      {
+        "title": "Como escolher a Bíblia certa?",
+        "category": "Conteúdo especial",
+        "description": "Um guia simples para entender traduções, perfis e necessidades na hora de escolher uma Bíblia.",
+        "cta": "Ver conteúdo",
+        "href": "https://www.instagram.com/vidanoaltar.oficial"
+      }
+    ]
+  },
+  "resourceHub": {
+    "eyebrow": "Links editáveis",
+    "title": "Vídeos, produtos e links",
+    "description": "Uma área preparada para receber vídeos, páginas internas e links oficiais de produtos sem mexer na estrutura do site.",
+    "items": [
+      {
+        "title": "Canal do YouTube",
+        "type": "Vídeos",
+        "description": "Séries, estudos e conteúdos em vídeo publicados no canal oficial do Vida no Altar.",
+        "cta": "Assistir no YouTube",
+        "href": "https://www.youtube.com/@vidanoaltar.oficial",
+        "status": "Ativo"
+      },
+      {
+        "title": "Instagram oficial",
+        "type": "Conteúdos rápidos",
+        "description": "Devocionais, bastidores, avisos e reflexões para acompanhar a rotina do projeto.",
+        "cta": "Seguir no Instagram",
+        "href": "https://www.instagram.com/vidanoaltar.oficial",
+        "status": "Ativo"
+      },
+      {
+        "title": "Produtos e indicações",
+        "type": "Vitrine futura",
+        "description": "Espaço reservado para links oficiais de produtos, materiais, livros e recomendações do VnA.",
+        "cta": "Falar sobre produtos",
+        "href": "#contato",
+        "status": "Em preparação"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contato",
+    "title": "Quer falar com o Vida no Altar?",
+    "text": "Para convites, sugestões, parcerias ou contato geral, use o canal oficial abaixo.",
+    "emailLabel": "contato@vidanoaltaroficial.com.br"
+  }
+}

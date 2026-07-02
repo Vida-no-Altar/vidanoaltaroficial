@@ -28,7 +28,7 @@
       <nav class="nav container" aria-label="Navegação principal">
         <a class="brand" href="#inicio" aria-label="Vida no Altar, início">
           <span class="brand-logo" aria-hidden="true"><img src="public/images/logo-vida-no-altar.svg" alt="" /></span>
-          <span class="brand-name">VIDA NO ALTAR</span>
+          <span class="brand-name" data-content="brand.name">VIDA NO ALTAR</span>
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
           <span class="sr-only">Abrir menu</span>
@@ -37,6 +37,7 @@
         <ul class="nav-links" id="site-menu">
           <li><a href="#inicio" aria-current="page">Início</a></li>
           <li><a href="#projetos">Projetos</a></li>
+          <li><a href="#links">Links</a></li>
           <li><a href="#sobre">Sobre</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
@@ -48,16 +49,16 @@
         <div class="hero-background" role="img" aria-label="Bíblia aberta sobre mesa escura com luz quente dourada."></div>
         <div class="hero-overlay"></div>
         <div class="hero-content container">
-          <p class="eyebrow">Central oficial do Vida no Altar</p>
-          <h1 id="hero-title">VIDA NO ALTAR</h1>
-          <p class="hero-subtitle">Presença que transforma gerações.</p>
-          <p class="hero-text">Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.</p>
+          <p class="eyebrow" data-content="hero.eyebrow">Central oficial do Vida no Altar</p>
+          <h1 id="hero-title" data-content="hero.title">VIDA NO ALTAR</h1>
+          <p class="hero-subtitle" data-content="hero.subtitle">Presença que transforma gerações.</p>
+          <p class="hero-text" data-content="hero.text">Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.</p>
           <div class="hero-actions" aria-label="Links principais">
-            <a class="button button-primary" href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" aria-label="Assistir Vida no Altar no YouTube">
+            <a class="button button-primary" href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" aria-label="Assistir Vida no Altar no YouTube" data-link="youtube">
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M10 8.6v6.8L15.7 12 10 8.6Z"/><path d="M21 12c0 2.1-.2 3.5-.5 4.3-.3.8-.9 1.4-1.7 1.6-1.5.4-6.8.4-6.8.4s-5.3 0-6.8-.4c-.8-.2-1.4-.8-1.7-1.6C3.2 15.5 3 14.1 3 12s.2-3.5.5-4.3c.3-.8.9-1.4 1.7-1.6 1.5-.4 6.8-.4 6.8-.4s5.3 0 6.8.4c.8.2 1.4.8 1.7 1.6.3.8.5 2.2.5 4.3Z"/></svg>
               Assistir no YouTube
             </a>
-            <a class="button button-secondary" href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" aria-label="Seguir Vida no Altar no Instagram">
+            <a class="button button-secondary" href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" aria-label="Seguir Vida no Altar no Instagram" data-link="instagram">
               <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><path d="M17 7.2h.01"/></svg>
               Seguir no Instagram
             </a>
@@ -72,14 +73,14 @@
       <section class="section section-light" id="comece">
         <div class="container">
           <div class="section-heading">
-            <p class="eyebrow">Primeiros passos</p>
-            <h2>Comece por aqui</h2>
-            <p>Escolha um caminho para conhecer melhor o Vida no Altar.</p>
+            <p class="eyebrow" data-content="startHere.eyebrow">Primeiros passos</p>
+            <h2 data-content="startHere.title">Comece por aqui</h2>
+            <p data-content="startHere.description">Escolha um caminho para conhecer melhor o Vida no Altar.</p>
           </div>
-          <div class="start-grid">
-            <article class="path-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5h10v14H7z"/><path d="M9.5 7.8h5M9.5 11h5M9.5 14.2h3.5"/></svg></div><h3>Café no Altar</h3><p>Devocionais matinais de segunda a sexta para começar o dia com Deus de forma simples, bíblica e prática.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="text-link">Ver devocionais</a></article>
-            <article class="path-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5c2.4-1.4 5.1-1.4 8 0 2.9-1.4 5.6-1.4 8 0v10.2c-2.4-1.2-5.1-1.2-8 .2-2.9-1.4-5.6-1.4-8-.2z"/><path d="M12 7.5v10.4"/></svg></div><h3>Conhecendo os Evangelhos</h3><p>Uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé.</p><a href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="text-link">Assistir série</a></article>
-            <article class="path-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h9.5A2.5 2.5 0 0 1 18 6.5V20H8.5A2.5 2.5 0 0 1 6 17.5z"/><path d="M9 8h5M9 11h6M9 14h4"/></svg></div><h3>Biblioteca V.A</h3><p>Livros cristãos comentados para fortalecer a fé, a mente e a vida prática.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="text-link">Conhecer projeto</a></article>
+          <div class="start-grid" data-render="startCards">
+            <article class="path-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5h10v14H7z"/><path d="M9.5 7.8h5M9.5 11h5M9.5 14.2h3.5"/></svg></div><h3>Café no Altar</h3><p>Devocionais matinais de segunda a sexta para começar o dia com Deus de forma simples, bíblica e prática.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="text-link" data-link="instagram">Ver devocionais</a></article>
+            <article class="path-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5c2.4-1.4 5.1-1.4 8 0 2.9-1.4 5.6-1.4 8 0v10.2c-2.4-1.2-5.1-1.2-8 .2-2.9-1.4-5.6-1.4-8-.2z"/><path d="M12 7.5v10.4"/></svg></div><h3>Conhecendo os Evangelhos</h3><p>Uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé.</p><a href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="text-link" data-link="youtube">Assistir série</a></article>
+            <article class="path-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4h9.5A2.5 2.5 0 0 1 18 6.5V20H8.5A2.5 2.5 0 0 1 6 17.5z"/><path d="M9 8h5M9 11h6M9 14h4"/></svg></div><h3>Biblioteca V.A</h3><p>Livros cristãos comentados para fortalecer a fé, a mente e a vida prática.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="text-link" data-link="instagram">Conhecer projeto</a></article>
           </div>
         </div>
       </section>
@@ -87,11 +88,11 @@
       <section class="section section-dark" id="projetos">
         <div class="container">
           <div class="section-heading section-heading-dark">
-            <p class="eyebrow">Iniciativas</p>
-            <h2>Projetos do VnA</h2>
-            <p>O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.</p>
+            <p class="eyebrow" data-content="projects.eyebrow">Iniciativas</p>
+            <h2 data-content="projects.title">Projetos do VnA</h2>
+            <p data-content="projects.description">O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.</p>
           </div>
-          <div class="projects-grid">
+          <div class="projects-grid" data-render="projects">
             <article class="project-card project-card-featured"><p class="project-type">Devocional matinal</p><h3>Café no Altar</h3><p>Reflexões curtas, bíblicas e práticas para começar o dia com direção.</p></article>
             <article class="project-card project-card-featured"><p class="project-type">Série bíblica</p><h3>Conhecendo os Evangelhos</h3><p>Estudos em vídeo para entender o contexto, a mensagem e a profundidade dos Evangelhos.</p></article>
             <article class="project-card project-card-featured"><p class="project-type">Livros cristãos comentados</p><h3>Biblioteca V.A</h3><p>Conteúdos baseados em leituras cristãs para amadurecimento espiritual e intelectual.</p></article>
@@ -104,37 +105,52 @@
 
       <section class="section section-light about-section" id="sobre">
         <div class="container about-layout">
-          <div class="section-heading about-heading"><p class="eyebrow">Sobre</p><h2>Sobre o Vida no Altar</h2></div>
+          <div class="section-heading about-heading"><p class="eyebrow" data-content="about.eyebrow">Sobre</p><h2 data-content="about.title">Sobre o Vida no Altar</h2></div>
           <div class="about-copy">
-            <p>O Vida no Altar nasceu para ajudar uma geração a viver uma fé cristã real, bíblica e prática. Aqui você encontra devocionais, estudos bíblicos, louvor, reflexões e conteúdos pensados para jovens, adolescentes e toda a igreja.</p>
-            <p class="presence-line">Não é sobre aparência.<br />É sobre presença.</p>
-            <p>Com uma linguagem simples e uma visão de excelência, o VnA busca conectar a Palavra de Deus com a rotina, as decisões, os desafios e o propósito de cada pessoa.</p>
+            <p data-content="about.intro">O Vida no Altar nasceu para ajudar uma geração a viver uma fé cristã real, bíblica e prática. Aqui você encontra devocionais, estudos bíblicos, louvor, reflexões e conteúdos pensados para jovens, adolescentes e toda a igreja.</p>
+            <p class="presence-line" data-content="about.presenceLines">Não é sobre aparência.<br />É sobre presença.</p>
+            <p data-content="about.text">Com uma linguagem simples e uma visão de excelência, o VnA busca conectar a Palavra de Deus com a rotina, as decisões, os desafios e o propósito de cada pessoa.</p>
           </div>
         </div>
       </section>
 
       <section class="section section-cream" id="conteudos">
         <div class="container">
-          <div class="section-heading"><p class="eyebrow">Para assistir e refletir</p><h2>Conteúdos em destaque</h2></div>
-          <div class="content-grid">
-            <article class="content-card"><p class="content-category">Café no Altar</p><h3>O que Deus espera de você</h3><p>Uma reflexão curta sobre entrega, obediência e vida com propósito.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small">Ver conteúdo</a></article>
-            <article class="content-card"><p class="content-category">Conhecendo os Evangelhos</p><h3>O que aconteceu entre Malaquias e Mateus?</h3><p>A história dos 400 anos de silêncio e como Deus preparou o cenário para a chegada de Jesus.</p><a href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small">Assistir</a></article>
-            <article class="content-card"><p class="content-category">Fé e Trabalho</p><h3>Todo mundo tem um próximo desafio</h3><p>Uma reflexão com linguagem de videogame sobre coragem, propósito e 2 Timóteo 1:7.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small">Ver conteúdo</a></article>
-            <article class="content-card"><p class="content-category">Conteúdo especial</p><h3>Como escolher a Bíblia certa?</h3><p>Um guia simples para entender traduções, perfis e necessidades na hora de escolher uma Bíblia.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small">Ver conteúdo</a></article>
+          <div class="section-heading"><p class="eyebrow" data-content="featuredContent.eyebrow">Para assistir e refletir</p><h2 data-content="featuredContent.title">Conteúdos em destaque</h2></div>
+          <div class="content-grid" data-render="featuredContent">
+            <article class="content-card"><p class="content-category">Café no Altar</p><h3>O que Deus espera de você</h3><p>Uma reflexão curta sobre entrega, obediência e vida com propósito.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small" data-link="instagram">Ver conteúdo</a></article>
+            <article class="content-card"><p class="content-category">Conhecendo os Evangelhos</p><h3>O que aconteceu entre Malaquias e Mateus?</h3><p>A história dos 400 anos de silêncio e como Deus preparou o cenário para a chegada de Jesus.</p><a href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small" data-link="youtube">Assistir</a></article>
+            <article class="content-card"><p class="content-category">Fé e Trabalho</p><h3>Todo mundo tem um próximo desafio</h3><p>Uma reflexão com linguagem de videogame sobre coragem, propósito e 2 Timóteo 1:7.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small" data-link="instagram">Ver conteúdo</a></article>
+            <article class="content-card"><p class="content-category">Conteúdo especial</p><h3>Como escolher a Bíblia certa?</h3><p>Um guia simples para entender traduções, perfis e necessidades na hora de escolher uma Bíblia.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small" data-link="instagram">Ver conteúdo</a></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light resource-section" id="links">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-content="resourceHub.eyebrow">Links editáveis</p>
+            <h2 data-content="resourceHub.title">Vídeos, produtos e links</h2>
+            <p data-content="resourceHub.description">Uma área preparada para receber vídeos, páginas internas e links oficiais de produtos sem mexer na estrutura do site.</p>
+          </div>
+          <div class="resource-grid" data-render="resources">
+            <article class="resource-card"><div class="resource-meta"><p class="resource-type">Vídeos</p><span class="resource-status">Ativo</span></div><h3>Canal do YouTube</h3><p>Séries, estudos e conteúdos em vídeo publicados no canal oficial do Vida no Altar.</p><a href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small" data-link="youtube">Assistir no YouTube</a></article>
+            <article class="resource-card"><div class="resource-meta"><p class="resource-type">Conteúdos rápidos</p><span class="resource-status">Ativo</span></div><h3>Instagram oficial</h3><p>Devocionais, bastidores, avisos e reflexões para acompanhar a rotina do projeto.</p><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" class="button button-small" data-link="instagram">Seguir no Instagram</a></article>
+            <article class="resource-card"><div class="resource-meta"><p class="resource-type">Vitrine futura</p><span class="resource-status">Em preparação</span></div><h3>Produtos e indicações</h3><p>Espaço reservado para links oficiais de produtos, materiais, livros e recomendações do VnA.</p><a href="#contato" class="button button-small">Falar sobre produtos</a></article>
           </div>
         </div>
       </section>
 
       <section class="section section-dark contact-section" id="contato">
         <div class="container contact-layout">
-          <div><p class="eyebrow">Contato</p><h2>Quer falar com o Vida no Altar?</h2><p>Para convites, sugestões, parcerias ou contato geral, use o canal oficial abaixo.</p><a class="contact-email" href="mailto:contato@vidanoaltaroficial.com.br">contato@vidanoaltaroficial.com.br</a></div>
-          <div class="contact-actions" aria-label="Canais oficiais"><a class="button button-secondary" href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer">Instagram</a><a class="button button-secondary" href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer">YouTube</a><a class="button button-secondary" href="https://www.tiktok.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer">TikTok</a><a class="button button-primary" href="mailto:contato@vidanoaltaroficial.com.br">E-mail</a></div>
+          <div><p class="eyebrow" data-content="contact.eyebrow">Contato</p><h2 data-content="contact.title">Quer falar com o Vida no Altar?</h2><p data-content="contact.text">Para convites, sugestões, parcerias ou contato geral, use o canal oficial abaixo.</p><a class="contact-email" href="mailto:contato@vidanoaltaroficial.com.br" data-link="email" data-content="contact.email">contato@vidanoaltaroficial.com.br</a></div>
+          <div class="contact-actions" aria-label="Canais oficiais"><a class="button button-secondary" href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" data-link="instagram">Instagram</a><a class="button button-secondary" href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" data-link="youtube">YouTube</a><a class="button button-secondary" href="https://www.tiktok.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" data-link="tiktok">TikTok</a><a class="button button-primary" href="mailto:contato@vidanoaltaroficial.com.br" data-link="email">E-mail</a></div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-layout"><div class="footer-brand-block"><img class="footer-logo" src="public/images/logo-vida-no-altar.svg" alt="Vida no Altar" /><div><p class="footer-brand">VIDA NO ALTAR</p><p>Presença que transforma gerações.</p><p class="footer-small">Conteúdo cristão para uma fé real no dia a dia.</p></div></div><nav aria-label="Links do rodapé"><a href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://www.tiktok.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer">TikTok</a><a href="#contato">Contato</a></nav></div>
+      <div class="container footer-layout"><div class="footer-brand-block"><img class="footer-logo" src="public/images/logo-vida-no-altar.svg" alt="Vida no Altar" /><div><p class="footer-brand" data-content="brand.name">VIDA NO ALTAR</p><p data-content="brand.slogan">Presença que transforma gerações.</p><p class="footer-small" data-content="brand.footerPhrase">Conteúdo cristão para uma fé real no dia a dia.</p></div></div><nav aria-label="Links do rodapé"><a href="https://www.youtube.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" data-link="youtube">YouTube</a><a href="https://www.instagram.com/vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" data-link="instagram">Instagram</a><a href="https://www.tiktok.com/@vidanoaltar.oficial" target="_blank" rel="noopener noreferrer" data-link="tiktok">TikTok</a><a href="#contato">Contato</a></nav></div>
       <div class="container copyright">© 2026 Vida no Altar. Todos os direitos reservados.</div>
     </footer>
     <script src="assets/script.js" defer></script>

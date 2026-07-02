@@ -24,12 +24,16 @@ function isInsideRoot(filePath) {
   return resolved === root || resolved.startsWith(root + sep);
 }
 
+function resolveIndexPath(pathname) {
+  if (pathname === '/' || pathname.endsWith('/')) return pathname + 'index.html';
+  if (!extname(pathname)) return pathname + '/index.html';
+  return pathname;
+}
+
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url || '/', 'http://127.0.0.1:' + port);
-    let pathname = decodeURIComponent(url.pathname);
-    if (pathname === '/') pathname = '/index.html';
-
+    const pathname = resolveIndexPath(decodeURIComponent(url.pathname));
     const safePath = normalize(pathname).replace(/^([/\\])+/, '');
     const filePath = resolve(join(root, safePath));
 

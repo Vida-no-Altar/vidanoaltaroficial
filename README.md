@@ -117,4 +117,4 @@ Para usar o painel `/admin/`, escolha uma hospedagem que permita configurar OAut
 
 ## Escopo atual
 
-Ainda não há loja completa, carrinho, pagamento, área de membros, blog, banco de dados ou WhatsApp. A atualização atual apenas prepara edição de conteúdo, vídeos, links e produtos futuros de forma organizada.
+Ainda não há loja completa, carrinho, pagamento, área de membros, blog ou banco de dados. A atualização atual apenas prepara edição de conteúdo, vídeos, links e produtos futuros de forma organizada.

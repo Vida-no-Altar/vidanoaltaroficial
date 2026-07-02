@@ -1,0 +1,147 @@
+backend:
+  name: github
+  repo: Vida-no-Altar/vidanoaltaroficial
+  branch: main
+
+publish_mode: editorial_workflow
+media_folder: "public/uploads"
+public_folder: "/public/uploads"
+locale: "pt"
+
+collections:
+  - name: "site"
+    label: "Site"
+    files:
+      - name: "site_content"
+        label: "Conteúdo principal"
+        file: "content/site-content.json"
+        format: "json"
+        fields:
+          - label: "SEO"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Título da página", name: "title", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+              - { label: "Palavras-chave", name: "keywords", widget: "text", required: false }
+              - { label: "URL oficial", name: "url", widget: "string", required: false }
+              - { label: "Imagem social", name: "image", widget: "string", required: false }
+          - label: "Marca"
+            name: "brand"
+            widget: "object"
+            fields:
+              - { label: "Nome", name: "name", widget: "string" }
+              - { label: "Abreviação", name: "shortName", widget: "string", required: false }
+              - { label: "Slogan", name: "slogan", widget: "string" }
+              - { label: "Frase do rodapé", name: "footerPhrase", widget: "string", required: false }
+          - label: "Links oficiais"
+            name: "links"
+            widget: "object"
+            fields:
+              - { label: "YouTube", name: "youtube", widget: "string" }
+              - { label: "Instagram", name: "instagram", widget: "string" }
+              - { label: "TikTok", name: "tiktok", widget: "string" }
+              - { label: "E-mail", name: "email", widget: "string" }
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Linha pequena", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Subtítulo", name: "subtitle", widget: "string" }
+              - { label: "Texto", name: "text", widget: "text" }
+              - { label: "Imagem", name: "image", widget: "image", required: false }
+          - label: "Comece por aqui"
+            name: "startHere"
+            widget: "object"
+            fields:
+              - { label: "Linha pequena", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+              - label: "Cards"
+                name: "cards"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: "title", widget: "string" }
+                  - { label: "Descrição", name: "description", widget: "text" }
+                  - { label: "Texto do botão", name: "cta", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+                  - label: "Ícone"
+                    name: "icon"
+                    widget: "select"
+                    options:
+                      - { label: "Devocional", value: "devotional" }
+                      - { label: "Evangelhos", value: "gospels" }
+                      - { label: "Biblioteca", value: "library" }
+                      - { label: "Padrão", value: "default" }
+          - label: "Projetos"
+            name: "projects"
+            widget: "object"
+            fields:
+              - { label: "Linha pequena", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+              - label: "Itens"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: "title", widget: "string" }
+                  - { label: "Tipo", name: "type", widget: "string" }
+                  - { label: "Descrição", name: "description", widget: "text" }
+                  - { label: "Destacar", name: "featured", widget: "boolean", default: false }
+          - label: "Sobre"
+            name: "about"
+            widget: "object"
+            fields:
+              - { label: "Linha pequena", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Texto principal", name: "intro", widget: "text" }
+              - label: "Frase de presença"
+                name: "presenceLines"
+                widget: "list"
+                field: { label: "Linha", name: "line", widget: "string" }
+              - { label: "Texto complementar", name: "text", widget: "text" }
+          - label: "Conteúdos em destaque"
+            name: "featuredContent"
+            widget: "object"
+            fields:
+              - { label: "Linha pequena", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - label: "Cards"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: "title", widget: "string" }
+                  - { label: "Categoria", name: "category", widget: "string" }
+                  - { label: "Descrição", name: "description", widget: "text" }
+                  - { label: "Texto do botão", name: "cta", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+          - label: "Vídeos, produtos e links"
+            name: "resourceHub"
+            widget: "object"
+            fields:
+              - { label: "Linha pequena", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+              - label: "Links"
+                name: "items"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Título", name: "title", widget: "string" }
+                  - { label: "Tipo", name: "type", widget: "string" }
+                  - { label: "Descrição", name: "description", widget: "text" }
+                  - { label: "Texto do botão", name: "cta", widget: "string" }
+                  - { label: "Link", name: "href", widget: "string" }
+                  - { label: "Status", name: "status", widget: "string", required: false }
+          - label: "Contato"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Linha pequena", name: "eyebrow", widget: "string" }
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Texto", name: "text", widget: "text" }
+              - { label: "E-mail exibido", name: "emailLabel", widget: "string" }

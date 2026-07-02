@@ -1,0 +1,62 @@
+{
+  "brand": {
+    "name": "Vida no Altar",
+    "shortName": "VnA",
+    "slogan": "Presença que transforma gerações.",
+    "description": "Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.",
+    "audience": "Jovens, adolescentes e toda a igreja.",
+    "values": [
+      "presença",
+      "consagração",
+      "autenticidade",
+      "excelência",
+      "comunidade"
+    ]
+  },
+  "projects": [
+    {
+      "name": "Café no Altar",
+      "type": "Devocional matinal",
+      "status": "ativo",
+      "description": "Devocionais matinais de segunda a sexta para começar o dia com Deus de forma simples, bíblica e prática."
+    },
+    {
+      "name": "Conhecendo os Evangelhos",
+      "type": "Série bíblica",
+      "status": "ativo",
+      "description": "Uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé."
+    },
+    {
+      "name": "Biblioteca V.A",
+      "type": "Livros cristãos comentados",
+      "status": "ativo",
+      "description": "Livros cristãos comentados para fortalecer a fé, a mente e a vida prática."
+    },
+    {
+      "name": "Vida no Altar Covers",
+      "type": "Louvor e música",
+      "status": "ativo",
+      "description": "Canções cristãs no teclado e momentos de adoração com identidade simples e verdadeira."
+    },
+    {
+      "name": "Conexão Gospel",
+      "type": "Eventos, reviews e bastidores",
+      "status": "em desenvolvimento",
+      "description": "Coberturas, conversas e conteúdos sobre o universo cristão com olhar jovem e relevante."
+    },
+    {
+      "name": "V.A Kids",
+      "type": "Conteúdo infantil cristão",
+      "status": "projeto futuro/em desenvolvimento",
+      "description": "Histórias bíblicas e conteúdos educativos para crianças, com linguagem simples e visual criativo."
+    }
+  ],
+  "contact": {
+    "email": "contato@vidanoaltaroficial.com.br"
+  },
+  "social": {
+    "youtube": "https://www.youtube.com/@vidanoaltar.oficial",
+    "instagram": "https://www.instagram.com/vidanoaltar.oficial",
+    "tiktok": "https://www.tiktok.com/@vidanoaltar.oficial"
+  }
+}

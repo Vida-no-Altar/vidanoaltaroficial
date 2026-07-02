@@ -18,6 +18,10 @@ async function readText(path) {
   return readFile(join(root, path), 'utf8');
 }
 
+async function readJson(path) {
+  return JSON.parse(await readText(path));
+}
+
 async function exists(path) {
   try {
     await access(join(root, path));
@@ -44,8 +48,7 @@ function collectMatches(text, regex, group = 1) {
 }
 
 async function validateJson() {
-  const raw = await readText('content/site-content.json');
-  const data = JSON.parse(raw);
+  const data = await readJson('content/site-content.json');
 
   check(data.meta?.title, 'content/site-content.json precisa de meta.title.');
   check(data.meta?.description, 'content/site-content.json precisa de meta.description.');
@@ -61,19 +64,58 @@ async function validateJson() {
   }
 }
 
+async function validateAgents() {
+  const knowledge = await readJson('content/knowledge-base.json');
+  const publicAgent = await readJson('content/agent-public.json');
+  const adminAgent = await readJson('content/agent-admin.json');
+  const agentScript = await readText('assets/vna-agents.js');
+  const agentCss = await readText('assets/vna-agents.css');
+
+  check(knowledge.brand?.name === 'Vida no Altar', 'knowledge-base.json precisa conter a marca Vida no Altar.');
+  check(knowledge.contact?.email === 'contato@vidanoaltaroficial.com.br', 'knowledge-base.json precisa usar o e-mail oficial.');
+  check(Array.isArray(knowledge.projects) && knowledge.projects.length >= 6, 'knowledge-base.json precisa listar os projetos do VnA.');
+
+  check(publicAgent.name === 'Assistente VnA', 'agent-public.json precisa usar o nome Assistente VnA.');
+  check(Array.isArray(publicAgent.intents) && publicAgent.intents.length >= 8, 'Assistente publico precisa ter intenções suficientes.');
+  check(Array.isArray(publicAgent.quickReplies) && publicAgent.quickReplies.length >= 5, 'Assistente publico precisa ter sugestões rápidas.');
+  check(publicAgent.fallback?.includes('Não encontrei'), 'Assistente publico precisa ter fallback seguro.');
+
+  check(adminAgent.name === 'Assistente Admin VnA', 'agent-admin.json precisa usar o nome Assistente Admin VnA.');
+  check(Array.isArray(adminAgent.modes) && adminAgent.modes.length === 3, 'Assistente admin precisa ter os modos Conteúdo, Técnico e SEO.');
+  for (const mode of adminAgent.modes || []) {
+    check(Array.isArray(mode.intents) && mode.intents.length >= 3, `Modo ${mode.label} precisa ter pelo menos 3 intenções.`);
+  }
+
+  check(agentScript.includes('scoreIntent'), 'vna-agents.js precisa calcular pontuação por intenção.');
+  check(agentScript.includes('normalizeText'), 'vna-agents.js precisa normalizar texto.');
+  check(agentScript.includes('content/agent-public.json'), 'vna-agents.js precisa carregar agent-public.json.');
+  check(agentScript.includes('content/agent-admin.json'), 'vna-agents.js precisa carregar agent-admin.json.');
+  check(agentCss.includes('.vna-agent-fab'), 'vna-agents.css precisa estilizar o botão público.');
+  check(agentCss.includes('.vna-agent-admin-page'), 'vna-agents.css precisa estilizar a página admin.');
+}
+
 async function validateHtmlAndAssets() {
   const html = await readText('index.html');
   const css = await readText('assets/styles.css');
+  const agentCss = await readText('assets/vna-agents.css');
   const admin = await readText('admin/index.html');
+  const adminAssistant = await readText('admin/assistente.html');
   const robots = await readText('robots.txt');
   const sitemap = await readText('sitemap.xml');
   const readme = await readText('README.md');
+  const docs = await readText('docs/agentes-vna.md');
 
   check(html.includes('<html lang="pt-BR">'), 'index.html precisa declarar lang="pt-BR".');
   check(html.includes('<main id="conteudo">'), 'index.html precisa ter main com id="conteudo".');
+  check(html.includes('assets/vna-agents.css'), 'index.html precisa carregar vna-agents.css.');
+  check(html.includes('data-vna-agent="public"'), 'index.html precisa carregar o Assistente VnA publico.');
+  check(admin.includes('assistente.html'), 'admin/index.html precisa ter atalho para o Assistente Admin.');
   check(admin.includes('meta name="robots" content="noindex, nofollow"'), 'admin/index.html precisa ser noindex,nofollow.');
+  check(adminAssistant.includes('data-vna-agent="admin"'), 'admin/assistente.html precisa carregar o Assistente Admin.');
+  check(adminAssistant.includes('meta name="robots" content="noindex, nofollow"'), 'admin/assistente.html precisa ser noindex,nofollow.');
   check(robots.includes('Disallow: /admin/'), 'robots.txt precisa bloquear /admin/.');
   check(sitemap.includes('<urlset'), 'sitemap.xml precisa ter urlset.');
+  check(docs.includes('Assistentes VnA'), 'docs/agentes-vna.md precisa documentar os assistentes.');
 
   const ids = collectMatches(html, /\sid="([^"]+)"/g);
   const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
@@ -85,20 +127,23 @@ async function validateHtmlAndAssets() {
 
   const refs = [
     ...collectMatches(html, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g),
+    ...collectMatches(admin, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g).map((ref) => `admin/${ref}`),
+    ...collectMatches(adminAssistant, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g).map((ref) => `admin/${ref}`),
     ...collectMatches(css, /url\("?\.\.\/([^"\)]+)"?\)/g),
+    ...collectMatches(agentCss, /url\("?\.\.\/([^"\)]+)"?\)/g),
   ];
   const missingRefs = [];
 
   for (const ref of unique(refs)) {
-    const cleanRef = localPathFromRef(ref);
+    const cleanRef = localPathFromRef(ref).replace(/^admin\/\.\.\//, '');
     if (!cleanRef || isExternal(cleanRef)) continue;
     if (!(await exists(cleanRef))) missingRefs.push(ref);
   }
 
   check(missingRefs.length === 0, `Arquivos referenciados nao encontrados: ${missingRefs.join(', ')}`);
 
-  const publicText = [html, css, admin, robots, sitemap, readme].join('\n');
-  check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(publicText), 'Nao deve haver WhatsApp, wa.me ou e-mail provisório no site/repo publico.');
+  const publicText = [html, css, agentCss, admin, adminAssistant, robots, sitemap, readme, docs].join('\n');
+  check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(publicText), 'Nao deve haver mensageiro externo proibido, wa.me ou e-mail provisório no site/repo publico.');
 }
 
 async function validateAdminConfig() {
@@ -142,6 +187,11 @@ async function validateServerRoutes() {
     const routes = [
       ['/', 'VIDA NO ALTAR'],
       ['/admin/', 'Painel Vida no Altar'],
+      ['/admin/assistente.html', 'Assistente Admin VnA'],
+      ['/assets/vna-agents.js', 'scoreIntent'],
+      ['/content/agent-public.json', 'Assistente VnA'],
+      ['/content/agent-admin.json', 'Assistente Admin VnA'],
+      ['/content/knowledge-base.json', 'Vida no Altar'],
       ['/content/site-content.json', 'Presença que transforma gerações'],
       ['/robots.txt', 'Disallow: /admin/'],
       ['/sitemap.xml', '<urlset'],
@@ -160,6 +210,7 @@ async function validateServerRoutes() {
 
 async function main() {
   await validateJson();
+  await validateAgents();
   await validateHtmlAndAssets();
   await validateAdminConfig();
   await validateServerRoutes();

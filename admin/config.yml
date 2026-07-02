@@ -38,10 +38,22 @@ collections:
             name: "links"
             widget: "object"
             fields:
-              - { label: "YouTube", name: "youtube", widget: "string" }
-              - { label: "Instagram", name: "instagram", widget: "string" }
-              - { label: "TikTok", name: "tiktok", widget: "string" }
-              - { label: "E-mail", name: "email", widget: "string" }
+              - label: "YouTube"
+                name: "youtube"
+                widget: "string"
+                pattern: ["^https://www\\.youtube\\.com/@vidanoaltar\\.oficial/?$", "Use o link oficial do YouTube: https://www.youtube.com/@vidanoaltar.oficial"]
+              - label: "Instagram"
+                name: "instagram"
+                widget: "string"
+                pattern: ["^https://www\\.instagram\\.com/vidanoaltar\\.oficial/?$", "Use o link oficial do Instagram: https://www.instagram.com/vidanoaltar.oficial"]
+              - label: "TikTok"
+                name: "tiktok"
+                widget: "string"
+                pattern: ["^https://www\\.tiktok\\.com/@vidanoaltar\\.oficial/?$", "Use o link oficial do TikTok: https://www.tiktok.com/@vidanoaltar.oficial"]
+              - label: "E-mail"
+                name: "email"
+                widget: "string"
+                pattern: ["^contato@vidanoaltaroficial\\.com\\.br$", "Use o e-mail oficial: contato@vidanoaltaroficial.com.br"]
           - label: "Hero"
             name: "hero"
             widget: "object"
@@ -144,4 +156,7 @@ collections:
               - { label: "Linha pequena", name: "eyebrow", widget: "string" }
               - { label: "Título", name: "title", widget: "string" }
               - { label: "Texto", name: "text", widget: "text" }
-              - { label: "E-mail exibido", name: "emailLabel", widget: "string" }
+              - label: "E-mail exibido"
+                name: "emailLabel"
+                widget: "string"
+                pattern: ["^contato@vidanoaltaroficial\\.com\\.br$", "Use o e-mail oficial: contato@vidanoaltaroficial.com.br"]

@@ -1,0 +1,443 @@
+:root {
+  --vna-agent-graphite: #262523;
+  --vna-agent-deep: #171615;
+  --vna-agent-off-white: #f2ebdf;
+  --vna-agent-gold: #d9b752;
+  --vna-agent-cream: #f2e1ac;
+  --vna-agent-burnt: #d9aa55;
+  --vna-agent-ink: #1b1a18;
+  --vna-agent-muted: #6e665b;
+  --vna-agent-radius: 8px;
+  --vna-agent-shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
+}
+
+.vna-agent-fab,
+.vna-agent-panel,
+.vna-agent-admin-page {
+  font-family: Inter, Manrope, "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.vna-agent-fab {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 80;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(217, 183, 82, 0.65);
+  border-radius: var(--vna-agent-radius);
+  padding: 0 16px;
+  background: var(--vna-agent-gold);
+  color: var(--vna-agent-ink);
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: var(--vna-agent-shadow);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.vna-agent-fab:hover {
+  transform: translateY(-2px);
+  background: var(--vna-agent-cream);
+  border-color: var(--vna-agent-cream);
+}
+
+.vna-agent-fab:focus-visible,
+.vna-agent-close:focus-visible,
+.vna-agent-send:focus-visible,
+.vna-agent-chip:focus-visible,
+.vna-agent-mode:focus-visible,
+.vna-agent-link:focus-visible,
+.vna-agent-back:focus-visible {
+  outline: 3px solid var(--vna-agent-gold);
+  outline-offset: 3px;
+}
+
+.vna-agent-fab-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  position: relative;
+}
+
+.vna-agent-fab-icon::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  bottom: -6px;
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-18deg);
+  background: inherit;
+}
+
+.vna-agent-panel {
+  position: fixed;
+  right: 22px;
+  bottom: 88px;
+  z-index: 80;
+  width: min(390px, calc(100vw - 28px));
+  max-height: min(640px, calc(100svh - 116px));
+  display: grid;
+  grid-template-rows: auto minmax(220px, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid rgba(242, 235, 223, 0.16);
+  border-radius: var(--vna-agent-radius);
+  background: var(--vna-agent-graphite);
+  color: var(--vna-agent-off-white);
+  box-shadow: var(--vna-agent-shadow);
+}
+
+.vna-agent-panel[hidden] {
+  display: none;
+}
+
+.vna-agent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(242, 235, 223, 0.12);
+  background: rgba(23, 22, 21, 0.78);
+}
+
+.vna-agent-title {
+  margin: 0;
+  color: #fffaf0;
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 850;
+}
+
+.vna-agent-subtitle {
+  margin: 4px 0 0;
+  color: rgba(242, 235, 223, 0.68);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.vna-agent-close {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(242, 235, 223, 0.18);
+  border-radius: var(--vna-agent-radius);
+  background: rgba(242, 235, 223, 0.06);
+  color: var(--vna-agent-off-white);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.vna-agent-messages {
+  overflow-y: auto;
+  padding: 16px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  background: linear-gradient(180deg, rgba(217, 183, 82, 0.04), transparent 180px), var(--vna-agent-graphite);
+}
+
+.vna-agent-message {
+  max-width: 88%;
+  display: grid;
+  gap: 10px;
+  border-radius: var(--vna-agent-radius);
+  padding: 12px 13px;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+.vna-agent-message p {
+  margin: 0;
+}
+
+.vna-agent-message-agent {
+  justify-self: start;
+  background: rgba(242, 235, 223, 0.08);
+  border: 1px solid rgba(242, 235, 223, 0.12);
+  color: rgba(242, 235, 223, 0.92);
+}
+
+.vna-agent-message-user {
+  justify-self: end;
+  background: var(--vna-agent-gold);
+  color: var(--vna-agent-ink);
+  font-weight: 700;
+}
+
+.vna-agent-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vna-agent-link {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(217, 183, 82, 0.56);
+  border-radius: var(--vna-agent-radius);
+  padding: 0 10px;
+  color: var(--vna-agent-cream);
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.vna-agent-link:hover {
+  background: rgba(217, 183, 82, 0.12);
+}
+
+.vna-agent-footer {
+  border-top: 1px solid rgba(242, 235, 223, 0.12);
+  padding: 12px;
+  background: rgba(23, 22, 21, 0.72);
+}
+
+.vna-agent-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.vna-agent-chip {
+  min-height: 34px;
+  border: 1px solid rgba(217, 183, 82, 0.42);
+  border-radius: var(--vna-agent-radius);
+  background: rgba(217, 183, 82, 0.08);
+  color: var(--vna-agent-cream);
+  padding: 0 10px;
+  font-size: 0.82rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.vna-agent-chip:hover {
+  border-color: var(--vna-agent-gold);
+  background: rgba(217, 183, 82, 0.14);
+}
+
+.vna-agent-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.vna-agent-input {
+  min-height: 42px;
+  width: 100%;
+  border: 1px solid rgba(242, 235, 223, 0.18);
+  border-radius: var(--vna-agent-radius);
+  background: rgba(242, 235, 223, 0.08);
+  color: var(--vna-agent-off-white);
+  padding: 0 12px;
+  font: inherit;
+}
+
+.vna-agent-input::placeholder {
+  color: rgba(242, 235, 223, 0.54);
+}
+
+.vna-agent-send {
+  min-height: 42px;
+  border: 1px solid var(--vna-agent-gold);
+  border-radius: var(--vna-agent-radius);
+  background: var(--vna-agent-gold);
+  color: var(--vna-agent-ink);
+  padding: 0 14px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.vna-agent-send:hover {
+  background: var(--vna-agent-cream);
+  border-color: var(--vna-agent-cream);
+}
+
+.vna-agent-admin-page {
+  min-height: 100svh;
+  margin: 0;
+  background: var(--vna-agent-graphite);
+  color: var(--vna-agent-off-white);
+}
+
+.vna-agent-admin-main {
+  width: min(100% - 40px, 1180px);
+  margin-inline: auto;
+  padding: 34px 0 56px;
+}
+
+.vna-agent-admin-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.vna-agent-back {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(217, 183, 82, 0.5);
+  border-radius: var(--vna-agent-radius);
+  padding: 0 12px;
+  color: var(--vna-agent-cream);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.vna-agent-admin-eyebrow {
+  margin: 0 0 10px;
+  color: var(--vna-agent-gold);
+  font-size: 0.82rem;
+  line-height: 1.2;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.vna-agent-admin-top h1 {
+  margin: 0;
+  color: #fffaf0;
+  font-family: "Arial Narrow", Oswald, "Roboto Condensed", Impact, system-ui, sans-serif;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.vna-agent-admin-top p:not(.vna-agent-admin-eyebrow) {
+  max-width: 760px;
+  margin: 14px 0 0;
+  color: rgba(242, 235, 223, 0.76);
+}
+
+.vna-agent-admin-notice {
+  margin: 0 0 18px;
+  border: 1px solid rgba(217, 183, 82, 0.36);
+  border-radius: var(--vna-agent-radius);
+  padding: 14px 16px;
+  background: rgba(217, 183, 82, 0.08);
+  color: rgba(242, 235, 223, 0.84);
+}
+
+.vna-agent-admin-shell {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.36fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.vna-agent-admin-sidebar,
+.vna-agent-admin-chat {
+  border: 1px solid rgba(242, 235, 223, 0.14);
+  border-radius: var(--vna-agent-radius);
+  background: rgba(23, 22, 21, 0.5);
+}
+
+.vna-agent-admin-sidebar {
+  display: grid;
+  gap: 18px;
+  padding: 16px;
+}
+
+.vna-agent-admin-sidebar h2,
+.vna-agent-admin-sidebar h3 {
+  margin: 0;
+  color: #fffaf0;
+  font-size: 1rem;
+}
+
+.vna-agent-modes,
+.vna-agent-admin-quick {
+  display: grid;
+  gap: 8px;
+}
+
+.vna-agent-mode {
+  min-height: 42px;
+  border: 1px solid rgba(242, 235, 223, 0.16);
+  border-radius: var(--vna-agent-radius);
+  background: rgba(242, 235, 223, 0.06);
+  color: var(--vna-agent-off-white);
+  padding: 0 12px;
+  text-align: left;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.vna-agent-mode[aria-pressed="true"] {
+  border-color: rgba(217, 183, 82, 0.66);
+  background: rgba(217, 183, 82, 0.12);
+  color: var(--vna-agent-cream);
+}
+
+.vna-agent-admin-chat {
+  min-height: 640px;
+  display: grid;
+  grid-template-rows: auto minmax(320px, 1fr) auto;
+  overflow: hidden;
+}
+
+.vna-agent-admin-chat .vna-agent-header {
+  position: static;
+}
+
+@media (max-width: 760px) {
+  .vna-agent-fab {
+    right: 14px;
+    bottom: 14px;
+    max-width: calc(100vw - 28px);
+  }
+
+  .vna-agent-panel {
+    right: 14px;
+    left: 14px;
+    bottom: 78px;
+    width: auto;
+    max-height: calc(100svh - 96px);
+  }
+
+  .vna-agent-message {
+    max-width: 94%;
+  }
+
+  .vna-agent-admin-main {
+    width: min(100% - 28px, 1180px);
+    padding-top: 24px;
+  }
+
+  .vna-agent-admin-top,
+  .vna-agent-admin-shell {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .vna-agent-back {
+    width: fit-content;
+  }
+
+  .vna-agent-admin-chat {
+    min-height: 560px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vna-agent-fab,
+  .vna-agent-chip,
+  .vna-agent-link,
+  .vna-agent-send,
+  .vna-agent-mode {
+    transition-duration: 1ms !important;
+  }
+}

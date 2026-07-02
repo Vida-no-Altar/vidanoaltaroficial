@@ -1,0 +1,300 @@
+{
+  "name": "Assistente Admin VnA",
+  "type": "admin",
+  "description": "Um guia interno para ajudar a editar, organizar e melhorar o site do Vida no Altar.",
+  "initialMessage": "Olá! Eu sou o Assistente Admin VnA. Escolha um modo e me diga o que você quer melhorar no site. Eu vou orientar qual arquivo editar e como pensar a mudança.",
+  "fallback": "Não tenho uma resposta pronta para isso ainda. Verifique os arquivos content/site-content.json, index.html, assets/styles.css ou README.md, dependendo do tipo de alteração.",
+  "modes": [
+    {
+      "id": "conteudo",
+      "label": "Conteúdo",
+      "description": "Ajuda com textos, projetos, cards, chamadas e linguagem do VnA.",
+      "quickReplies": [
+        "Melhorar o texto do hero",
+        "Criar card de conteúdo",
+        "Organizar projetos",
+        "Melhorar chamada para ação"
+      ],
+      "intents": [
+        {
+          "id": "hero_copy",
+          "keywords": [
+            "hero",
+            "primeira dobra",
+            "titulo principal",
+            "subtitulo",
+            "texto inicial",
+            "chamada inicial",
+            "melhorar o texto do hero"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampos hero.title, hero.subtitle e hero.text\n\nSugestão:\nMantenha o título curto, o slogan forte e o texto de apoio direto. Exemplo: VIDA NO ALTAR / Presença que transforma gerações. / Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.\n\nMotivo:\nA primeira dobra precisa deixar claro quem é o VnA e por que a pessoa deve continuar no site.",
+          "suggestedFiles": [
+            "content/site-content.json",
+            "index.html"
+          ]
+        },
+        {
+          "id": "content_card",
+          "keywords": [
+            "card",
+            "conteúdo em destaque",
+            "conteudo em destaque",
+            "novo conteúdo",
+            "novo conteudo",
+            "post",
+            "video",
+            "vídeo",
+            "criar card"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nLista featuredContent.items\n\nSugestão:\nCrie um item com title, category, description, cta e href. Use descrições curtas, com uma promessa clara do conteúdo.\n\nMotivo:\nCards bons ajudam o visitante a escolher rápido o próximo passo sem transformar o site em uma lista confusa.",
+          "suggestedFiles": [
+            "content/site-content.json"
+          ]
+        },
+        {
+          "id": "projects",
+          "keywords": [
+            "projetos",
+            "organizar projetos",
+            "cafe no altar",
+            "evangelhos",
+            "biblioteca",
+            "covers",
+            "conexao",
+            "kids"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nLista projects.items\n\nSugestão:\nMantenha Café no Altar, Conhecendo os Evangelhos e Biblioteca V.A como projetos principais. Use featured: true nesses três e deixe os demais como apoio ou desenvolvimento.\n\nMotivo:\nIsso dá hierarquia e evita que tudo pareça ter o mesmo peso na comunicação.",
+          "suggestedFiles": [
+            "content/site-content.json"
+          ]
+        },
+        {
+          "id": "cta",
+          "keywords": [
+            "cta",
+            "botao",
+            "botão",
+            "chamada para ação",
+            "chamada para acao",
+            "texto do botão",
+            "texto do botao"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampos cta dentro de cards e links\n\nSugestão:\nUse comandos simples: Assistir, Ver devocionais, Conhecer projeto, Entrar em contato. Evite frases longas em botões.\n\nMotivo:\nBotões curtos ficam melhores no mobile e deixam a decisão mais clara.",
+          "suggestedFiles": [
+            "content/site-content.json"
+          ]
+        },
+        {
+          "id": "tone",
+          "keywords": [
+            "tom",
+            "linguagem",
+            "texto jovem",
+            "texto cristão",
+            "texto cristao",
+            "melhorar copy",
+            "copy"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nTextos de hero, about, projects e featuredContent\n\nSugestão:\nUse linguagem bíblica, simples e humana. Evite frases muito técnicas, exageros de autoridade ou promessas que o projeto ainda não entrega.\n\nMotivo:\nO VnA precisa parecer profundo, acessível e verdadeiro ao mesmo tempo.",
+          "suggestedFiles": [
+            "content/site-content.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tecnico",
+      "label": "Técnico",
+      "description": "Ajuda com arquivos, estrutura, publicação e manutenção do site.",
+      "quickReplies": [
+        "Onde altero os links?",
+        "Como troco a imagem do hero?",
+        "Como publico no GitHub Pages?",
+        "Como entendo a estrutura?"
+      ],
+      "intents": [
+        {
+          "id": "links",
+          "keywords": [
+            "alterar links",
+            "mudar links",
+            "redes sociais",
+            "youtube",
+            "instagram",
+            "tiktok",
+            "email"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nObjeto links\n\nSugestão:\nTroque somente os valores de youtube, instagram, tiktok e email. Não invente URLs se elas ainda não existirem.\n\nMotivo:\nCentralizar links no JSON evita procurar o mesmo endereço em vários lugares do site.",
+          "suggestedFiles": [
+            "content/site-content.json"
+          ]
+        },
+        {
+          "id": "hero_image",
+          "keywords": [
+            "imagem do hero",
+            "trocar imagem",
+            "hero image",
+            "foto principal",
+            "imagem principal",
+            "upload"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampo hero.image\n\nSugestão:\nEnvie a imagem otimizada para public/images/ ou public/uploads/ e coloque o caminho no campo hero.image, por exemplo public/images/hero-devocional.webp.\n\nMotivo:\nAssim a imagem muda sem mexer no CSS principal.",
+          "suggestedFiles": [
+            "content/site-content.json",
+            "public/images/",
+            "public/uploads/"
+          ]
+        },
+        {
+          "id": "assets",
+          "keywords": [
+            "assets",
+            "css",
+            "javascript",
+            "js",
+            "estilos",
+            "script",
+            "vna-agents"
+          ],
+          "response": "Arquivo:\nassets/styles.css, assets/script.js, assets/vna-agents.css e assets/vna-agents.js\n\nO que editar:\nUse styles.css para visual principal, script.js para conteúdo dinâmico da home, vna-agents.css para visual dos assistentes e vna-agents.js para o motor dos assistentes.\n\nMotivo:\nSeparar os assistentes dos arquivos principais reduz risco de quebrar a landing page.",
+          "suggestedFiles": [
+            "assets/styles.css",
+            "assets/script.js",
+            "assets/vna-agents.css",
+            "assets/vna-agents.js"
+          ]
+        },
+        {
+          "id": "content_structure",
+          "keywords": [
+            "estrutura",
+            "pastas",
+            "arquivos",
+            "content",
+            "admin",
+            "como funciona",
+            "estrutura do projeto"
+          ],
+          "response": "Arquivo:\nREADME.md\n\nO que editar:\nUse content/ para dados editáveis, assets/ para CSS e JS, public/ para imagens, admin/ para páginas internas de administração e docs/ para documentação.\n\nSugestão:\nAntes de mudar estrutura, rode npm test para garantir que o site continua funcionando.\n\nMotivo:\nO projeto é estático, então organização de arquivos é a principal proteção contra bagunça futura.",
+          "suggestedFiles": [
+            "README.md",
+            "content/",
+            "assets/",
+            "admin/",
+            "docs/"
+          ]
+        },
+        {
+          "id": "publish",
+          "keywords": [
+            "publicar",
+            "github pages",
+            "deploy",
+            "dominio",
+            "domínio",
+            "site no ar",
+            "hospedagem"
+          ],
+          "response": "Arquivo:\nREADME.md\n\nO que editar:\nNormalmente nada no código. O GitHub Pages publica o conteúdo estático do repositório. Para domínio futuro, configure o domínio no GitHub Pages e no provedor de DNS.\n\nSugestão:\nDepois de qualquer alteração, rode npm test e confira o GitHub Actions.\n\nMotivo:\nO site precisa continuar simples de publicar e fácil de manter.",
+          "suggestedFiles": [
+            "README.md",
+            ".github/workflows/quality.yml"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seo",
+      "label": "SEO",
+      "description": "Ajuda com metadados, compartilhamento, headings e textos de busca.",
+      "quickReplies": [
+        "Melhorar title",
+        "Melhorar meta description",
+        "Revisar headings",
+        "Melhorar alt text"
+      ],
+      "intents": [
+        {
+          "id": "title_description",
+          "keywords": [
+            "title",
+            "titulo seo",
+            "meta description",
+            "descrição seo",
+            "descricao seo",
+            "google",
+            "busca"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampos meta.title e meta.description\n\nSugestão:\nTitle: Vida no Altar | Presença que transforma gerações. Description: Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.\n\nMotivo:\nEsses campos resumem a marca para mecanismos de busca e compartilhamentos.",
+          "suggestedFiles": [
+            "content/site-content.json",
+            "index.html"
+          ]
+        },
+        {
+          "id": "open_graph",
+          "keywords": [
+            "open graph",
+            "og image",
+            "compartilhamento",
+            "imagem social",
+            "twitter card",
+            "card social"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampos meta.image, meta.title, meta.description e meta.url\n\nSugestão:\nUse uma imagem social clara, com marca legível e boa proporção. Evite imagem pesada demais.\n\nMotivo:\nOpen Graph controla como o site aparece quando alguém compartilha o link.",
+          "suggestedFiles": [
+            "content/site-content.json",
+            "public/images/og-image.jpg"
+          ]
+        },
+        {
+          "id": "headings",
+          "keywords": [
+            "h1",
+            "h2",
+            "h3",
+            "headings",
+            "titulos",
+            "títulos",
+            "hierarquia"
+          ],
+          "response": "Arquivo:\nindex.html\n\nO que editar:\nEstrutura de h1, h2 e h3 somente se a seção mudar de verdade.\n\nSugestão:\nMantenha apenas um h1 com VIDA NO ALTAR. Use h2 para seções e h3 para cards.\n\nMotivo:\nUma hierarquia clara ajuda leitura, acessibilidade e SEO.",
+          "suggestedFiles": [
+            "index.html"
+          ]
+        },
+        {
+          "id": "images_alt",
+          "keywords": [
+            "alt",
+            "alt text",
+            "texto alternativo",
+            "nome de imagem",
+            "imagem",
+            "acessibilidade"
+          ],
+          "response": "Arquivo:\nindex.html e content/site-content.json\n\nO que editar:\nAtributos alt em imagens reais e nomes de arquivos em public/images/.\n\nSugestão:\nUse nomes claros como hero-devocional.webp e alt text objetivo quando a imagem transmitir conteúdo. Imagem decorativa pode ter alt vazio.\n\nMotivo:\nIsso melhora acessibilidade e ajuda o site a ser mais compreensível.",
+          "suggestedFiles": [
+            "index.html",
+            "public/images/"
+          ]
+        },
+        {
+          "id": "keywords",
+          "keywords": [
+            "keywords",
+            "palavras-chave",
+            "palavras chave",
+            "termos",
+            "seo palavras"
+          ],
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampo meta.keywords\n\nSugestão:\nUse termos reais da marca: Vida no Altar, devocional cristão, jovens cristãos, estudo bíblico, Café no Altar, Conhecendo os Evangelhos, conteúdo gospel.\n\nMotivo:\nPalavras-chave devem reforçar o tema sem parecer lista artificial.",
+          "suggestedFiles": [
+            "content/site-content.json"
+          ]
+        }
+      ]
+    }
+  ]
+}

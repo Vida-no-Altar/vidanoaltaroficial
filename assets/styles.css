@@ -15,6 +15,7 @@
   --radius: 8px;
   --container: 1160px;
   --ease: 180ms ease;
+  --hero-image: url("../public/images/hero-devocional.webp");
 }
 
 * { box-sizing: border-box; }
@@ -55,7 +56,7 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
 .menu-toggle[aria-expanded="true"] span:nth-child(4) { transform: translateY(-8px) rotate(-45deg); }
 .hero { position: relative; min-height: 86svh; display: grid; align-items: end; overflow: hidden; isolation: isolate; padding: 132px 0 72px; background: var(--graphite-deep); }
 .hero-background, .hero-overlay { position: absolute; inset: 0; }
-.hero-background { z-index: -3; background-image: url("../public/images/hero-devocional.webp"); background-size: cover; background-position: center; opacity: 0.95; transform: scale(1.02); }
+.hero-background { z-index: -3; background-image: var(--hero-image); background-size: cover; background-position: center; opacity: 0.95; transform: scale(1.02); }
 .hero-overlay { z-index: -2; background: linear-gradient(90deg, rgba(18, 17, 16, 0.94) 0%, rgba(18, 17, 16, 0.78) 43%, rgba(18, 17, 16, 0.34) 78%, rgba(18, 17, 16, 0.68) 100%), linear-gradient(180deg, rgba(18, 17, 16, 0.1) 0%, rgba(18, 17, 16, 0.68) 100%); }
 .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(217, 183, 82, 0.72), transparent); z-index: -1; }
 .hero-content { max-width: 740px; margin-inline: max(calc((100% - var(--container)) / 2), 20px) auto; }
@@ -87,22 +88,22 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
 .section-heading h2::after, .contact-section h2::after { content: ""; display: block; width: 64px; height: 3px; margin-top: 16px; background: var(--gold); }
 .section-heading p:not(.eyebrow), .contact-section p { margin-top: 18px; color: var(--muted-dark); font-size: 1.05rem; }
 .section-heading-dark p:not(.eyebrow), .contact-section p { color: rgba(242, 235, 223, 0.78); }
-.start-grid, .content-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-.path-card, .content-card, .project-card { border-radius: var(--radius); transition: transform var(--ease), border-color var(--ease), background var(--ease); }
+.start-grid, .content-grid, .resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.path-card, .content-card, .project-card, .resource-card { border-radius: var(--radius); transition: transform var(--ease), border-color var(--ease), background var(--ease); }
 .path-card { min-height: 315px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 26px; background: rgba(255, 250, 240, 0.58); border: 1px solid var(--border-light); }
-.path-card:hover, .content-card:hover, .project-card:hover { transform: translateY(-4px); }
+.path-card:hover, .content-card:hover, .project-card:hover, .resource-card:hover { transform: translateY(-4px); }
 .path-card:hover { border-color: rgba(217, 170, 85, 0.6); background: rgba(255, 250, 240, 0.86); }
 .icon-box { width: 48px; height: 48px; display: grid; place-items: center; color: var(--gold-burnt); border: 1px solid rgba(217, 170, 85, 0.48); border-radius: var(--radius); background: rgba(217, 183, 82, 0.12); }
 .icon-box svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.path-card h3, .project-card h3, .content-card h3 { color: inherit; font-size: 1.45rem; line-height: 1.12; }
-.path-card p, .content-card p, .project-card p { color: var(--muted-dark); }
+.path-card h3, .project-card h3, .content-card h3, .resource-card h3 { color: inherit; font-size: 1.45rem; line-height: 1.12; }
+.path-card p, .content-card p, .project-card p, .resource-card p { color: var(--muted-dark); }
 .text-link { margin-top: auto; color: var(--ink); font-weight: 850; border-bottom: 2px solid var(--gold-burnt); padding-bottom: 2px; }
 .text-link:hover { color: #8b651f; }
 .projects-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
 .project-card { min-height: 220px; grid-column: span 2; display: flex; flex-direction: column; gap: 14px; padding: 24px; border: 1px solid var(--border-dark); background: rgba(242, 235, 223, 0.045); }
 .project-card-featured { min-height: 275px; background: rgba(242, 235, 223, 0.075); border-color: rgba(217, 183, 82, 0.38); }
 .project-card:hover { background: rgba(242, 235, 223, 0.08); border-color: rgba(217, 183, 82, 0.54); }
-.project-type, .content-category { color: var(--gold); font-weight: 850; font-size: 0.82rem; text-transform: uppercase; }
+.project-type, .content-category, .resource-type { color: var(--gold); font-weight: 850; font-size: 0.82rem; text-transform: uppercase; }
 .project-card p:not(.project-type) { color: rgba(242, 235, 223, 0.76); }
 .about-section { border-top: 1px solid rgba(38, 37, 35, 0.08); }
 .about-layout { display: grid; grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr); gap: 56px; align-items: start; }
@@ -113,6 +114,13 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
 .content-card { min-height: 295px; display: flex; flex-direction: column; gap: 14px; padding: 22px; background: rgba(255, 250, 240, 0.64); border: 1px solid var(--border-light); }
 .content-card:hover { background: rgba(255, 250, 240, 0.9); border-color: rgba(217, 170, 85, 0.56); }
 .content-card .button { margin-top: auto; }
+.resource-section { border-top: 1px solid rgba(38, 37, 35, 0.08); }
+.resource-card { min-height: 260px; display: flex; flex-direction: column; gap: 14px; padding: 24px; background: rgba(255, 250, 240, 0.58); border: 1px solid var(--border-light); }
+.resource-card:hover { background: rgba(255, 250, 240, 0.9); border-color: rgba(217, 170, 85, 0.56); }
+.resource-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.resource-type { color: var(--gold-burnt); }
+.resource-status { display: inline-flex; min-height: 28px; align-items: center; padding: 0 10px; border: 1px solid rgba(217, 170, 85, 0.42); border-radius: 999px; color: #6f511c; background: rgba(217, 183, 82, 0.12); font-size: 0.78rem; font-weight: 850; }
+.resource-card .button { margin-top: auto; }
 .contact-section { border-top: 1px solid var(--border-dark); }
 .contact-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr); gap: 48px; align-items: center; }
 .contact-email { display: inline-flex; margin-top: 22px; color: var(--cream); font-size: 1.2rem; font-weight: 850; overflow-wrap: anywhere; }
@@ -133,7 +141,7 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
   .hero-overlay { background: linear-gradient(90deg, rgba(18, 17, 16, 0.95) 0%, rgba(18, 17, 16, 0.78) 62%, rgba(18, 17, 16, 0.46) 100%), linear-gradient(180deg, rgba(18, 17, 16, 0.1) 0%, rgba(18, 17, 16, 0.74) 100%); }
   .hero h1 { font-size: 4.5rem; }
   .section { padding: 78px 0; }
-  .start-grid, .content-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .start-grid, .content-grid, .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-card { grid-column: span 1; }
   .about-layout, .contact-layout { grid-template-columns: 1fr; }
@@ -161,8 +169,8 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
   .section { padding: 64px 0; }
   .section-heading { margin-bottom: 28px; }
   .section-heading h2, .contact-section h2 { font-size: 2.35rem; }
-  .start-grid, .content-grid, .projects-grid { grid-template-columns: 1fr; }
-  .path-card, .content-card, .project-card, .project-card-featured { min-height: auto; }
+  .start-grid, .content-grid, .projects-grid, .resource-grid { grid-template-columns: 1fr; }
+  .path-card, .content-card, .project-card, .project-card-featured, .resource-card { min-height: auto; }
   .presence-line { font-size: 1.85rem; padding-left: 18px; }
   .footer-layout { display: grid; }
   .footer-brand-block { align-items: flex-start; }

@@ -1,6 +1,6 @@
 # Vida no Altar - Landing Page
 
-Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, agora com uma camada inicial de conteúdo editável para preparar o futuro painel administrativo.
+Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, agora com conteúdo editável e assistentes próprios baseados em regras e arquivos JSON locais.
 
 ## Como rodar localmente
 
@@ -41,6 +41,7 @@ npm test
 Esse teste valida:
 
 - JSON de conteúdo;
+- JSONs dos assistentes;
 - sitemap;
 - links internos;
 - arquivos referenciados pelo HTML/CSS;
@@ -73,6 +74,85 @@ Links atuais:
 - Instagram: https://www.instagram.com/vidanoaltar.oficial
 - TikTok: https://www.tiktok.com/@vidanoaltar.oficial
 - E-mail: contato@vidanoaltaroficial.com.br
+
+## Assistentes VnA
+
+O projeto tem dois assistentes próprios, sem IA generativa, sem backend obrigatório, sem banco de dados e sem chave secreta.
+
+- Assistente VnA: aparece no site público como widget flutuante.
+- Assistente Admin VnA: fica em `/admin/assistente.html` e orienta edições do site.
+
+Arquivos principais:
+
+~~~text
+assets/vna-agents.css
+assets/vna-agents.js
+content/knowledge-base.json
+content/agent-public.json
+content/agent-admin.json
+admin/assistente.html
+docs/agentes-vna.md
+~~~
+
+### Como editar respostas
+
+Para respostas do visitante comum, edite:
+
+~~~text
+content/agent-public.json
+~~~
+
+Para respostas internas do admin, edite:
+
+~~~text
+content/agent-admin.json
+~~~
+
+A base com informações centrais da marca fica em:
+
+~~~text
+content/knowledge-base.json
+~~~
+
+### Como adicionar novas intenções
+
+Em `content/agent-public.json` ou `content/agent-admin.json`, adicione um item em `intents` com:
+
+- `id`: nome interno curto;
+- `keywords`: palavras e frases que ativam a resposta;
+- `response`: resposta controlada;
+- `quickReplies`: sugestões rápidas, quando fizer sentido;
+- `links`: links seguros, apenas no assistente público quando necessário;
+- `suggestedFiles`: arquivos sugeridos, no assistente admin.
+
+### Como alterar palavras-chave
+
+Edite o campo `keywords` da intenção desejada. Use termos simples, com variações que uma pessoa realmente digitaria. Depois rode `npm test`.
+
+### Como desativar o assistente público
+
+Edite `index.html` e remova estas linhas:
+
+~~~html
+<link rel="stylesheet" href="assets/vna-agents.css" />
+<script src="assets/vna-agents.js" defer data-vna-agent="public"></script>
+~~~
+
+Se o Assistente Admin continuar ativo, mantenha os arquivos `assets/vna-agents.css`, `assets/vna-agents.js` e os JSONs em `content/`.
+
+### Limitações da versão atual
+
+- As respostas são controladas e não são geradas livremente.
+- O assistente só responde bem ao que estiver mapeado nos JSONs.
+- O admin não altera arquivos automaticamente.
+- A busca é por palavras-chave e pontuação simples.
+- Para evoluir, adicione novas intenções com base nas dúvidas reais dos visitantes.
+
+Documentação completa:
+
+~~~text
+docs/agentes-vna.md
+~~~
 
 ## Painel administrativo
 
@@ -145,4 +225,4 @@ Para usar o painel `/admin/`, escolha uma hospedagem que permita configurar OAut
 
 ## Escopo atual
 
-Ainda não há loja completa, carrinho, pagamento, área de membros, blog ou banco de dados. A atualização atual apenas prepara edição de conteúdo, vídeos, links e produtos futuros de forma organizada.
+Ainda não há loja completa, carrinho, pagamento, área de membros, blog ou banco de dados. A atualização atual prepara edição de conteúdo, vídeos, links, produtos futuros e assistentes próprios baseados em regras.

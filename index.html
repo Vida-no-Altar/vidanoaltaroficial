@@ -12,6 +12,7 @@
     <link rel="preload" href="public/images/hero-devocional.webp" as="image" />
     <link rel="preload" href="public/images/logo-vida-no-altar.svg" as="image" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="assets/about-section.css" />
     <link rel="stylesheet" href="assets/vna-agents.css" />
     <meta property="og:title" content="Vida no Altar | Presença que transforma gerações" />
     <meta property="og:description" content="Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja." />
@@ -104,13 +105,31 @@
         </div>
       </section>
 
-      <section class="section section-light about-section" id="sobre">
-        <div class="container about-layout">
-          <div class="section-heading about-heading"><p class="eyebrow" data-content="about.eyebrow">Sobre</p><h2 data-content="about.title">Sobre o Vida no Altar</h2></div>
-          <div class="about-copy">
+      <section class="section section-light about-section about-section--editorial" id="sobre">
+        <div class="container about-layout about-layout--editorial">
+          <div class="about-visual" aria-label="Imagem institucional do criador do Vida no Altar">
+            <div class="about-portrait-frame">
+              <span class="about-portrait-light" aria-hidden="true"></span>
+              <picture class="about-portrait-picture">
+                <source srcset="public/images/matheus-sobre-vna.webp" type="image/webp" />
+                <img class="about-portrait" src="public/images/matheus-sobre-vna.png" alt="Matheus, criador do Vida no Altar, segurando uma Bíblia" loading="lazy" decoding="async" width="520" height="735" />
+              </picture>
+            </div>
+            <p class="about-caption">Criador do Vida no Altar</p>
+          </div>
+          <div class="about-copy about-copy-editorial">
+            <div class="section-heading about-heading about-heading-editorial">
+              <p class="eyebrow" data-content="about.eyebrow">Quem está por trás do VnA</p>
+              <h2 data-content="about.title">Sobre o Vida no Altar</h2>
+            </div>
             <p data-content="about.intro">O Vida no Altar nasceu para ajudar uma geração a viver uma fé cristã real, bíblica e prática. Aqui você encontra devocionais, estudos bíblicos, louvor, reflexões e conteúdos pensados para jovens, adolescentes e toda a igreja.</p>
             <p class="presence-line" data-content="about.presenceLines">Não é sobre aparência.<br />É sobre presença.</p>
-            <p data-content="about.text">Com uma linguagem simples e uma visão de excelência, o VnA busca conectar a Palavra de Deus com a rotina, as decisões, os desafios e o propósito de cada pessoa.</p>
+            <p class="about-personal" data-content="about.text">Por trás do projeto está Matheus, criador do Vida no Altar, estudante de teologia e produtor de conteúdo cristão, com o desejo de comunicar a Palavra de Deus com simplicidade, profundidade e excelência.</p>
+            <p class="about-closing">O objetivo é simples: apontar pessoas para uma vida com Deus no centro.</p>
+            <div class="about-actions" aria-label="Ações da seção sobre">
+              <a class="button button-primary" href="#projetos">Conhecer os projetos</a>
+              <a class="button button-light-outline" href="#contato">Entrar em contato</a>
+            </div>
           </div>
         </div>
       </section>

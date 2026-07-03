@@ -97,14 +97,17 @@
     ]
   },
   "about": {
-    "eyebrow": "Sobre",
+    "eyebrow": "Quem está por trás do VnA",
     "title": "Sobre o Vida no Altar",
     "intro": "O Vida no Altar nasceu para ajudar uma geração a viver uma fé cristã real, bíblica e prática. Aqui você encontra devocionais, estudos bíblicos, louvor, reflexões e conteúdos pensados para jovens, adolescentes e toda a igreja.",
     "presenceLines": [
       "Não é sobre aparência.",
       "É sobre presença."
     ],
-    "text": "Com uma linguagem simples e uma visão de excelência, o VnA busca conectar a Palavra de Deus com a rotina, as decisões, os desafios e o propósito de cada pessoa."
+    "text": "Por trás do projeto está Matheus, criador do Vida no Altar, estudante de teologia e produtor de conteúdo cristão, com o desejo de comunicar a Palavra de Deus com simplicidade, profundidade e excelência.",
+    "closing": "O objetivo é simples: apontar pessoas para uma vida com Deus no centro.",
+    "image": "public/images/matheus-sobre-vna.webp",
+    "imageAlt": "Matheus, criador do Vida no Altar, segurando uma Bíblia"
   },
   "featuredContent": {
     "eyebrow": "Para assistir e refletir",

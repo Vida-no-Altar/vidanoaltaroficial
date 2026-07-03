@@ -191,6 +191,29 @@ Para usar uma versão PNG/WebP oficial sem fundo:
 2. No arquivo `index.html`, altere os dois caminhos `public/images/logo-vida-no-altar.svg` para o novo arquivo.
 3. Prefira uma versão quadrada, com fundo transparente, para funcionar bem no header e no footer.
 
+## Como trocar a imagem da seção Sobre
+
+A imagem exibida na seção Sobre fica em:
+
+~~~text
+public/images/matheus-sobre-vna.webp
+~~~
+
+Há também um fallback PNG organizado em:
+
+~~~text
+public/images/matheus-sobre-vna.png
+~~~
+
+Para trocar no futuro:
+
+1. Substitua os arquivos por imagens com o mesmo nome, mantendo transparência quando possível.
+2. Use uma versão WebP leve para o carregamento principal.
+3. Mantenha o texto alternativo no `index.html`: `Matheus, criador do Vida no Altar, segurando uma Bíblia`.
+4. Depois rode `npm test` para conferir se os arquivos referenciados continuam existindo.
+
+Os textos da seção Sobre são carregados de `content/site-content.json`, no bloco `about`.
+
 ## Como trocar a imagem do hero
 
 Pelo conteúdo editável, altere o campo abaixo em `content/site-content.json`:

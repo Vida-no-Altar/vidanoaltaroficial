@@ -179,17 +179,20 @@ O painel foi preparado para editar:
 
 ## Como trocar a logo
 
-O arquivo usado no header e no footer fica em:
+O arquivo usado no header e no footer é a PNG oficial enviada ao repositório:
 
 ~~~text
-public/images/logo-vida-no-altar.svg
+Logo Vida no Altar.png
 ~~~
 
-Para usar uma versão PNG/WebP oficial sem fundo:
+Para trocar a logo no futuro:
 
-1. Coloque a imagem otimizada em `public/images/`.
-2. No arquivo `index.html`, altere os dois caminhos `public/images/logo-vida-no-altar.svg` para o novo arquivo.
-3. Prefira uma versão quadrada, com fundo transparente, para funcionar bem no header e no footer.
+1. Substitua esse arquivo por uma nova imagem PNG oficial.
+2. Prefira uma versão quadrada e leve, com boa leitura em tamanho pequeno.
+3. Mantenha o nome `Logo Vida no Altar.png` para não precisar alterar o `index.html`.
+4. Depois rode `npm test` para conferir se a imagem referenciada continua existindo.
+
+O CSS usa `object-fit: contain` para manter a logo inteira no header e no footer.
 
 ## Como trocar a imagem da seção Sobre
 

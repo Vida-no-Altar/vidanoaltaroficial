@@ -26,18 +26,23 @@
         margin-bottom: 8px;
       }
       .admin-loading p {
-        max-width: 520px;
+        max-width: 560px;
         margin: 0;
         color: rgba(242, 235, 223, 0.76);
       }
-      .admin-assistant-link {
+      .admin-links {
         position: fixed;
         right: 16px;
         bottom: 16px;
         z-index: 1000;
+        display: grid;
+        gap: 8px;
+      }
+      .admin-link {
         min-height: 42px;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         border: 1px solid rgba(217, 183, 82, 0.58);
         border-radius: 8px;
         background: #d9b752;
@@ -47,14 +52,26 @@
         text-decoration: none;
         box-shadow: 0 16px 46px rgba(0, 0, 0, 0.28);
       }
-      .admin-assistant-link:focus-visible {
+      .admin-link-secondary {
+        background: rgba(242, 235, 223, 0.08);
+        color: #f2e1ac;
+      }
+      .admin-link:focus-visible {
         outline: 3px solid #f2e1ac;
         outline-offset: 3px;
+      }
+      @media (max-width: 520px) {
+        .admin-links {
+          left: 16px;
+        }
       }
     </style>
   </head>
   <body>
-    <a class="admin-assistant-link" href="assistente.html">Assistente Admin</a>
+    <nav class="admin-links" aria-label="Ferramentas administrativas">
+      <a class="admin-link" href="auditor.html">Auditor Admin</a>
+      <a class="admin-link admin-link-secondary" href="assistente.html">Assistente Admin</a>
+    </nav>
     <div class="admin-loading" data-admin-loading>
       <div>
         <strong>Painel Vida no Altar</strong>

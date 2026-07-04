@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "source": "VnA Intelligence Core",
+  "status": "estrutura inicial sem produtos cadastrados",
+  "categories": [
+    "Bíblia para começar",
+    "Bíblia de estudo",
+    "Bíblia para adolescentes e jovens",
+    "Bíblia para presente",
+    "Livro cristão",
+    "Material de devocional"
+  ],
+  "ethicalPriorityOrder": [
+    "Perfil da pessoa",
+    "Necessidade real",
+    "Compatibilidade com a igreja",
+    "Compreensão da tradução",
+    "Objetivo de uso",
+    "Orçamento",
+    "Disponibilidade",
+    "Link afiliado"
+  ],
+  "recommendationRule": "Comissão nunca deve ser critério principal. Links afiliados só podem entrar como critério secundário entre opções equivalentes e compatíveis com o perfil da pessoa.",
+  "productSchema": {
+    "id": "string",
+    "name": "string",
+    "category": "string",
+    "type": "string",
+    "translation": "string ou null",
+    "publisher": "string ou null",
+    "recommendedAgeRange": "string",
+    "recommendedProfile": "array de strings",
+    "notRecommendedProfile": "array de strings",
+    "readingLevel": "string",
+    "studyLevel": "string",
+    "resources": "array de strings",
+    "size": "string",
+    "weight": "string",
+    "fontSize": "string",
+    "finish": "string",
+    "themes": "array de strings",
+    "approximatePrice": "string opcional",
+    "amazonAffiliateLink": "string ou vazio",
+    "shopeeAffiliateLink": "string ou vazio",
+    "status": "ativo | em revisão | indisponível | rascunho",
+    "notes": "string"
+  },
+  "products": [],
+  "guidedBibleDiagnosis": {
+    "intro": "Vou te fazer algumas perguntas em etapas para entender o uso, a tradução da igreja, sua facilidade de leitura e o orçamento. Não vou dizer que uma tradução é espiritualmente superior a outra.",
+    "questions": [
+      { "key": "purpose", "text": "A Bíblia é para você ou para presentear alguém?" },
+      { "key": "ageRange", "text": "Qual a idade ou faixa etária da pessoa?" },
+      { "key": "churchTranslationKnown", "text": "Na sua igreja existe alguma tradução usada com mais frequência nos cultos, estudos ou pregações?" },
+      { "key": "churchTranslation", "text": "Se sim, qual tradução? ARC, ARA, NAA, NTLH ou outra?" },
+      { "key": "certainty", "text": "Você tem certeza dessa informação ou é só uma impressão?" },
+      { "key": "sameAsChurch", "text": "Você quer a mesma tradução da sua igreja ou está aberto a outras opções?" },
+      { "key": "readingFeeling", "text": "Como você se sente lendo essa tradução?" },
+      { "key": "mainUse", "text": "A Bíblia será mais usada na igreja, leitura pessoal, estudo ou tudo isso?" },
+      { "key": "readingHabit", "text": "Você está começando ou já tem costume de ler a Bíblia?" },
+      { "key": "languagePreference", "text": "Prefere linguagem mais simples ou mais tradicional?" },
+      { "key": "studyNotes", "text": "Quer notas de estudo?" },
+      { "key": "helpfulResources", "text": "Que tipo de recurso ajudaria mais: contexto histórico, aplicação prática, devocionais, liderança, trabalho, personagens etc.?" },
+      { "key": "sizeWeight", "text": "Tamanho e peso importam?" },
+      { "key": "fontSize", "text": "Tamanho da letra importa?" },
+      { "key": "budget", "text": "Tem orçamento máximo?" },
+      { "key": "storePreference", "text": "Prefere comprar pela Amazon ou Shopee?" }
+    ],
+    "translationConflictGuidance": "Se a igreja usa uma tradução, mas a pessoa tem muita dificuldade de entender, existem caminhos saudáveis: escolher a tradução da igreja para acompanhar cultos e estudos, usar outra tradução para leitura pessoal, ou pensar em Bíblia principal e Bíblia complementar no futuro."
+  }
+}

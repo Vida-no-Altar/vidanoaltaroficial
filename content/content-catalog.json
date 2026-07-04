@@ -1,0 +1,182 @@
+{
+  "version": "1.0.0",
+  "source": "VnA Intelligence Core",
+  "items": [
+    {
+      "id": "cafe-lei-da-semeadura",
+      "title": "Café no Altar: Lei da Semeadura",
+      "project": "Café no Altar",
+      "type": "Devocional matinal",
+      "primaryTheme": "semeadura",
+      "secondaryThemes": [
+        "decisões",
+        "consequências",
+        "constância",
+        "vida prática"
+      ],
+      "verses": [
+        "Gálatas 6:7"
+      ],
+      "duration": "curto",
+      "format": "devocional",
+      "shortDescription": "Uma reflexão sobre escolhas, sementes e frutos na vida com Deus.",
+      "internalSummary": "Conteúdo para orientar o visitante a pensar nas decisões diárias como sementes espirituais e práticas.",
+      "recommendedAudience": [
+        "jovens",
+        "adolescentes",
+        "toda a igreja"
+      ],
+      "recommendedMoment": "manhã ou início de semana",
+      "link": "#",
+      "thumbnail": "",
+      "status": "planejado/cadastrado"
+    },
+    {
+      "id": "cafe-ansiedade",
+      "title": "Café no Altar: Ansiedade",
+      "project": "Café no Altar",
+      "type": "Devocional matinal",
+      "primaryTheme": "ansiedade",
+      "secondaryThemes": [
+        "confiança",
+        "oração",
+        "descanso",
+        "cuidado de Deus"
+      ],
+      "verses": [
+        "Filipenses 4:6-7",
+        "Mateus 6:34"
+      ],
+      "duration": "curto",
+      "format": "devocional",
+      "shortDescription": "Uma reflexão simples sobre levar preocupações a Deus com fé e responsabilidade.",
+      "internalSummary": "Não substituir apoio pastoral ou profissional; responder com prudência e apontar princípios bíblicos gerais.",
+      "recommendedAudience": [
+        "jovens",
+        "adolescentes",
+        "toda a igreja"
+      ],
+      "recommendedMoment": "quando a pessoa procura paz e direção",
+      "link": "#",
+      "thumbnail": "",
+      "status": "planejado/cadastrado"
+    },
+    {
+      "id": "cafe-recomeco",
+      "title": "Café no Altar: Recomeço",
+      "project": "Café no Altar",
+      "type": "Devocional matinal",
+      "primaryTheme": "recomeço",
+      "secondaryThemes": [
+        "graça",
+        "perseverança",
+        "arrependimento",
+        "nova rotina"
+      ],
+      "verses": [
+        "Lamentações 3:22-23",
+        "2 Coríntios 5:17"
+      ],
+      "duration": "curto",
+      "format": "devocional",
+      "shortDescription": "Uma mensagem para quem precisa reorganizar a caminhada com Deus sem desistir.",
+      "internalSummary": "Conteúdo útil para visitantes que pedem motivação, recomeço ou direção devocional.",
+      "recommendedAudience": [
+        "jovens",
+        "adolescentes",
+        "toda a igreja"
+      ],
+      "recommendedMoment": "início de mês, segunda-feira ou fase de retomada",
+      "link": "#",
+      "thumbnail": "",
+      "status": "planejado/cadastrado"
+    },
+    {
+      "id": "evangelhos-ep1-400-anos-silencio",
+      "title": "Conhecendo os Evangelhos EP 1: Os 400 Anos de Silêncio",
+      "project": "Conhecendo os Evangelhos",
+      "type": "Série bíblica",
+      "primaryTheme": "contexto bíblico",
+      "secondaryThemes": [
+        "período intertestamentário",
+        "Malaquias",
+        "Mateus",
+        "preparação para Jesus"
+      ],
+      "verses": [
+        "Malaquias 4",
+        "Mateus 1"
+      ],
+      "duration": "médio",
+      "format": "vídeo",
+      "shortDescription": "Um panorama dos 400 anos entre Malaquias e Mateus e do cenário preparado para a chegada de Jesus.",
+      "internalSummary": "Conteúdo de entrada para explicar contexto dos Evangelhos sem linguagem acadêmica pesada.",
+      "recommendedAudience": [
+        "quem quer estudar os Evangelhos",
+        "jovens",
+        "grupos de estudo"
+      ],
+      "recommendedMoment": "antes de começar uma leitura dos Evangelhos",
+      "link": "#",
+      "thumbnail": "",
+      "status": "planejado/cadastrado"
+    },
+    {
+      "id": "fe-trabalho-proximo-desafio",
+      "title": "Fé e Trabalho: Todo mundo tem um próximo desafio",
+      "project": "Conteúdo especial",
+      "type": "Reflexão temática",
+      "primaryTheme": "coragem",
+      "secondaryThemes": [
+        "propósito",
+        "trabalho",
+        "medo",
+        "responsabilidade"
+      ],
+      "verses": [
+        "2 Timóteo 1:7"
+      ],
+      "duration": "curto",
+      "format": "reflexão",
+      "shortDescription": "Uma reflexão com linguagem de videogame sobre coragem, propósito e o próximo desafio.",
+      "internalSummary": "Bom para visitantes jovens que conectam fé com rotina, estudos, trabalho e decisões.",
+      "recommendedAudience": [
+        "jovens",
+        "adolescentes",
+        "quem está diante de decisões"
+      ],
+      "recommendedMoment": "quando a pessoa procura coragem para agir",
+      "link": "#",
+      "thumbnail": "",
+      "status": "planejado/cadastrado"
+    },
+    {
+      "id": "guia-como-escolher-biblia-certa",
+      "title": "Como escolher a Bíblia certa?",
+      "project": "Biblioteca V.A",
+      "type": "Guia prático",
+      "primaryTheme": "escolha de Bíblia",
+      "secondaryThemes": [
+        "traduções",
+        "perfil de leitura",
+        "estudo bíblico",
+        "compra consciente"
+      ],
+      "verses": [],
+      "duration": "médio",
+      "format": "guia",
+      "shortDescription": "Um guia simples para entender traduções, perfis e necessidades na hora de escolher uma Bíblia.",
+      "internalSummary": "Base para o fluxo futuro de recomendação de Bíblias sem briga de tradução e sem recomendar por comissão.",
+      "recommendedAudience": [
+        "quem está começando",
+        "quem quer presentear",
+        "jovens",
+        "adolescentes"
+      ],
+      "recommendedMoment": "antes de comprar uma Bíblia ou presentear alguém",
+      "link": "#",
+      "thumbnail": "",
+      "status": "base para recomendador"
+    }
+  ]
+}

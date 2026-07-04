@@ -1,12 +1,10 @@
 # Vida no Altar - Landing Page
 
-Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, agora com conteúdo editável e assistentes próprios baseados em regras e arquivos JSON locais.
+Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, com conteúdo editável, área admin, assistentes próprios por regras e o primeiro núcleo do VnA Intelligence Core.
 
 ## Como rodar localmente
 
 Use Node.js 20 ou superior.
-
-Para preview com URL local:
 
 ~~~powershell
 npm start
@@ -24,11 +22,7 @@ URL local de preview:
 http://127.0.0.1:4321/
 ~~~
 
-Também é possível abrir o arquivo index.html diretamente no navegador, mas a camada editável em JSON só carrega pelo servidor local ou por hospedagem web:
-
-~~~powershell
-Start-Process .\index.html
-~~~
+Também é possível abrir `index.html` diretamente no navegador, mas os arquivos JSON só carregam corretamente por servidor local ou hospedagem web.
 
 ## Como testar
 
@@ -38,30 +32,53 @@ Antes de publicar ou commitar mudanças, rode:
 npm test
 ~~~
 
-Esse teste valida:
+Esse teste valida JSONs, links internos, arquivos referenciados, admin, assistentes, VnA Intelligence Core, rotas servidas localmente e ausência de caminhos locais absolutos ou canais provisórios indesejados.
 
-- JSON de conteúdo;
-- JSONs dos assistentes;
-- sitemap;
-- links internos;
-- arquivos referenciados pelo HTML/CSS;
-- configuração do painel `/admin/`;
-- ausência de links/canais provisórios indesejados;
-- rotas principais servidas localmente.
+Também existe verificação automática no GitHub Actions em todo push, pull request e execução manual.
 
-Também existe uma verificação automática no GitHub Actions em todo push, pull request e execução manual.
+## VnA Intelligence Core
 
-## Conteúdo editável
+O VnA Intelligence Core é a camada estática que organiza dados e regras para o ecossistema do site.
 
-O conteúdo principal fica em:
+Ele sustenta:
+
+- Assistente Público VnA;
+- Auditor Admin VnA;
+- base institucional;
+- catálogo de conteúdos;
+- estrutura futura para recomendação de Bíblias e livros;
+- transparência sobre links afiliados.
+
+Tudo roda com HTML, CSS, JavaScript e JSON públicos. Não há backend obrigatório, banco de dados, chave secreta ou IA generativa nesta V1.
+
+Arquivos principais:
+
+~~~text
+content/vna-core.json
+content/content-catalog.json
+content/product-catalog.json
+content/public-assistant.json
+content/admin-auditor.json
+content/affiliate-disclosure.json
+assets/vna-intelligence.js
+assets/vna-intelligence.css
+admin/auditor.html
+docs/vna-intelligence-core.md
+docs/public-assistant.md
+docs/admin-auditor.md
+~~~
+
+## Conteúdo editável do site
+
+O conteúdo principal da página fica em:
 
 ~~~text
 content/site-content.json
 ~~~
 
-Esse arquivo concentra textos, links, cards, conteúdos em destaque, área de vídeos/produtos, contato, SEO e imagem do hero. O site carrega esse JSON automaticamente quando está rodando por servidor local ou publicado.
+Esse arquivo concentra textos, links, cards, conteúdos em destaque, área de vídeos/produtos, contato, SEO e imagem do hero.
 
-Para alterar links oficiais, edite o bloco `links` em `content/site-content.json`:
+Links oficiais ficam no bloco `links`:
 
 - YouTube: `youtube`
 - Instagram: `instagram`
@@ -75,180 +92,217 @@ Links atuais:
 - TikTok: https://www.tiktok.com/@vidanoaltar.oficial
 - E-mail: contato@vidanoaltaroficial.com.br
 
-## Assistentes VnA
+## Como editar a base institucional
 
-O projeto tem dois assistentes próprios, sem IA generativa, sem backend obrigatório, sem banco de dados e sem chave secreta.
-
-- Assistente VnA: aparece no site público como widget flutuante.
-- Assistente Admin VnA: fica em `/admin/assistente.html` e orienta edições do site.
-
-Arquivos principais:
+Edite:
 
 ~~~text
-assets/vna-agents.css
-assets/vna-agents.js
-content/knowledge-base.json
-content/agent-public.json
-content/agent-admin.json
-admin/assistente.html
-docs/agentes-vna.md
+content/vna-core.json
 ~~~
 
-### Como editar respostas
+Esse arquivo guarda marca, slogan, descrição, público, valores, projetos, contato, redes oficiais, assets oficiais, limites do assistente e regras éticas para afiliados.
 
-Para respostas do visitante comum, edite:
+Use esse arquivo quando a mudança for sobre identidade, projetos, contatos oficiais ou regras gerais do ecossistema.
+
+## Como editar o catálogo de conteúdos
+
+Edite:
 
 ~~~text
-content/agent-public.json
+content/content-catalog.json
 ~~~
 
-Para respostas internas do admin, edite:
+Cada item pode ter:
+
+- `id`
+- `title`
+- `project`
+- `type`
+- `primaryTheme`
+- `secondaryThemes`
+- `verses`
+- `duration`
+- `format`
+- `shortDescription`
+- `internalSummary`
+- `recommendedAudience`
+- `recommendedMoment`
+- `link`
+- `thumbnail`
+- `status`
+
+Se ainda não existir link direto para um conteúdo, use `"#"`. Não invente URL.
+
+## Como editar o catálogo de produtos
+
+Edite:
 
 ~~~text
-content/agent-admin.json
+content/product-catalog.json
 ~~~
 
-A base com informações centrais da marca fica em:
+A V1 ainda não é loja. O arquivo prepara a estrutura para Bíblias, livros e materiais futuros.
+
+Produtos reais devem entrar em `products` com dados como categoria, tradução, editora, perfil indicado, nível de leitura, recursos, preço aproximado opcional, links afiliados e status.
+
+Enquanto não houver produto real cadastrado, o assistente não recomenda produto específico nem inventa link.
+
+## Links afiliados
+
+O aviso fica em:
 
 ~~~text
-content/knowledge-base.json
+content/affiliate-disclosure.json
 ~~~
 
-### Como adicionar novas intenções
+Regra ética:
 
-Em `content/agent-public.json` ou `content/agent-admin.json`, adicione um item em `intents` com:
+1. Perfil da pessoa.
+2. Necessidade real.
+3. Compatibilidade com a igreja.
+4. Compreensão da tradução.
+5. Objetivo de uso.
+6. Orçamento.
+7. Disponibilidade.
+8. Link afiliado.
 
-- `id`: nome interno curto;
-- `keywords`: palavras e frases que ativam a resposta;
-- `response`: resposta controlada;
-- `quickReplies`: sugestões rápidas, quando fizer sentido;
-- `links`: links seguros, apenas no assistente público quando necessário;
-- `suggestedFiles`: arquivos sugeridos, no assistente admin.
+Comissão nunca é critério principal.
 
-### Como alterar palavras-chave
+## Assistente Público VnA
 
-Edite o campo `keywords` da intenção desejada. Use termos simples, com variações que uma pessoa realmente digitaria. Depois rode `npm test`.
-
-### Como desativar o assistente público
-
-Edite `index.html` e remova estas linhas:
+O widget público é carregado em `index.html` por:
 
 ~~~html
-<link rel="stylesheet" href="assets/vna-agents.css" />
-<script src="assets/vna-agents.js" defer data-vna-agent="public"></script>
+<link rel="stylesheet" href="assets/vna-intelligence.css" />
+<script src="assets/vna-intelligence.js" defer data-vna-intelligence="public"></script>
 ~~~
 
-Se o Assistente Admin continuar ativo, mantenha os arquivos `assets/vna-agents.css`, `assets/vna-agents.js` e os JSONs em `content/`.
-
-### Limitações da versão atual
-
-- As respostas são controladas e não são geradas livremente.
-- O assistente só responde bem ao que estiver mapeado nos JSONs.
-- O admin não altera arquivos automaticamente.
-- A busca é por palavras-chave e pontuação simples.
-- Para evoluir, adicione novas intenções com base nas dúvidas reais dos visitantes.
-
-Documentação completa:
+As respostas e modos ficam em:
 
 ~~~text
-docs/agentes-vna.md
+content/public-assistant.json
 ~~~
+
+Modos:
+
+- Descobrir;
+- Encontrar;
+- Entender;
+- Escolher.
+
+Para alterar respostas, edite intents, keywords, response e quickReplies nesse JSON. Para conteúdos pesquisáveis, edite `content/content-catalog.json`.
+
+Para desativar o widget público, remova do `index.html` o CSS e o script `vna-intelligence`.
+
+## Auditor Admin VnA
+
+Acesse:
+
+~~~text
+/admin/auditor.html
+~~~
+
+As regras e respostas ficam em:
+
+~~~text
+content/admin-auditor.json
+~~~
+
+Modos:
+
+- Conteúdo;
+- Técnico;
+- SEO;
+- Segurança;
+- Publicação.
+
+O Auditor classifica risco como Baixo, Médio, Alto ou Crítico. O histórico é salvo em `localStorage`, apenas no navegador do admin. Isso não é auditoria real multiusuário.
+
+A página antiga `/admin/assistente.html` continua disponível como assistente legado.
 
 ## Painel administrativo
 
-A rota preparada para administração fica em:
+A rota preparada para edição visual fica em:
 
 ~~~text
 /admin/
 ~~~
 
-Ela usa Decap CMS como base de painel visual para editar `content/site-content.json` sem mexer no código. Essa rota não aparece no menu público do site.
-
-Antes de usar em produção, ainda é necessário configurar autenticação segura com GitHub OAuth no provedor de hospedagem escolhido. Não coloque senha, token ou segredo dentro do repositório.
-
-O painel foi preparado para editar:
-
-- textos principais;
-- imagem do hero;
-- links sociais;
-- cards de projetos;
-- conteúdos em destaque;
-- vídeos e links úteis;
-- links futuros de produtos;
-- contato e SEO básico.
+Ela usa Decap CMS como base para editar `content/site-content.json` sem mexer no código. Antes de usar em produção, é necessário configurar autenticação segura com GitHub OAuth no provedor de hospedagem escolhido. Não coloque senha, token ou segredo dentro do repositório.
 
 ## Como trocar a logo
 
-O arquivo usado no header e no footer é a PNG oficial enviada ao repositório:
+O arquivo usado no header e no footer é:
 
 ~~~text
 Logo Vida no Altar.png
 ~~~
 
-Para trocar a logo no futuro:
-
-1. Substitua esse arquivo por uma nova imagem PNG oficial.
-2. Prefira uma versão quadrada e leve, com boa leitura em tamanho pequeno.
-3. Mantenha o nome `Logo Vida no Altar.png` para não precisar alterar o `index.html`.
-4. Depois rode `npm test` para conferir se a imagem referenciada continua existindo.
-
-O CSS usa `object-fit: contain` para manter a logo inteira no header e no footer.
+Para trocar no futuro, substitua por uma nova PNG oficial, mantenha o nome do arquivo e rode `npm test`.
 
 ## Como trocar a imagem da seção Sobre
 
-A imagem exibida na seção Sobre fica em:
+A imagem principal da seção Sobre fica em:
 
 ~~~text
 public/images/matheus-sobre-vna.webp
 ~~~
 
-Há também um fallback PNG organizado em:
+Há fallback PNG em:
 
 ~~~text
 public/images/matheus-sobre-vna.png
 ~~~
 
-Para trocar no futuro:
+Nunca use caminho local como `D:\` no HTML, CSS, JSON ou README. Use apenas caminhos relativos dentro do projeto.
 
-1. Substitua os arquivos por imagens com o mesmo nome, mantendo transparência quando possível.
-2. Use uma versão WebP leve para o carregamento principal.
-3. Mantenha o texto alternativo no `index.html`: `Matheus, criador do Vida no Altar, segurando uma Bíblia`.
-4. Depois rode `npm test` para conferir se os arquivos referenciados continuam existindo.
+Alt text preservado:
 
-Os textos da seção Sobre são carregados de `content/site-content.json`, no bloco `about`.
+~~~text
+Matheus, criador do Vida no Altar, segurando uma Bíblia
+~~~
 
 ## Como trocar a imagem do hero
 
-Pelo conteúdo editável, altere o campo abaixo em `content/site-content.json`:
+Edite o campo abaixo em `content/site-content.json`:
 
 ~~~text
 hero.image
 ~~~
 
-O visual atual usado no hero fica em:
+Imagem atual:
 
 ~~~text
 public/images/hero-devocional.webp
 ~~~
 
-Prefira uma imagem horizontal, leve, com boa leitura em fundo escuro. A PNG original gerada também fica em `public/images/hero-devocional.png` como reserva.
+## Como publicar
 
-## Como adicionar vídeos ou produtos
+Como é um site estático, ele pode ser publicado em GitHub Pages, Cloudflare Pages, Netlify, Vercel ou hospedagem estática equivalente.
 
-Edite a lista abaixo em `content/site-content.json`:
+Para GitHub Pages, o repositório já possui workflow de qualidade. Para Cloudflare Pages, publique a raiz do projeto como site estático, sem build obrigatório.
 
-~~~text
-resourceHub.items
+Antes de publicar:
+
+~~~powershell
+npm test
 ~~~
 
-Use essa área para links de vídeos, páginas internas futuras, produtos, materiais, livros e recomendações. Enquanto não houver loja própria, prefira links externos oficiais ou botões que levem para contato.
+## Limitações da V1
 
-## Como publicar futuramente
+- Não há IA generativa.
+- Não há backend obrigatório.
+- Não há banco de dados.
+- Não há login real novo para o VnA Intelligence Core.
+- Não há loja, carrinho ou checkout.
+- O recomendador de Bíblias ainda não lista produtos reais.
+- O histórico do auditor é local e pode ser apagado ou alterado pelo navegador.
+- Segurança real depende de autenticação e infraestrutura futura.
 
-Como é um site estático, basta enviar estes arquivos para uma hospedagem estática, como Netlify, Vercel, Cloudflare Pages, GitHub Pages ou o servidor do domínio futuro.
+## Próximos passos recomendados
 
-Para usar o painel `/admin/`, escolha uma hospedagem que permita configurar OAuth com GitHub para o Decap CMS. O site público não precisa de backend próprio para continuar funcionando.
-
-## Escopo atual
-
-Ainda não há loja completa, carrinho, pagamento, área de membros, blog ou banco de dados. A atualização atual prepara edição de conteúdo, vídeos, links, produtos futuros e assistentes próprios baseados em regras.
+1. Cadastrar conteúdos reais com links diretos em `content/content-catalog.json`.
+2. Cadastrar produtos reais revisados em `content/product-catalog.json`.
+3. Criar páginas internas para conteúdos quando houver volume suficiente.
+4. Evoluir o painel admin para editar os novos catálogos com segurança.
+5. Criar uma política editorial para recomendações, afiliados e revisão de conteúdo.

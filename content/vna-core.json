@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "name": "VnA Intelligence Core",
+  "updatedAt": "2026-07-04",
+  "brand": {
+    "name": "Vida no Altar",
+    "shortName": "VnA",
+    "slogan": "Presença que transforma gerações.",
+    "description": "Conteúdo cristão simples, profundo e real para jovens, adolescentes e toda a igreja.",
+    "audience": [
+      "jovens",
+      "adolescentes",
+      "toda a igreja"
+    ],
+    "values": [
+      "presença",
+      "consagração",
+      "autenticidade",
+      "excelência",
+      "comunidade"
+    ],
+    "tone": [
+      "cristão",
+      "jovem",
+      "bíblico",
+      "simples",
+      "profundo",
+      "acessível",
+      "brasileiro"
+    ]
+  },
+  "projects": [
+    {
+      "id": "cafe-no-altar",
+      "name": "Café no Altar",
+      "type": "Devocional matinal",
+      "status": "ativo",
+      "priority": "principal",
+      "description": "Devocionais matinais de segunda a sexta para começar o dia com Deus de forma simples, bíblica e prática."
+    },
+    {
+      "id": "conhecendo-os-evangelhos",
+      "name": "Conhecendo os Evangelhos",
+      "type": "Série bíblica",
+      "status": "ativo",
+      "priority": "principal",
+      "description": "Uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé."
+    },
+    {
+      "id": "biblioteca-va",
+      "name": "Biblioteca V.A",
+      "type": "Livros cristãos comentados",
+      "status": "ativo",
+      "priority": "principal",
+      "description": "Livros cristãos comentados para fortalecer a fé, a mente e a vida prática."
+    },
+    {
+      "id": "vida-no-altar-covers",
+      "name": "Vida no Altar Covers",
+      "type": "Louvor e música",
+      "status": "ativo",
+      "priority": "apoio",
+      "description": "Canções cristãs no teclado e momentos de adoração com identidade simples e verdadeira."
+    },
+    {
+      "id": "conexao-gospel",
+      "name": "Conexão Gospel",
+      "type": "Eventos, reviews e bastidores",
+      "status": "em desenvolvimento",
+      "priority": "desenvolvimento",
+      "description": "Coberturas, conversas e conteúdos sobre o universo cristão com olhar jovem e relevante."
+    },
+    {
+      "id": "va-kids",
+      "name": "V.A Kids",
+      "type": "Conteúdo infantil cristão",
+      "status": "projeto futuro/em desenvolvimento",
+      "priority": "futuro",
+      "description": "Histórias bíblicas e conteúdos educativos para crianças, com linguagem simples e visual criativo."
+    }
+  ],
+  "contact": {
+    "email": "contato@vidanoaltaroficial.com.br",
+    "label": "Canal oficial planejado"
+  },
+  "social": {
+    "youtube": "https://www.youtube.com/@vidanoaltar.oficial",
+    "instagram": "https://www.instagram.com/vidanoaltar.oficial",
+    "tiktok": "https://www.tiktok.com/@vidanoaltar.oficial"
+  },
+  "officialAssets": {
+    "logo": "Logo Vida no Altar.png",
+    "aboutImagePng": "public/images/matheus-sobre-vna.png",
+    "aboutImageWebp": "public/images/matheus-sobre-vna.webp",
+    "heroImage": "public/images/hero-devocional.webp",
+    "ogImage": "public/images/og-image.jpg"
+  },
+  "publicBoundaries": [
+    "O assistente não substitui liderança pastoral madura da igreja local.",
+    "O assistente não oferece aconselhamento médico, psicológico, jurídico ou financeiro.",
+    "O assistente não promete atendimento espiritual individual.",
+    "O assistente não inventa links, produtos ou conteúdos."
+  ],
+  "affiliateEthics": {
+    "primaryRule": "A recomendação deve priorizar perfil, necessidade real, compatibilidade com a igreja, compreensão da tradução, objetivo de uso, orçamento e disponibilidade. Link afiliado nunca é critério principal.",
+    "priorityOrder": [
+      "Perfil da pessoa",
+      "Necessidade real",
+      "Compatibilidade com a igreja",
+      "Compreensão da tradução",
+      "Objetivo de uso",
+      "Orçamento",
+      "Disponibilidade",
+      "Link afiliado"
+    ]
+  },
+  "adminBoundaries": {
+    "currentSecurityLevel": "protótipo local e documentação",
+    "note": "Sem backend real, permissões e histórico são apenas preparação para uma fase futura. O histórico em localStorage não é auditoria real multiusuário."
+  }
+}

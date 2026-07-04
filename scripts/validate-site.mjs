@@ -1,6 +1,6 @@
 import { access, readFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
-import { dirname, extname, join, resolve } from 'node:path';
+import { dirname, extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -51,75 +51,125 @@ function hasNoIndexNoFollow(text) {
   return /<meta\s+name="robots"\s+content="noindex,\s*nofollow"\s*\/>/i.test(text);
 }
 
-async function validateJson() {
+function includesAny(text, terms) {
+  return terms.some((term) => text.toLowerCase().includes(term.toLowerCase()));
+}
+
+async function validateSiteContent() {
   const data = await readJson('content/site-content.json');
 
   check(data.meta?.title, 'content/site-content.json precisa de meta.title.');
   check(data.meta?.description, 'content/site-content.json precisa de meta.description.');
-  check(data.links?.youtube?.startsWith('https://www.youtube.com/'), 'Link do YouTube esta ausente ou invalido.');
-  check(data.links?.instagram?.startsWith('https://www.instagram.com/'), 'Link do Instagram esta ausente ou invalido.');
-  check(data.links?.tiktok?.startsWith('https://www.tiktok.com/'), 'Link do TikTok esta ausente ou invalido.');
+  check(data.links?.youtube === 'https://www.youtube.com/@vidanoaltar.oficial', 'Link do YouTube precisa ser o oficial.');
+  check(data.links?.instagram === 'https://www.instagram.com/vidanoaltar.oficial', 'Link do Instagram precisa ser o oficial.');
+  check(data.links?.tiktok === 'https://www.tiktok.com/@vidanoaltar.oficial', 'Link do TikTok precisa ser o oficial.');
   check(data.links?.email === 'contato@vidanoaltaroficial.com.br', 'E-mail oficial precisa ser contato@vidanoaltaroficial.com.br.');
   check(Array.isArray(data.projects?.items) && data.projects.items.length >= 6, 'Projetos precisam ter pelo menos 6 itens.');
   check(Array.isArray(data.resourceHub?.items) && data.resourceHub.items.length >= 1, 'resourceHub.items precisa ter pelo menos um link.');
+  check(data.about?.image === 'public/images/matheus-sobre-vna.webp', 'Seção Sobre precisa apontar para a imagem WebP do Matheus.');
+  check(data.about?.imageAlt === 'Matheus, criador do Vida no Altar, segurando uma Bíblia', 'Alt text da imagem Sobre precisa ser preservado.');
 
   if (data.hero?.image) {
     check(await exists(localPathFromRef(data.hero.image)), `Imagem do hero nao encontrada: ${data.hero.image}`);
   }
 }
 
-async function validateAgents() {
+async function validateIntelligenceCore() {
+  const core = await readJson('content/vna-core.json');
+  const contentCatalog = await readJson('content/content-catalog.json');
+  const productCatalog = await readJson('content/product-catalog.json');
+  const publicAssistant = await readJson('content/public-assistant.json');
+  const adminAuditor = await readJson('content/admin-auditor.json');
+  const affiliate = await readJson('content/affiliate-disclosure.json');
   const knowledge = await readJson('content/knowledge-base.json');
-  const publicAgent = await readJson('content/agent-public.json');
-  const adminAgent = await readJson('content/agent-admin.json');
-  const agentScript = await readText('assets/vna-agents.js');
-  const agentCss = await readText('assets/vna-agents.css');
+  const publicLegacy = await readJson('content/agent-public.json');
+  const adminLegacy = await readJson('content/agent-admin.json');
+  const intelligenceScript = await readText('assets/vna-intelligence.js');
+  const intelligenceCss = await readText('assets/vna-intelligence.css');
 
-  check(knowledge.brand?.name === 'Vida no Altar', 'knowledge-base.json precisa conter a marca Vida no Altar.');
-  check(knowledge.contact?.email === 'contato@vidanoaltaroficial.com.br', 'knowledge-base.json precisa usar o e-mail oficial.');
-  check(Array.isArray(knowledge.projects) && knowledge.projects.length >= 6, 'knowledge-base.json precisa listar os projetos do VnA.');
+  check(core.name === 'VnA Intelligence Core', 'vna-core.json precisa nomear o núcleo VnA Intelligence Core.');
+  check(core.brand?.name === 'Vida no Altar', 'vna-core.json precisa conter a marca Vida no Altar.');
+  check(core.contact?.email === 'contato@vidanoaltaroficial.com.br', 'vna-core.json precisa usar o e-mail oficial.');
+  check(Array.isArray(core.projects) && core.projects.length >= 6, 'vna-core.json precisa listar os projetos do VnA.');
+  check(core.social?.youtube === 'https://www.youtube.com/@vidanoaltar.oficial', 'vna-core.json precisa usar o YouTube oficial.');
+  check(core.officialAssets?.aboutImagePng === 'public/images/matheus-sobre-vna.png', 'vna-core.json precisa registrar a imagem PNG do Sobre.');
 
-  check(publicAgent.name === 'Assistente VnA', 'agent-public.json precisa usar o nome Assistente VnA.');
-  check(Array.isArray(publicAgent.intents) && publicAgent.intents.length >= 8, 'Assistente publico precisa ter intenções suficientes.');
-  check(Array.isArray(publicAgent.quickReplies) && publicAgent.quickReplies.length >= 5, 'Assistente publico precisa ter sugestões rápidas.');
-  check(publicAgent.fallback?.includes('Não encontrei'), 'Assistente publico precisa ter fallback seguro.');
-
-  check(adminAgent.name === 'Assistente Admin VnA', 'agent-admin.json precisa usar o nome Assistente Admin VnA.');
-  check(Array.isArray(adminAgent.modes) && adminAgent.modes.length === 3, 'Assistente admin precisa ter os modos Conteúdo, Técnico e SEO.');
-  for (const mode of adminAgent.modes || []) {
-    check(Array.isArray(mode.intents) && mode.intents.length >= 3, `Modo ${mode.label} precisa ter pelo menos 3 intenções.`);
+  check(Array.isArray(contentCatalog.items) && contentCatalog.items.length >= 6, 'content-catalog.json precisa ter exemplos iniciais.');
+  for (const item of contentCatalog.items || []) {
+    check(item.id && item.title && item.project && item.primaryTheme && item.status, `Conteudo incompleto no catalogo: ${item.id || item.title}`);
   }
 
-  check(agentScript.includes('scoreIntent'), 'vna-agents.js precisa calcular pontuação por intenção.');
-  check(agentScript.includes('normalizeText'), 'vna-agents.js precisa normalizar texto.');
-  check(agentScript.includes('content/agent-public.json'), 'vna-agents.js precisa carregar agent-public.json.');
-  check(agentScript.includes('content/agent-admin.json'), 'vna-agents.js precisa carregar agent-admin.json.');
-  check(agentCss.includes('.vna-agent-fab'), 'vna-agents.css precisa estilizar o botão público.');
-  check(agentCss.includes('.vna-agent-admin-page'), 'vna-agents.css precisa estilizar a página admin.');
+  check(Array.isArray(productCatalog.categories) && productCatalog.categories.includes('Bíblia para começar'), 'product-catalog.json precisa ter categorias iniciais.');
+  check(Array.isArray(productCatalog.products), 'product-catalog.json precisa ter lista products.');
+  check(productCatalog.recommendationRule?.includes('Comissão nunca deve ser critério principal'), 'product-catalog.json precisa registrar regra ética de afiliados.');
+  const questions = productCatalog.guidedBibleDiagnosis?.questions || [];
+  check(questions.length >= 16, 'Diagnóstico de Bíblia precisa ter pelo menos 16 perguntas.');
+  check(questions.some((item) => item.key === 'churchTranslation'), 'Diagnóstico precisa perguntar qual tradução a igreja usa.');
+  check(questions.some((item) => item.key === 'certainty'), 'Diagnóstico precisa perguntar se a informação é certeza ou impressão.');
+
+  check(affiliate.text?.includes('Alguns links podem ser de afiliado'), 'affiliate-disclosure.json precisa conter aviso de afiliado.');
+  check(affiliate.ethicalRule?.includes('Comissão nunca deve ser critério principal'), 'affiliate-disclosure.json precisa conter regra ética.');
+
+  check(publicAssistant.name === 'Assistente VnA', 'public-assistant.json precisa usar o nome Assistente VnA.');
+  check(Array.isArray(publicAssistant.modes) && publicAssistant.modes.length === 4, 'Assistente público precisa ter 4 modos conceituais.');
+  check(publicAssistant.modes.map((mode) => mode.id).join(',') === 'descobrir,encontrar,entender,escolher', 'Modos públicos precisam ser Descobrir, Encontrar, Entender e Escolher.');
+  check(publicAssistant.initialMessage?.includes('Que bom ter você por aqui'), 'Assistente público precisa ter a nova mensagem inicial.');
+  check(publicAssistant.fallback?.includes('Não tenho uma resposta segura'), 'Assistente público precisa ter fallback seguro.');
+  check(publicAssistant.modes.some((mode) => (mode.intents || []).some((intent) => intent.startBibleFlow)), 'Assistente público precisa iniciar o fluxo de Bíblia.');
+
+  check(adminAuditor.name === 'Auditor Admin VnA', 'admin-auditor.json precisa usar o nome Auditor Admin VnA.');
+  check(Array.isArray(adminAuditor.modes) && adminAuditor.modes.length === 5, 'Auditor Admin precisa ter 5 modos.');
+  check(adminAuditor.modes.map((mode) => mode.id).join(',') === 'conteudo,tecnico,seo,seguranca,publicacao', 'Modos do auditor precisam ser Conteúdo, Técnico, SEO, Segurança e Publicação.');
+  check(Array.isArray(adminAuditor.riskMatrix) && adminAuditor.riskMatrix.length === 4, 'Auditor Admin precisa ter matriz de risco com 4 níveis.');
+
+  check(knowledge.brand?.name === 'Vida no Altar', 'knowledge-base.json precisa continuar compatível.');
+  check(publicLegacy.name === 'Assistente VnA', 'agent-public.json legado precisa continuar válido.');
+  check(adminLegacy.name === 'Assistente Admin VnA', 'agent-admin.json legado precisa continuar válido.');
+
+  check(intelligenceScript.includes('scoreIntent'), 'vna-intelligence.js precisa calcular pontuação por intenção.');
+  check(intelligenceScript.includes('searchContentCatalog'), 'vna-intelligence.js precisa buscar no catálogo de conteúdos.');
+  check(intelligenceScript.includes('startBibleFlow'), 'vna-intelligence.js precisa ter fluxo guiado de Bíblia.');
+  check(intelligenceScript.includes('localStorage'), 'vna-intelligence.js precisa documentar histórico local do auditor.');
+  check(intelligenceCss.includes('.vna-intel-fab'), 'vna-intelligence.css precisa estilizar o widget público.');
+  check(intelligenceCss.includes('.vna-intel-admin-page'), 'vna-intelligence.css precisa estilizar o Auditor Admin.');
 }
 
 async function validateHtmlAndAssets() {
   const html = await readText('index.html');
   const css = await readText('assets/styles.css');
-  const agentCss = await readText('assets/vna-agents.css');
+  const aboutCss = await readText('assets/about-section.css');
+  const intelCss = await readText('assets/vna-intelligence.css');
   const admin = await readText('admin/index.html');
   const adminAssistant = await readText('admin/assistente.html');
+  const adminAuditor = await readText('admin/auditor.html');
   const robots = await readText('robots.txt');
   const sitemap = await readText('sitemap.xml');
   const readme = await readText('README.md');
-  const docs = await readText('docs/agentes-vna.md');
+  const docs = [
+    await readText('docs/agentes-vna.md'),
+    await readText('docs/vna-intelligence-core.md'),
+    await readText('docs/public-assistant.md'),
+    await readText('docs/admin-auditor.md'),
+  ].join('\n');
 
   check(html.includes('<html lang="pt-BR">'), 'index.html precisa declarar lang="pt-BR".');
   check(html.includes('<main id="conteudo">'), 'index.html precisa ter main com id="conteudo".');
-  check(html.includes('assets/vna-agents.css'), 'index.html precisa carregar vna-agents.css.');
-  check(html.includes('data-vna-agent="public"'), 'index.html precisa carregar o Assistente VnA publico.');
-  check(admin.includes('assistente.html'), 'admin/index.html precisa ter atalho para o Assistente Admin.');
+  check(html.includes('assets/vna-intelligence.css'), 'index.html precisa carregar vna-intelligence.css.');
+  check(html.includes('data-vna-intelligence="public"'), 'index.html precisa carregar o Assistente VnA pelo Intelligence Core.');
+  check(html.includes('public/images/matheus-sobre-vna.png'), 'index.html precisa usar a imagem do Matheus no projeto.');
+  check(!html.includes('D:\\'), 'index.html nao pode usar caminho local absoluto.');
+
+  check(admin.includes('auditor.html'), 'admin/index.html precisa ter atalho para o Auditor Admin.');
+  check(admin.includes('assistente.html'), 'admin/index.html precisa manter atalho para o Assistente Admin legado.');
   check(hasNoIndexNoFollow(admin), 'admin/index.html precisa ser noindex,nofollow.');
-  check(adminAssistant.includes('data-vna-agent="admin"'), 'admin/assistente.html precisa carregar o Assistente Admin.');
+  check(adminAssistant.includes('data-vna-agent="admin"'), 'admin/assistente.html precisa manter o Assistente Admin legado.');
   check(hasNoIndexNoFollow(adminAssistant), 'admin/assistente.html precisa ser noindex,nofollow.');
+  check(adminAuditor.includes('data-vna-intelligence="auditor"'), 'admin/auditor.html precisa carregar o Auditor Admin.');
+  check(hasNoIndexNoFollow(adminAuditor), 'admin/auditor.html precisa ser noindex,nofollow.');
   check(robots.includes('Disallow: /admin/'), 'robots.txt precisa bloquear /admin/.');
   check(sitemap.includes('<urlset'), 'sitemap.xml precisa ter urlset.');
-  check(docs.includes('Assistentes VnA'), 'docs/agentes-vna.md precisa documentar os assistentes.');
+  check(readme.includes('VnA Intelligence Core'), 'README.md precisa documentar o VnA Intelligence Core.');
+  check(docs.includes('VnA Intelligence Core'), 'docs/vna-intelligence-core.md precisa documentar o núcleo.');
 
   const ids = collectMatches(html, /\sid="([^"]+)"/g);
   const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
@@ -133,8 +183,10 @@ async function validateHtmlAndAssets() {
     ...collectMatches(html, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g),
     ...collectMatches(admin, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g).map((ref) => `admin/${ref}`),
     ...collectMatches(adminAssistant, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g).map((ref) => `admin/${ref}`),
+    ...collectMatches(adminAuditor, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g).map((ref) => `admin/${ref}`),
     ...collectMatches(css, /url\("?\.\.\/([^"\)]+)"?\)/g),
-    ...collectMatches(agentCss, /url\("?\.\.\/([^"\)]+)"?\)/g),
+    ...collectMatches(aboutCss, /url\("?\.\.\/([^"\)]+)"?\)/g),
+    ...collectMatches(intelCss, /url\("?\.\.\/([^"\)]+)"?\)/g),
   ];
   const missingRefs = [];
 
@@ -146,8 +198,10 @@ async function validateHtmlAndAssets() {
 
   check(missingRefs.length === 0, `Arquivos referenciados nao encontrados: ${missingRefs.join(', ')}`);
 
-  const publicText = [html, css, agentCss, admin, adminAssistant, robots, sitemap, readme, docs].join('\n');
-  check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(publicText), 'Nao deve haver mensageiro externo proibido, wa.me ou e-mail provisório no site/repo publico.');
+  const publicText = [html, css, aboutCss, intelCss, admin, adminAssistant, adminAuditor, robots, sitemap, readme, docs].join('\n');
+  check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(publicText), 'Nao deve haver canal provisório ou mensageiro externo proibido no site/repo publico.');
+  check(!/D:\\/i.test(publicText), 'Nao deve haver caminho local absoluto em arquivos publicados.');
+  check(!includesAny(publicText, ['OpenAI', 'ChatGPT', 'Gemini', 'Claude']), 'Interface e documentação nao devem mencionar fornecedores de IA.');
 }
 
 async function validateAdminConfig() {
@@ -192,10 +246,15 @@ async function validateServerRoutes() {
       ['/', 'VIDA NO ALTAR'],
       ['/admin/', 'Painel Vida no Altar'],
       ['/admin/assistente.html', 'Assistente Admin VnA'],
-      ['/assets/vna-agents.js', 'scoreIntent'],
-      ['/content/agent-public.json', 'Assistente VnA'],
-      ['/content/agent-admin.json', 'Assistente Admin VnA'],
-      ['/content/knowledge-base.json', 'Vida no Altar'],
+      ['/admin/auditor.html', 'Auditor Admin VnA'],
+      ['/assets/vna-intelligence.js', 'startBibleFlow'],
+      ['/assets/vna-intelligence.css', '.vna-intel-fab'],
+      ['/content/vna-core.json', 'VnA Intelligence Core'],
+      ['/content/content-catalog.json', 'Lei da Semeadura'],
+      ['/content/product-catalog.json', 'Bíblia para começar'],
+      ['/content/public-assistant.json', 'Assistente VnA'],
+      ['/content/admin-auditor.json', 'Auditor Admin VnA'],
+      ['/content/affiliate-disclosure.json', 'Alguns links podem ser de afiliado'],
       ['/content/site-content.json', 'Presença que transforma gerações'],
       ['/robots.txt', 'Disallow: /admin/'],
       ['/sitemap.xml', '<urlset'],
@@ -213,8 +272,8 @@ async function validateServerRoutes() {
 }
 
 async function main() {
-  await validateJson();
-  await validateAgents();
+  await validateSiteContent();
+  await validateIntelligenceCore();
   await validateHtmlAndAssets();
   await validateAdminConfig();
   await validateServerRoutes();

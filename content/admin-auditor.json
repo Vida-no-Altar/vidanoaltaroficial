@@ -1,0 +1,180 @@
+{
+  "name": "Auditor Admin VnA",
+  "type": "admin-auditor",
+  "description": "Guia interno para revisar conteúdo, técnica, SEO, segurança e publicação do site Vida no Altar.",
+  "initialMessage": "Olá! Eu sou o Auditor Admin VnA. Posso ajudar você a entender onde editar, classificar riscos e preparar mudanças com mais clareza. O histórico desta V1 é local neste navegador e não é auditoria real multiusuário.",
+  "fallback": "Não tenho uma resposta pronta para isso ainda. Verifique content/site-content.json, content/vna-core.json, content/content-catalog.json, content/product-catalog.json, index.html, assets/ ou README.md conforme o tipo de alteração.",
+  "riskMatrix": [
+    {
+      "level": "Baixo",
+      "description": "Correções simples de texto, typos e ajustes pequenos.",
+      "keywords": ["typo", "erro de digitação", "corrigir texto", "ajuste pequeno", "pontuação"]
+    },
+    {
+      "level": "Médio",
+      "description": "Mudança de texto institucional, links e descrições de projeto.",
+      "keywords": ["texto institucional", "link", "descrição", "projeto", "conteúdo"]
+    },
+    {
+      "level": "Alto",
+      "description": "Alteração de estrutura, remoção de projeto, troca de imagem principal ou SEO principal.",
+      "keywords": ["estrutura", "remover", "imagem principal", "hero", "seo principal", "index.html"]
+    },
+    {
+      "level": "Crítico",
+      "description": "Usuários, permissões, integrações, domínio, DNS, publicação e estrutura do admin.",
+      "keywords": ["usuário", "permissão", "login", "oauth", "domínio", "dns", "deploy", "publicação", "admin", "chave"]
+    }
+  ],
+  "modes": [
+    {
+      "id": "conteudo",
+      "label": "Conteúdo",
+      "description": "Textos, projetos, catálogo, linguagem e organização editorial.",
+      "quickReplies": [
+        "Onde edito textos do site?",
+        "Como cadastrar um conteúdo?",
+        "Como melhorar a seção Sobre?",
+        "Qual risco de mudar um projeto?"
+      ],
+      "intents": [
+        {
+          "id": "edit_site_texts",
+          "keywords": ["textos", "hero", "sobre", "títulos", "subtítulos", "copy", "editar textos"],
+          "risk": "Médio",
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nBlocos hero, startHere, projects, about, featuredContent, resourceHub e contact.\n\nSugestão:\nMantenha frases curtas, bíblicas, humanas e sem prometer mais do que o VnA entrega hoje.\n\nMotivo:\nEsse arquivo concentra a copy pública sem mexer na estrutura do site.",
+          "suggestedFiles": ["content/site-content.json"]
+        },
+        {
+          "id": "content_catalog",
+          "keywords": ["catálogo", "catalogo", "cadastrar conteúdo", "cadastrar conteudo", "tema", "versículo", "versiculo"],
+          "risk": "Baixo",
+          "response": "Arquivo:\ncontent/content-catalog.json\n\nO que editar:\nAdicione um item em items com id, title, project, type, primaryTheme, secondaryThemes, verses, duration, format, shortDescription, internalSummary, recommendedAudience, recommendedMoment, link, thumbnail e status.\n\nSugestão:\nSe ainda não houver link direto, use \"#\" e deixe claro no resumo interno que o link será cadastrado depois.\n\nMotivo:\nO catálogo é a base para o Assistente Público encontrar conteúdos por tema sem inventar respostas.",
+          "suggestedFiles": ["content/content-catalog.json"]
+        },
+        {
+          "id": "about_section",
+          "keywords": ["sobre", "matheus", "imagem", "quem está por trás", "quem esta por tras"],
+          "risk": "Médio",
+          "response": "Arquivo:\ncontent/site-content.json e index.html\n\nO que editar:\nNo JSON, use about.eyebrow, about.title, about.intro, about.presenceLines, about.text e about.closing. A imagem fica em public/images/matheus-sobre-vna.png e .webp.\n\nSugestão:\nA seção deve humanizar o VnA sem transformar o site em portfólio pessoal.\n\nMotivo:\nA marca continua sendo Vida no Altar; a imagem do Matheus dá rosto e confiança ao projeto.",
+          "suggestedFiles": ["content/site-content.json", "index.html", "public/images/matheus-sobre-vna.png"]
+        }
+      ]
+    },
+    {
+      "id": "tecnico",
+      "label": "Técnico",
+      "description": "Arquivos, assets, JSONs, scripts e estrutura estática.",
+      "quickReplies": [
+        "Como entendo a estrutura?",
+        "Onde troco imagens?",
+        "Como alterar links?",
+        "Como revisar antes de publicar?"
+      ],
+      "intents": [
+        {
+          "id": "project_structure",
+          "keywords": ["estrutura", "pastas", "arquivos", "como funciona", "assets", "content", "admin"],
+          "risk": "Médio",
+          "response": "Arquivo:\nREADME.md\n\nO que editar:\nUse content/ para dados, assets/ para CSS e JS, public/images/ para imagens, admin/ para páginas internas e docs/ para documentação.\n\nSugestão:\nNão mova arquivos públicos sem atualizar index.html, scripts e validação.\n\nMotivo:\nComo o site é estático, organização de caminhos é parte essencial da estabilidade.",
+          "suggestedFiles": ["README.md", "content/", "assets/", "admin/", "docs/"]
+        },
+        {
+          "id": "links_images",
+          "keywords": ["links", "redes", "youtube", "instagram", "tiktok", "imagem", "logo", "hero"],
+          "risk": "Médio",
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nlinks para redes e e-mail no bloco links. Imagem do hero no campo hero.image. Logo oficial no arquivo Logo Vida no Altar.png.\n\nSugestão:\nNão use caminhos locais como D:\\ no HTML, CSS, JSON ou README. Use caminhos relativos do projeto.\n\nMotivo:\nCaminhos locais quebram no GitHub Pages e na Cloudflare Pages.",
+          "suggestedFiles": ["content/site-content.json", "Logo Vida no Altar.png", "public/images/"]
+        },
+        {
+          "id": "review_changes",
+          "keywords": ["revisar", "validar", "teste", "npm test", "antes de publicar", "erro"],
+          "risk": "Baixo",
+          "response": "Arquivo:\nscripts/validate-site.mjs\n\nO que editar:\nNormalmente nada. Rode npm test antes de publicar.\n\nSugestão:\nConfira JSON válido, links internos, arquivos referenciados, rotas /admin/ e ausência de canais provisórios.\n\nMotivo:\nA validação automática reduz risco de publicar uma mudança quebrada.",
+          "suggestedFiles": ["scripts/validate-site.mjs", ".github/workflows/quality.yml"]
+        }
+      ]
+    },
+    {
+      "id": "seo",
+      "label": "SEO",
+      "description": "Title, description, Open Graph, headings, imagens e alt text.",
+      "quickReplies": [
+        "Onde edito SEO?",
+        "Como melhorar alt text?",
+        "Como revisar Open Graph?",
+        "Qual risco de mudar o title?"
+      ],
+      "intents": [
+        {
+          "id": "seo_fields",
+          "keywords": ["seo", "title", "meta description", "keywords", "google", "busca"],
+          "risk": "Alto",
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampos meta.title, meta.description, meta.keywords, meta.url e meta.image.\n\nSugestão:\nMantenha o title Vida no Altar | Presença que transforma gerações e uma description clara sobre conteúdo cristão para jovens, adolescentes e toda a igreja.\n\nMotivo:\nSEO principal afeta busca, compartilhamento e percepção institucional.",
+          "suggestedFiles": ["content/site-content.json", "index.html"]
+        },
+        {
+          "id": "headings_alt",
+          "keywords": ["h1", "h2", "h3", "heading", "alt", "texto alternativo", "imagem social"],
+          "risk": "Médio",
+          "response": "Arquivo:\nindex.html\n\nO que editar:\nUse um h1 principal, h2 para seções e h3 para cards. Imagens relevantes precisam de alt objetivo; imagens decorativas podem ter alt vazio.\n\nSugestão:\nA imagem do Matheus deve manter alt: Matheus, criador do Vida no Altar, segurando uma Bíblia.\n\nMotivo:\nIsso melhora acessibilidade, leitura por tecnologias assistivas e clareza semântica.",
+          "suggestedFiles": ["index.html", "content/site-content.json"]
+        }
+      ]
+    },
+    {
+      "id": "seguranca",
+      "label": "Segurança",
+      "description": "Limites reais da V1, riscos, permissões e segredos.",
+      "quickReplies": [
+        "Existe segurança real no admin?",
+        "Posso colocar senha no código?",
+        "Como classificar risco?",
+        "O histórico é auditoria real?"
+      ],
+      "intents": [
+        {
+          "id": "real_security_boundary",
+          "keywords": ["segurança", "seguranca", "senha", "token", "chave", "permissão", "permissao", "login", "oauth"],
+          "risk": "Crítico",
+          "response": "Arquivo:\nREADME.md e docs/admin-auditor.md\n\nO que editar:\nNão coloque senha, token, chave secreta ou credencial em HTML, JS ou JSON público.\n\nSugestão:\nNa V1, o admin é uma área estática com orientação. Segurança real depende de autenticação configurada na hospedagem/provedor, como OAuth do painel.\n\nMotivo:\nTudo em site estático público pode ser lido por visitantes. Não finja segurança real onde ela ainda não existe.",
+          "suggestedFiles": ["README.md", "docs/admin-auditor.md", "admin/config.yml"]
+        },
+        {
+          "id": "local_history",
+          "keywords": ["histórico", "historico", "auditoria", "localstorage", "multiusuário", "multiusuario"],
+          "risk": "Alto",
+          "response": "Arquivo:\nassets/vna-intelligence.js\n\nO que editar:\nO histórico local usa localStorage apenas como registro no navegador do admin.\n\nSugestão:\nUse isso como apoio pessoal, não como auditoria real multiusuário. Para auditoria real no futuro será necessário backend ou integração segura.\n\nMotivo:\nlocalStorage pode ser apagado, alterado e não prova autoria de mudanças.",
+          "suggestedFiles": ["assets/vna-intelligence.js", "docs/admin-auditor.md"]
+        }
+      ]
+    },
+    {
+      "id": "publicacao",
+      "label": "Publicação",
+      "description": "GitHub Pages, Cloudflare Pages, domínio, DNS e checklist de deploy.",
+      "quickReplies": [
+        "Como publicar?",
+        "Como preparar Cloudflare Pages?",
+        "Como configurar domínio?",
+        "Checklist antes do deploy"
+      ],
+      "intents": [
+        {
+          "id": "publish_static",
+          "keywords": ["publicar", "deploy", "github pages", "cloudflare pages", "hospedagem", "site no ar"],
+          "risk": "Crítico",
+          "response": "Arquivo:\nREADME.md e .github/workflows/quality.yml\n\nO que editar:\nNormalmente nada no código para GitHub Pages. Para Cloudflare Pages, publique a raiz do projeto como site estático, sem build obrigatório.\n\nSugestão:\nAntes do deploy, rode npm test, confira GitHub Actions e teste a página pública em desktop e celular.\n\nMotivo:\nPublicação e domínio afetam o site inteiro, então são mudanças críticas.",
+          "suggestedFiles": ["README.md", ".github/workflows/quality.yml"]
+        },
+        {
+          "id": "domain_dns",
+          "keywords": ["domínio", "dominio", "dns", "email profissional", "vidanoaltaroficial.com.br"],
+          "risk": "Crítico",
+          "response": "Arquivo:\nREADME.md\n\nO que editar:\nNão coloque dados de DNS, senhas ou chaves no repositório. Documente apenas passos gerais.\n\nSugestão:\nQuando o domínio estiver pronto, ajuste canonical, og:url, sitemap e configurações da hospedagem. O e-mail profissional continua como contato@vidanoaltaroficial.com.br.\n\nMotivo:\nDNS e domínio impactam publicação, SEO, e-mail e confiança institucional.",
+          "suggestedFiles": ["README.md", "sitemap.xml", "content/site-content.json"]
+        }
+      ]
+    }
+  ]
+}

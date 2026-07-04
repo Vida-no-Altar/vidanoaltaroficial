@@ -24,8 +24,16 @@ collections:
               - { label: "Título da página", name: "title", widget: "string" }
               - { label: "Descrição", name: "description", widget: "text" }
               - { label: "Palavras-chave", name: "keywords", widget: "text", required: false }
-              - { label: "URL oficial", name: "url", widget: "string", required: false }
-              - { label: "Imagem social", name: "image", widget: "string", required: false }
+              - label: "URL oficial"
+                name: "url"
+                widget: "string"
+                required: false
+                pattern: ["^https://vidanoaltaroficial\\.com\\.br/?$", "Use a URL oficial: https://vidanoaltaroficial.com.br/"]
+              - label: "Imagem social"
+                name: "image"
+                widget: "string"
+                required: false
+                pattern: ["^https://vidanoaltaroficial\\.com\\.br/public/(images|uploads)/[^\\s]+\\.(jpg|jpeg|png|webp)$", "Use uma imagem oficial em /public/images/ ou /public/uploads/."]
           - label: "Marca"
             name: "brand"
             widget: "object"

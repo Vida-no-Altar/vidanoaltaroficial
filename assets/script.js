@@ -251,6 +251,13 @@ function renderPresence(lines) {
   });
 }
 
+function renderAboutClosing(closing) {
+  const node = document.querySelector(".about-closing");
+  const text = asText(closing);
+  if (!node || !text) return;
+  node.textContent = text;
+}
+
 function applyEditableContent(data) {
   if (!data || typeof data !== "object") return;
 
@@ -282,6 +289,7 @@ function applyEditableContent(data) {
   setTextByKey("about.intro", data.about?.intro);
   setTextByKey("about.text", data.about?.text);
   renderPresence(data.about?.presenceLines);
+  renderAboutClosing(data.about?.closing);
 
   setTextByKey("featuredContent.eyebrow", data.featuredContent?.eyebrow);
   setTextByKey("featuredContent.title", data.featuredContent?.title);

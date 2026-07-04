@@ -254,7 +254,7 @@ Há fallback PNG em:
 public/images/matheus-sobre-vna.png
 ~~~
 
-Nunca use caminho local como `D:\` no HTML, CSS, JSON ou README. Use apenas caminhos relativos dentro do projeto.
+Nunca use caminhos locais do computador no HTML, CSS, JSON ou README. Use apenas caminhos relativos dentro do projeto.
 
 Alt text preservado:
 

@@ -69,6 +69,8 @@ Rotas da Fase 0:
 
 A Fase 0 é estática e navegável. Não há login real novo, banco de dados, API própria, upload real ou persistência real.
 
+No uso normal, o Studio deve ser entendido como painel visual. O Auditor VnA orienta caminhos dentro do Studio, como `Studio > Páginas > Home`, `Studio > Editor`, `Studio > Conteúdos`, `Studio > Produtos` e `Studio > Mídia`. Ele não deve orientar usuários leigos a editar arquivos do projeto.
+
 Arquivos principais:
 
 ~~~text
@@ -223,11 +225,26 @@ Acesse:
 /studio/auditor/
 ~~~
 
-As regras e respostas ficam em:
+O Auditor VnA é um módulo interno do Studio para orientar uso, revisar riscos e proteger decisões antes de publicar alterações.
+
+Para perguntas comuns, ele deve responder por caminhos do Studio, por exemplo:
+
+~~~text
+Studio > Páginas > Home
+Studio > Editor
+Studio > Conteúdos
+Studio > Produtos
+Studio > Mídia
+Studio > Configurações
+~~~
+
+A base técnica das respostas fica em:
 
 ~~~text
 content/admin-auditor.json
 ~~~
+
+Esse arquivo é manutenção do projeto, não fluxo normal para o usuário do Studio.
 
 Modos:
 
@@ -237,7 +254,7 @@ Modos:
 - Segurança;
 - Publicação.
 
-O Auditor classifica risco como Baixo, Médio, Alto ou Crítico. O histórico é salvo em `localStorage`, apenas no navegador do admin. Isso não é auditoria real multiusuário.
+O Auditor classifica risco como Baixo, Médio, Alto ou Crítico. O histórico é salvo em `localStorage`, apenas neste navegador, para apoiar testes do protótipo. Isso ainda não é auditoria real multiusuário.
 
 ## Como trocar a logo
 
@@ -310,8 +327,8 @@ npm test
 
 ## Próximos passos recomendados
 
-1. Criar formulários reais no Studio para editar `content/site-content.json`.
-2. Cadastrar conteúdos reais com links diretos em `content/content-catalog.json`.
-3. Cadastrar produtos reais revisados em `content/product-catalog.json`.
+1. Criar formulários reais no Studio para editar textos, páginas, conteúdos e produtos sem abrir arquivos manualmente.
+2. Cadastrar conteúdos reais com links diretos no catálogo do Studio.
+3. Cadastrar produtos reais revisados no módulo Produtos.
 4. Evoluir o Studio para API própria, banco e permissões reais.
 5. Substituir o editor técnico legado por editor visual próprio.

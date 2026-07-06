@@ -22,7 +22,7 @@
     { "path": "/studio/midia/", "name": "Mídia", "status": "protótipo", "purpose": "Organizar imagens, logos, thumbnails, uploads e arquivos futuros." },
     { "path": "/studio/usuarios/", "name": "Usuários e permissões", "status": "planejado", "purpose": "Documentar funções futuras sem simular autenticação." },
     { "path": "/studio/historico/", "name": "Histórico e versões", "status": "planejado", "purpose": "Preparar auditoria, restauração e trilha de alterações futuras." },
-    { "path": "/studio/auditor/", "name": "Auditor VnA", "status": "ativo estático", "purpose": "Reposicionar o Auditor Admin como módulo do Studio." },
+    { "path": "/studio/auditor/", "name": "Auditor VnA", "status": "ativo estático", "purpose": "Orientar o uso do Studio, revisar riscos e proteger decisões antes de publicar alterações." },
     { "path": "/studio/config/", "name": "Configurações", "status": "protótipo", "purpose": "Documentar domínio, SEO, publicação, integrações futuras e limites atuais." }
   ],
   "legacyRoutes": [

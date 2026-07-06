@@ -6,42 +6,44 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>VnA Studio | Vida no Altar</title>
     <link rel="stylesheet" href="../assets/vna-studio.css" />
+    <link rel="stylesheet" href="../assets/vna-intelligence.css" />
   </head>
-  <body class="studio-body">
+  <body class="studio-body" data-studio-context="dashboard">
     <div class="studio-shell">
       <aside class="studio-sidebar">
-        <a class="studio-brand" href="./" aria-label="VnA Studio, dashboard"><img src="../Logo Vida no Altar.png" alt="" /><span><strong>VnA Studio</strong><span>Fase 0</span></span></a>
+        <a class="studio-brand" href="./" aria-label="VnA Studio, dashboard"><img src="../Logo Vida no Altar.png" alt="" /><span><strong>VnA Studio</strong><span>Fase 0.2</span></span></a>
         <nav class="studio-nav" aria-label="Navegação do VnA Studio">
           <a href="./" aria-current="page">Dashboard</a><a href="paginas/">Páginas</a><a href="editor/">Editor visual</a><a href="conteudos/">Conteúdos</a><a href="produtos/">Produtos</a><a href="midia/">Mídia</a><a href="usuarios/">Usuários</a><a href="historico/">Histórico</a><a href="auditor/">Auditor VnA</a><a href="config/">Configurações</a>
         </nav>
-        <p class="studio-sidebar-note">Protótipo estático. Sem login real, sem senhas locais, sem banco de dados e sem persistência real nesta fase.</p>
+        <p class="studio-sidebar-note">Protótipo estático. O Studio mostra o fluxo visual, mas ainda não salva alterações reais.</p>
       </aside>
       <main class="studio-main">
         <section class="studio-hero">
           <p class="studio-eyebrow">Painel oficial</p>
           <h1>VnA Studio</h1>
-          <p>O painel visual para criar, editar e publicar o ecossistema Vida no Altar. Nesta Fase 0, a base é arquitetura, migração e protótipo navegável.</p>
-          <div class="studio-status-row"><span class="studio-status">Fase 0</span><span class="studio-status">Estático</span><span class="studio-status">Sem autenticação real</span><span class="studio-status">Compatível com Pages</span></div>
-          <div class="studio-actions"><a class="studio-button" href="auditor/">Abrir Auditor VnA</a><a class="studio-button studio-button-secondary" href="../">Ver site público</a></div>
+          <p>O painel visual para criar, editar e publicar o ecossistema Vida no Altar. Nesta Fase 0.2, o foco é contexto, clareza de módulo e Auditor VnA mais útil dentro do Studio.</p>
+          <div class="studio-status-row"><span class="studio-status">Fase 0.2</span><span class="studio-status">Protótipo visual</span><span class="studio-status">Auditor contextual</span><span class="studio-status">Compatível com Pages</span></div>
+          <div class="studio-actions"><a class="studio-button" href="auditor/?context=dashboard">Abrir Auditor VnA</a><a class="studio-button studio-button-secondary" href="../">Ver site público</a></div>
         </section>
 
         <section class="studio-section">
           <h2>Módulos principais</h2>
           <div class="studio-grid">
-            <article class="studio-card"><h3>Páginas</h3><p>Mapa futuro das seções editáveis do site público, começando pela landing page atual.</p><a href="paginas/">Ver módulo</a></article>
-            <article class="studio-card"><h3>Editor visual</h3><p>Fundação para edição tipo construtor visual, com ponte temporária para o editor técnico legado.</p><a href="editor/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Páginas</h3><p>Mapa das páginas e seções que serão editáveis, começando pela Home atual.</p><a href="paginas/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Editor visual</h3><p>Protótipo do construtor por blocos para textos, imagens, links, ordem e visibilidade.</p><a href="editor/">Ver módulo</a></article>
             <article class="studio-card"><h3>Conteúdos</h3><p>Central para devocionais, séries, temas, versículos, formatos e catálogo editorial.</p><a href="conteudos/">Ver módulo</a></article>
-            <article class="studio-card"><h3>Produtos</h3><p>Estrutura para indicações éticas de Bíblias, livros e materiais, com transparência de afiliados.</p><a href="produtos/">Ver módulo</a></article>
-            <article class="studio-card"><h3>Mídia</h3><p>Organização futura de imagens, thumbnails, logos, uploads e arquivos públicos.</p><a href="midia/">Ver módulo</a></article>
-            <article class="studio-card"><h3>Auditor VnA</h3><p>O Auditor Admin passa a ser módulo do Studio, mantendo regras, riscos e histórico local.</p><a href="auditor/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Produtos</h3><p>Estrutura para indicações éticas de Bíblias, livros e materiais, com transparência.</p><a href="produtos/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Mídia</h3><p>Biblioteca futura para imagens, thumbnails, logos, capas e arquivos públicos.</p><a href="midia/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Auditor VnA</h3><p>Guia contextual do Studio para orientar caminhos, riscos e revisão antes de publicar.</p><a href="auditor/">Ver módulo</a></article>
           </div>
         </section>
 
         <section class="studio-section studio-grid studio-grid-two">
-          <div class="studio-panel"><h2>Arquitetura futura</h2><ul class="studio-list"><li>Cloudflare Pages para site público e Studio.</li><li>Cloudflare Workers para API própria.</li><li>Cloudflare D1 para dados estruturados.</li><li>Cloudflare R2 para imagens e arquivos.</li><li>Cloudflare Access como camada extra opcional.</li><li>Login futuro por e-mail e senha, com segunda etapa obrigatória.</li></ul></div>
-          <div class="studio-panel"><h2>Migração do Admin</h2><ul class="studio-list"><li><strong>/studio/</strong> é a rota oficial nova.</li><li><strong>/admin/</strong> vira legado temporário com aviso claro.</li><li><strong>/admin/legacy.html</strong> preserva o editor técnico existente.</li><li><strong>/admin/auditor.html</strong> aponta para <strong>/studio/auditor/</strong>.</li></ul></div>
+          <div class="studio-panel"><h2>O que já funciona</h2><ul class="studio-list"><li>Navegação completa entre módulos do Studio.</li><li>Auditor VnA com contexto por tela.</li><li>Histórico local de perguntas no Auditor.</li><li>Site público e Assistente Público preservados.</li></ul></div>
+          <div class="studio-panel"><h2>O que ainda é protótipo</h2><ul class="studio-list"><li>Salvar alterações visuais.</li><li>Upload real de mídia.</li><li>Cadastro real de conteúdos e produtos pelo painel.</li><li>Login, permissões e publicação com aprovação.</li></ul></div>
         </section>
       </main>
     </div>
+    <script src="../assets/vna-intelligence.js" defer data-vna-intelligence="studio-auditor" data-vna-root="../"></script>
   </body>
 </html>

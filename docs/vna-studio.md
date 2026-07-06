@@ -16,7 +16,7 @@ Descrição oficial:
 O painel visual para criar, editar e publicar o ecossistema Vida no Altar.
 ```
 
-A Fase 0 entrega fundação, arquitetura e protótipos estáticos navegáveis. Ela não implementa login real, banco de dados, API própria, upload real, edição persistente nem editor visual completo.
+A Fase 0.2 mantém o Studio estático, mas adiciona contexto por tela e melhora a experiência do Auditor VnA. Ainda não há login real, banco de dados, API própria, upload real, edição persistente nem editor visual completo.
 
 ## Rotas
 
@@ -33,19 +33,37 @@ A Fase 0 entrega fundação, arquitetura e protótipos estáticos navegáveis. E
 /studio/config/       Configurações
 ```
 
-## Auditor VnA
+## Status das telas
 
-O Auditor VnA é um módulo interno do VnA Studio. Ele ensina o uso do Studio, ajuda a entender riscos, orienta revisão de mudanças e explica limites da Fase 0.
+A Fase 0.2 usa badges para evitar confusão:
 
-Ele deve orientar caminhos como:
+- Protótipo visual: fluxo desenhado, sem salvar de verdade.
+- Funcional parcial: algo já funciona no navegador, mas sem backend real.
+- Planejado: conceito documentado para fase futura.
+- Futuro: ação ainda indisponível.
+- Legado: ponte temporária herdada do Admin antigo.
+
+## Auditor VnA contextual
+
+O Auditor VnA é um módulo interno do VnA Studio. Ele ensina o uso do Studio, ajuda a entender riscos, orienta revisão de mudanças e explica limites da fase atual.
+
+Na Fase 0.2, ele usa o contexto da tela. A mesma pergunta pode receber resposta diferente em módulos diferentes.
+
+Exemplo:
+
+- Em `Studio > Editor`, "Como troco uma imagem?" orienta selecionar o bloco e usar a área Imagem.
+- Em `Studio > Mídia`, a mesma pergunta orienta organizar a imagem na biblioteca e depois aplicar em uma página.
+
+Cada tela informa o contexto com `data-studio-context`, e o Auditor também pode receber contexto pela URL:
 
 ```text
-Studio > Páginas > Home
-Studio > Editor
-Studio > Conteúdos
-Studio > Produtos
-Studio > Mídia
-Studio > Configurações
+/studio/auditor/?context=editor
+```
+
+A base de contexto fica em:
+
+```text
+content/studio-context.json
 ```
 
 O Auditor VnA não deve orientar usuários leigos a editar JSON, HTML, CSS, JavaScript, GitHub ou arquivos do projeto. A camada técnica ainda existe por baixo, mas o objetivo do Studio é esconder isso da rotina.
@@ -74,7 +92,7 @@ Planejamento técnico:
 - Permissões por função.
 - Reautenticação em ações críticas.
 
-Nada disso foi implementado na Fase 0.
+Nada disso foi implementado na Fase 0.2.
 
 ## Segurança
 
@@ -96,12 +114,13 @@ Os e-mails futuros ficam documentados em `content/studio-core.json`. Não há ca
 
 ## Fontes técnicas atuais de dados
 
-Na Fase 0, o Studio ainda é estático. Por baixo da interface, estes arquivos sustentam o protótipo:
+Na Fase 0.2, o Studio ainda é estático. Por baixo da interface, estes arquivos sustentam o protótipo:
 
 - Site público: `content/site-content.json`
 - Conteúdos: `content/content-catalog.json`
 - Produtos: `content/product-catalog.json`
 - Auditor: `content/admin-auditor.json`
+- Contexto do Studio: `content/studio-context.json`
 - Base do Studio: `content/studio-core.json`
 
 Essas fontes são documentação e manutenção técnica. Para o usuário do Studio, a experiência deve ser pensada por módulos visuais, não por arquivos.
@@ -109,8 +128,7 @@ Essas fontes são documentação e manutenção técnica. Para o usuário do Stu
 ## Próximas fases
 
 1. Transformar os protótipos em telas com formulários reais.
-2. Criar API própria com Workers.
-3. Persistir dados no D1.
-4. Mover mídia para R2.
-5. Implementar autenticação real e permissões.
-6. Substituir o Decap legado por editor visual próprio.
+2. Criar edição simulada de páginas, conteúdos e mídia.
+3. Evoluir para persistência real.
+4. Implementar autenticação real e permissões.
+5. Substituir o editor técnico legado por editor visual próprio.

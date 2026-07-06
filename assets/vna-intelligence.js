@@ -1,6 +1,6 @@
 (() => {
   const script = document.currentScript;
-  const agentType = script?.dataset.vnaIntelligence || document.body.dataset.vnaIntelligence || 'public';
+  const agentType = script?.getAttribute('data-vna-intelligence') || script?.dataset.vnaIntelligence || document.body.dataset.vnaIntelligence || 'public';
   const isAuditorPage = agentType === 'auditor';
   const isStudioAuditorWidget = agentType === 'studio-auditor';
   const isAuditor = isAuditorPage || isStudioAuditorWidget;

@@ -1,6 +1,6 @@
 # Vida no Altar - Landing Page
 
-Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, com conteúdo editável, VnA Studio em Fase 0, assistentes próprios por regras e o VnA Intelligence Core.
+Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, com conteúdo editável, VnA Studio em Fase 0.2, assistentes próprios por regras e o VnA Intelligence Core.
 
 ## Como rodar localmente
 
@@ -52,7 +52,7 @@ Descrição:
 O painel visual para criar, editar e publicar o ecossistema Vida no Altar.
 ~~~
 
-Rotas da Fase 0:
+Rotas da Fase 0.2:
 
 ~~~text
 /studio/              Dashboard
@@ -67,7 +67,7 @@ Rotas da Fase 0:
 /studio/config/       Configurações
 ~~~
 
-A Fase 0 é estática e navegável. Não há login real novo, banco de dados, API própria, upload real ou persistência real.
+A Fase 0.2 é estática e navegável. Não há login real novo, banco de dados, API própria, upload real ou persistência real.
 
 No uso normal, o Studio deve ser entendido como painel visual. O Auditor VnA orienta caminhos dentro do Studio, como `Studio > Páginas > Home`, `Studio > Editor`, `Studio > Conteúdos`, `Studio > Produtos` e `Studio > Mídia`. Ele não deve orientar usuários leigos a editar arquivos do projeto.
 
@@ -75,11 +75,46 @@ Arquivos principais:
 
 ~~~text
 content/studio-core.json
+content/studio-context.json
 assets/vna-studio.css
 studio/
 docs/vna-studio.md
+docs/vna-studio-roadmap.md
+docs/vna-studio-architecture.md
 docs/studio-migration-plan.md
 ~~~
+
+## Auditor VnA contextual
+
+Acesse:
+
+~~~text
+/studio/auditor/
+~~~
+
+Também é possível abrir o Auditor com contexto de um módulo:
+
+~~~text
+/studio/auditor/?context=editor
+/studio/auditor/?context=midia
+/studio/auditor/?context=produtos
+~~~
+
+Na Fase 0.2, as telas do Studio carregam um widget contextual do Auditor. Cada tela informa o contexto com `data-studio-context`, e as sugestões rápidas mudam conforme o módulo atual.
+
+A base de contexto fica em:
+
+~~~text
+content/studio-context.json
+~~~
+
+A base geral de respostas fica em:
+
+~~~text
+content/admin-auditor.json
+~~~
+
+O Auditor não altera, salva nem publica o site sozinho. Ele orienta caminhos, explica riscos simples e lembra quando uma ação ainda é protótipo.
 
 ## Admin legado
 
@@ -114,6 +149,7 @@ content/content-catalog.json
 content/product-catalog.json
 content/public-assistant.json
 content/admin-auditor.json
+content/studio-context.json
 content/affiliate-disclosure.json
 assets/vna-intelligence.js
 assets/vna-intelligence.css
@@ -147,58 +183,23 @@ Links atuais:
 - TikTok: https://www.tiktok.com/@vidanoaltar.oficial
 - E-mail: contato@vidanoaltaroficial.com.br
 
-## Como editar a base institucional
+## Como editar bases técnicas
 
-Edite:
+Enquanto não existe persistência real no Studio, a manutenção técnica continua em arquivos JSON.
+
+Bases principais:
 
 ~~~text
 content/vna-core.json
-~~~
-
-Esse arquivo guarda marca, slogan, descrição, público, valores, projetos, contato, redes oficiais, assets oficiais, limites do assistente e regras éticas para afiliados.
-
-## Como editar o catálogo de conteúdos
-
-Edite:
-
-~~~text
+content/site-content.json
 content/content-catalog.json
-~~~
-
-Se ainda não existir link direto para um conteúdo, use `"#"`. Não invente URL.
-
-## Como editar o catálogo de produtos
-
-Edite:
-
-~~~text
 content/product-catalog.json
-~~~
-
-A V1 ainda não é loja. O arquivo prepara a estrutura para Bíblias, livros e materiais futuros.
-
-Enquanto não houver produto real cadastrado, o assistente não recomenda produto específico nem inventa link.
-
-## Links afiliados
-
-O aviso fica em:
-
-~~~text
+content/admin-auditor.json
+content/studio-context.json
 content/affiliate-disclosure.json
 ~~~
 
-Regra ética:
-
-1. Perfil da pessoa.
-2. Necessidade real.
-3. Compatibilidade com a igreja.
-4. Compreensão da tradução.
-5. Objetivo de uso.
-6. Orçamento.
-7. Disponibilidade.
-8. Link afiliado.
-
-Comissão nunca é critério principal.
+Isso é manutenção do projeto, não fluxo normal para usuários do Studio.
 
 ## Assistente Público VnA
 
@@ -216,45 +217,6 @@ content/public-assistant.json
 ~~~
 
 Para desativar o widget público, remova do `index.html` o CSS e o script `vna-intelligence`.
-
-## Auditor VnA
-
-Acesse:
-
-~~~text
-/studio/auditor/
-~~~
-
-O Auditor VnA é um módulo interno do Studio para orientar uso, revisar riscos e proteger decisões antes de publicar alterações.
-
-Para perguntas comuns, ele deve responder por caminhos do Studio, por exemplo:
-
-~~~text
-Studio > Páginas > Home
-Studio > Editor
-Studio > Conteúdos
-Studio > Produtos
-Studio > Mídia
-Studio > Configurações
-~~~
-
-A base técnica das respostas fica em:
-
-~~~text
-content/admin-auditor.json
-~~~
-
-Esse arquivo é manutenção do projeto, não fluxo normal para o usuário do Studio.
-
-Modos:
-
-- Conteúdo;
-- Técnico;
-- SEO;
-- Segurança;
-- Publicação.
-
-O Auditor classifica risco como Baixo, Médio, Alto ou Crítico. O histórico é salvo em `localStorage`, apenas neste navegador, para apoiar testes do protótipo. Isso ainda não é auditoria real multiusuário.
 
 ## Como trocar a logo
 
@@ -288,20 +250,6 @@ Alt text preservado:
 Matheus, criador do Vida no Altar, segurando uma Bíblia
 ~~~
 
-## Como trocar a imagem do hero
-
-Edite o campo abaixo em `content/site-content.json`:
-
-~~~text
-hero.image
-~~~
-
-Imagem atual:
-
-~~~text
-public/images/hero-devocional.webp
-~~~
-
 ## Como publicar
 
 Como é um site estático, ele pode ser publicado em GitHub Pages, Cloudflare Pages, Netlify, Vercel ou hospedagem estática equivalente.
@@ -320,6 +268,8 @@ npm test
 - Não há backend obrigatório.
 - Não há banco de dados.
 - Não há login real novo para o VnA Studio.
+- Não há upload real.
+- Não há publicação real pelo Studio.
 - Não há loja, carrinho ou checkout.
 - O recomendador de Bíblias ainda não lista produtos reais.
 - O histórico do auditor é local e pode ser apagado ou alterado pelo navegador.
@@ -327,8 +277,8 @@ npm test
 
 ## Próximos passos recomendados
 
-1. Criar formulários reais no Studio para editar textos, páginas, conteúdos e produtos sem abrir arquivos manualmente.
-2. Cadastrar conteúdos reais com links diretos no catálogo do Studio.
-3. Cadastrar produtos reais revisados no módulo Produtos.
-4. Evoluir o Studio para API própria, banco e permissões reais.
+1. Criar formulários visuais simulados no Studio.
+2. Evoluir a Home para edição por blocos sem abrir arquivos manualmente.
+3. Criar preview de rascunho para conteúdos e mídia.
+4. Evoluir para persistência real com API, banco e permissões.
 5. Substituir o editor técnico legado por editor visual próprio.

@@ -1,0 +1,374 @@
+{
+  "version": "0.2.0",
+  "phase": "Fase 0.2",
+  "description": "Contexto local para o Auditor VnA orientar o usuário conforme a tela atual do Studio.",
+  "defaultContext": "auditor",
+  "globalPrototypeNote": "Nesta fase, o Studio ainda é um protótipo. Algumas ações mostram o caminho, mas ainda não salvam de verdade.",
+  "statuses": {
+    "prototype": "Protótipo visual",
+    "partial": "Funcional parcial",
+    "future": "Futuro",
+    "planned": "Planejado",
+    "legacy": "Legado"
+  },
+  "contexts": {
+    "dashboard": {
+      "route": "/studio/",
+      "module": "Dashboard",
+      "description": "Visão geral do VnA Studio, atalhos principais e estado da migração.",
+      "status": "Protótipo visual",
+      "actions": ["ver módulos", "abrir auditor", "acessar site público", "entender fase atual"],
+      "editableItems": ["atalhos", "avisos", "resumo de módulos"],
+      "commonRisks": ["confundir protótipo com painel funcional", "achar que alterações já salvam"],
+      "quickReplies": ["O que posso fazer no Studio?", "O que ainda é protótipo?", "Por onde começo?", "Como revisar antes de publicar?"],
+      "tasks": [
+        {
+          "id": "studio_overview",
+          "keywords": ["o que posso fazer", "studio", "dashboard", "painel", "começar", "comecar"],
+          "risk": "Baixo",
+          "response": "Você está no Dashboard. Aqui o melhor caminho é escolher o módulo certo: Páginas para a Home, Editor para blocos visuais, Conteúdos para devocionais e séries, Produtos para indicações, Mídia para imagens e Auditor para revisar decisões. Comece pelo módulo que mais parece com a tarefa que você quer simular.",
+          "quickReplies": ["Por onde começo?", "O que ainda é protótipo?", "Como revisar antes de publicar?"]
+        },
+        {
+          "id": "start_path",
+          "keywords": ["por onde começo", "começo", "comeco", "primeiro passo"],
+          "risk": "Baixo",
+          "response": "Se a mudança for no site público, comece em Studio > Páginas. Se for em um bloco específico da Home, vá para Studio > Editor. Se for vídeo, devocional ou estudo, vá para Studio > Conteúdos. Se for Bíblia, livro ou indicação, vá para Studio > Produtos.",
+          "quickReplies": ["Como revisar antes de publicar?", "O que ainda é protótipo?"]
+        }
+      ]
+    },
+    "paginas": {
+      "route": "/studio/paginas/",
+      "module": "Páginas",
+      "description": "Mapa visual das páginas e seções que serão editáveis no site público.",
+      "status": "Protótipo visual",
+      "actions": ["selecionar página", "abrir Home", "revisar blocos", "planejar nova página"],
+      "editableItems": ["Hero", "Projetos", "Sobre", "Conteúdos", "Links", "Contato", "SEO da página"],
+      "commonRisks": ["mudar texto institucional sem revisar", "remover bloco importante", "criar página sem objetivo claro"],
+      "quickReplies": ["Onde edito textos no Studio?", "Como criar uma página?", "Como melhorar a seção Sobre?", "Qual risco de mudar um projeto?", "Como revisar antes de publicar?"],
+      "tasks": [
+        {
+          "id": "edit_site_texts",
+          "keywords": ["texto", "textos", "home", "hero", "sobre", "projetos", "contato"],
+          "risk": "Médio",
+          "response": "Você está em Páginas. Para textos da Home, escolha a página Home e depois selecione o bloco certo: Hero, Sobre, Projetos, Conteúdos em destaque, Links ou Contato. A ideia da próxima fase é editar cada bloco por campos visuais, sem abrir código.",
+          "quickReplies": ["Como melhorar a seção Sobre?", "Como revisar antes de publicar?"]
+        },
+        {
+          "id": "create_page",
+          "keywords": ["criar página", "criar pagina", "nova página", "nova pagina", "aba"],
+          "risk": "Alto",
+          "response": "Você está em Páginas. Para criar uma página no fluxo futuro, use Nova página, defina nome, objetivo, público, blocos principais e onde ela aparece na navegação. Antes de publicar, confirme se essa página realmente precisa existir ou se pode ser uma seção dentro da Home.",
+          "quickReplies": ["Como revisar antes de publicar?", "O que ainda é protótipo?"]
+        },
+        {
+          "id": "about_section",
+          "keywords": ["sobre", "matheus", "quem está por trás", "quem esta por tras"],
+          "risk": "Médio",
+          "response": "Você está em Páginas. Procure a Home e selecione o bloco Sobre o Vida no Altar. Revise título, texto principal, frase de destaque, texto pessoal e imagem. Mantenha a seção humana, curta, bíblica e sem prometer mais do que o VnA entrega hoje.",
+          "quickReplies": ["Como troco uma imagem?", "Como revisar antes de publicar?"]
+        }
+      ]
+    },
+    "editor": {
+      "route": "/studio/editor/",
+      "module": "Editor visual",
+      "description": "Construtor visual por blocos para editar páginas sem abrir código.",
+      "status": "Protótipo visual",
+      "actions": ["adicionar bloco", "editar texto", "trocar imagem", "ajustar opacidade", "reorganizar seções", "revisar preview"],
+      "editableItems": ["blocos", "textos", "links", "imagens", "ordem", "visibilidade", "opacidade"],
+      "commonRisks": ["remover bloco importante", "mudar a aparência da Home", "alterar link principal", "prejudicar leitura no celular"],
+      "quickReplies": ["Como edito um bloco?", "Como troco uma imagem?", "Como ajusto transparência?", "Como reordeno seções?", "O que devo revisar antes de publicar?"],
+      "tasks": [
+        {
+          "id": "edit_block",
+          "keywords": ["editar bloco", "bloco", "card", "seção", "secao", "editar texto", "texto"],
+          "risk": "Médio",
+          "response": "Você está no Editor visual. Para editar um bloco, selecione o bloco na prévia da página e use o painel lateral para ajustar título, texto, link, imagem e visibilidade. Nesta fase, isso ainda é simulado; o fluxo real virá quando o Studio tiver salvamento.",
+          "quickReplies": ["Como troco uma imagem?", "Como reordeno seções?"]
+        },
+        {
+          "id": "change_image",
+          "keywords": ["trocar imagem", "imagem", "foto", "capa", "thumbnail", "logo"],
+          "risk": "Médio",
+          "response": "Você está no Editor visual. Para trocar uma imagem, selecione o bloco onde a imagem aparece, abra a área Imagem no painel de edição e escolha Substituir imagem. Nesta fase, isso ainda é protótipo, mas o fluxo futuro será esse.",
+          "quickReplies": ["Como escrevo alt text?", "O que devo revisar antes de publicar?"]
+        },
+        {
+          "id": "adjust_opacity",
+          "keywords": ["opacidade", "transparência", "transparencia", "mais claro", "mais escuro", "brilho"],
+          "risk": "Médio",
+          "response": "Você está no Editor visual. Para ajustar transparência no fluxo futuro, selecione o bloco ou imagem, abra Aparência e use o controle de opacidade. Revise contraste e leitura no celular antes de publicar, principalmente se houver texto por cima da imagem.",
+          "quickReplies": ["Como troco uma imagem?", "O que devo revisar antes de publicar?"]
+        },
+        {
+          "id": "reorder_sections",
+          "keywords": ["reordenar", "ordem", "mover seção", "mover secao", "subir", "descer"],
+          "risk": "Alto",
+          "response": "Você está no Editor visual. Para reordenar seções no fluxo futuro, use a lista de blocos, arraste a seção para a nova posição e confira a prévia. Essa mudança merece cuidado porque altera a narrativa da página e pode esconder informações importantes.",
+          "quickReplies": ["O que devo revisar antes de publicar?", "Como edito um bloco?"]
+        }
+      ]
+    },
+    "conteudos": {
+      "route": "/studio/conteudos/",
+      "module": "Conteúdos",
+      "description": "Gerenciador editorial para vídeos, devocionais, estudos, séries e temas do VnA.",
+      "status": "Protótipo visual",
+      "actions": ["cadastrar conteúdo", "organizar por projeto", "adicionar versículos", "definir status", "revisar link e capa"],
+      "editableItems": ["título", "projeto", "tipo", "tema", "versículos", "descrição", "link", "thumbnail", "status"],
+      "commonRisks": ["link errado", "conteúdo sem projeto", "status público antes da hora", "descrição confusa"],
+      "quickReplies": ["Como cadastrar um conteúdo?", "Como organizar por projeto?", "Como adicionar versículos?", "Como definir status?", "O que revisar antes de publicar?"],
+      "tasks": [
+        {
+          "id": "content_catalog",
+          "keywords": ["cadastrar conteúdo", "cadastrar conteudo", "novo conteúdo", "novo conteudo", "devocional", "vídeo", "video", "série", "serie", "estudo"],
+          "risk": "Médio",
+          "response": "Você está em Conteúdos. Para cadastrar um conteúdo no fluxo futuro, clique em Novo conteúdo, preencha título, projeto, tipo, descrição curta, tema principal, link, capa e status. Antes de publicar, confira se o link está certo e se o conteúdo pertence ao projeto correto.",
+          "quickReplies": ["Como organizar por projeto?", "Como definir status?"]
+        },
+        {
+          "id": "organize_project",
+          "keywords": ["organizar por projeto", "projeto", "café", "cafe", "evangelhos", "biblioteca"],
+          "risk": "Médio",
+          "response": "Você está em Conteúdos. Organize cada item pelo projeto principal: Café no Altar, Conhecendo os Evangelhos, Biblioteca V.A, Covers, Conexão Gospel ou V.A Kids quando for futuro. Isso ajuda o visitante e o Assistente Público a encontrarem o caminho certo.",
+          "quickReplies": ["Como cadastrar um conteúdo?", "O que revisar antes de publicar?"]
+        },
+        {
+          "id": "add_verses",
+          "keywords": ["versículo", "versiculo", "versículos", "versiculos", "texto bíblico", "texto biblico"],
+          "risk": "Baixo",
+          "response": "Você está em Conteúdos. Para adicionar versículos no fluxo futuro, use o campo Versículos e escreva referências claras, como 2 Timóteo 1:7. Evite colocar texto demais nesse campo; a explicação maior deve ficar na descrição ou no resumo interno.",
+          "quickReplies": ["Como definir status?", "Como cadastrar um conteúdo?"]
+        },
+        {
+          "id": "define_status",
+          "keywords": ["status", "rascunho", "publicado", "em revisão", "em revisao", "arquivado"],
+          "risk": "Médio",
+          "response": "Você está em Conteúdos. Use status para separar rascunho, em revisão, publicado e arquivado. Conteúdo publicado deve ter título, descrição, link e capa revisados. Se ainda falta link real, mantenha como rascunho ou em revisão.",
+          "quickReplies": ["O que revisar antes de publicar?", "Como adicionar versículos?"]
+        }
+      ]
+    },
+    "produtos": {
+      "route": "/studio/produtos/",
+      "module": "Produtos e indicações",
+      "description": "Área futura para Bíblias, livros, materiais e links afiliados com recomendação ética.",
+      "status": "Protótipo visual",
+      "actions": ["cadastrar Bíblia", "cadastrar livro", "adicionar link afiliado", "descrever perfil indicado", "revisar aviso de afiliado"],
+      "editableItems": ["nome", "categoria", "tradução", "editora", "perfil indicado", "perfil não indicado", "link Amazon", "link Shopee", "observações", "status"],
+      "commonRisks": ["link errado", "produto sem aviso de afiliado", "recomendação mal descrita", "parecer venda sem critério"],
+      "quickReplies": ["Como cadastrar uma Bíblia?", "Como cadastrar um livro?", "Como adicionar link afiliado?", "Como escrever perfil indicado?", "Como evitar recomendação ruim?"],
+      "tasks": [
+        {
+          "id": "product_bible",
+          "keywords": ["bíblia", "biblia", "cadastrar uma bíblia", "cadastrar uma biblia", "tradução", "traducao"],
+          "risk": "Médio",
+          "response": "Você está em Produtos. Para cadastrar uma Bíblia no fluxo futuro, preencha nome, categoria, tradução, editora, perfil indicado, perfil não indicado, nível de leitura, recursos, tamanho, letra, observações e status. A tradução usada na igreja da pessoa deve ser considerada, mas nunca tratada como espiritualmente superior por si só.",
+          "quickReplies": ["Como escrever perfil indicado?", "Como adicionar link afiliado?"]
+        },
+        {
+          "id": "product_book",
+          "keywords": ["livro", "cadastrar livro", "material", "devocional"],
+          "risk": "Médio",
+          "response": "Você está em Produtos. Para cadastrar um livro, informe nome, autor ou editora quando houver, tema, público recomendado, nível de leitura, observações e status. Uma indicação boa precisa explicar para quem serve e para quem talvez não seja a melhor escolha.",
+          "quickReplies": ["Como escrever perfil indicado?", "Como evitar recomendação ruim?"]
+        },
+        {
+          "id": "affiliate_link",
+          "keywords": ["afiliado", "amazon", "shopee", "link", "comissão", "comissao"],
+          "risk": "Alto",
+          "response": "Você está em Produtos. Links afiliados devem ser adicionados somente depois que a recomendação estiver bem descrita. Confira se o link abre o produto correto, se o aviso de afiliado está visível e se a comissão não virou o motivo principal da indicação.",
+          "quickReplies": ["Como evitar recomendação ruim?", "O que revisar antes de publicar?"]
+        },
+        {
+          "id": "profile_indicated",
+          "keywords": ["perfil indicado", "para quem", "perfil não indicado", "perfil nao indicado", "recomendado"],
+          "risk": "Médio",
+          "response": "Você está em Produtos. Escreva o perfil indicado de forma simples: quem está começando, quem já estuda mais, adolescentes, presente, leitura diária ou estudo profundo. Também vale registrar para quem o produto talvez não sirva, como letra pequena, linguagem difícil ou material pesado para iniciantes.",
+          "quickReplies": ["Como cadastrar uma Bíblia?", "Como evitar recomendação ruim?"]
+        },
+        {
+          "id": "bad_recommendation",
+          "keywords": ["recomendação ruim", "recomendacao ruim", "evitar erro", "vender por vender", "comissão primeiro", "comissao primeiro"],
+          "risk": "Alto",
+          "response": "Você está em Produtos. Para evitar uma recomendação ruim, confira se ela respeita perfil, necessidade real, compreensão da tradução, objetivo de uso e orçamento. Se duas opções forem equivalentes, o link afiliado pode ser usado com transparência; ele nunca deve ser o critério principal.",
+          "quickReplies": ["Como escrever perfil indicado?", "Como adicionar link afiliado?"]
+        }
+      ]
+    },
+    "midia": {
+      "route": "/studio/midia/",
+      "module": "Mídia",
+      "description": "Biblioteca futura para imagens, capas, thumbnails, logos e arquivos do VnA.",
+      "status": "Protótipo visual",
+      "actions": ["enviar imagem", "colar imagem", "organizar biblioteca", "escrever alt text", "ver onde a imagem será usada"],
+      "editableItems": ["logo", "hero", "imagem Sobre", "thumbnails", "capas", "alt text", "opacidade"],
+      "commonRisks": ["imagem pesada", "alt text ausente", "usar imagem no lugar errado", "quebrar identidade visual"],
+      "quickReplies": ["Como envio uma imagem?", "Como colo uma imagem?", "Como ajusto opacidade?", "Como escrevo alt text?", "Como sei onde a imagem será usada?"],
+      "tasks": [
+        {
+          "id": "change_image",
+          "keywords": ["trocar imagem", "imagem", "foto", "capa", "thumbnail", "logo"],
+          "risk": "Médio",
+          "response": "Você está na Mídia. Aqui você vai organizar imagens, capas e arquivos do VnA. Para trocar uma imagem usada em uma página, primeiro escolha ou envie a imagem na biblioteca. Depois, no futuro, você poderá clicar em Usar em uma página e escolher o bloco onde ela será aplicada.",
+          "quickReplies": ["Como escrevo alt text?", "Como sei onde a imagem será usada?"]
+        },
+        {
+          "id": "upload_image",
+          "keywords": ["enviar imagem", "upload", "subir imagem", "adicionar imagem"],
+          "risk": "Médio",
+          "response": "Você está na Mídia. O fluxo futuro será Enviar imagem, escolher o arquivo, revisar nome, peso, formato, alt text e status. Nesta fase, a tela ainda não faz upload real; ela apenas mostra como a biblioteca deve funcionar.",
+          "quickReplies": ["Como escrevo alt text?", "Como sei onde a imagem será usada?"]
+        },
+        {
+          "id": "paste_image",
+          "keywords": ["colar imagem", "colar", "print", "captura"],
+          "risk": "Médio",
+          "response": "Você está na Mídia. Colar imagem direto no Studio pode ser útil no futuro, mas precisa gerar nome limpo, formato adequado e alt text antes de usar no site. Nesta fase, essa ação ainda não existe de verdade.",
+          "quickReplies": ["Como envio uma imagem?", "Como escrevo alt text?"]
+        },
+        {
+          "id": "alt_text",
+          "keywords": ["alt", "alt text", "texto alternativo", "descrição da imagem", "descricao da imagem"],
+          "risk": "Baixo",
+          "response": "Você está na Mídia. Alt text deve dizer o que a imagem comunica. Exemplo: Matheus, criador do Vida no Altar, segurando uma Bíblia. Evite frases vagas como imagem bonita ou foto do site.",
+          "quickReplies": ["Como sei onde a imagem será usada?", "Como envio uma imagem?"]
+        },
+        {
+          "id": "where_used",
+          "keywords": ["onde será usada", "onde sera usada", "onde usa", "aplicada", "página", "pagina"],
+          "risk": "Médio",
+          "response": "Você está na Mídia. O ideal é cada imagem mostrar onde será usada: Hero, Sobre, Conteúdos, Produtos ou thumbnails. Isso evita trocar uma imagem sem perceber que ela aparece em uma área importante do site.",
+          "quickReplies": ["Como troco uma imagem?", "Como escrevo alt text?"]
+        }
+      ]
+    },
+    "usuarios": {
+      "route": "/studio/usuarios/",
+      "module": "Usuários e permissões",
+      "description": "Planejamento de funções futuras sem login real nesta fase.",
+      "status": "Planejado",
+      "actions": ["entender funções", "planejar permissões", "separar ações críticas", "definir aprovação"],
+      "editableItems": ["Matheus", "Everaldo", "Eliana", "funções", "permissões futuras"],
+      "commonRisks": ["parecer que já existe login", "dar permissão crítica sem aprovação", "criar segurança falsa"],
+      "quickReplies": ["Quem pode fazer o quê?", "O que o Editor pode alterar?", "O que só o Proprietário pode fazer?", "Quando pedir aprovação ao Matheus?"],
+      "tasks": [
+        {
+          "id": "permissions_overview",
+          "keywords": ["quem pode", "fazer o que", "permissão", "permissao", "usuários", "usuarios"],
+          "risk": "Crítico",
+          "response": "Você está em Usuários. Nesta fase, isso é apenas planejamento. A ideia futura é Matheus como Proprietário, com acesso total, e Everaldo e Eliana como editores para textos, imagens, links, conteúdos e produtos básicos.",
+          "quickReplies": ["O que o Editor pode alterar?", "O que só o Proprietário pode fazer?"]
+        },
+        {
+          "id": "editor_role",
+          "keywords": ["editor", "everaldo", "eliana", "alterar"],
+          "risk": "Alto",
+          "response": "Você está em Usuários. No plano futuro, o Editor pode alterar textos, imagens, links, conteúdos e produtos básicos. Ações como domínio, publicação final, usuários e permissões devem ficar com o Proprietário ou exigir aprovação.",
+          "quickReplies": ["Quando pedir aprovação ao Matheus?", "O que só o Proprietário pode fazer?"]
+        },
+        {
+          "id": "owner_role",
+          "keywords": ["proprietário", "proprietario", "matheus", "total", "só o proprietário", "so o proprietario"],
+          "risk": "Crítico",
+          "response": "Você está em Usuários. O Proprietário deve cuidar de ações críticas: publicar, alterar domínio, mudar usuários, mexer em permissões, excluir conteúdo importante e aprovar mudanças sensíveis da marca.",
+          "quickReplies": ["Quando pedir aprovação ao Matheus?", "Quem pode fazer o quê?"]
+        },
+        {
+          "id": "ask_approval",
+          "keywords": ["aprovação", "aprovacao", "pedir aprovação", "pedir aprovacao", "matheus"],
+          "risk": "Alto",
+          "response": "Peça aprovação ao Matheus quando a mudança afetar identidade da marca, página inicial, SEO principal, publicação, domínio, usuários, permissões, exclusão de conteúdo ou recomendação de produto sensível.",
+          "quickReplies": ["O que o Editor pode alterar?", "O que só o Proprietário pode fazer?"]
+        }
+      ]
+    },
+    "historico": {
+      "route": "/studio/historico/",
+      "module": "Histórico e versões",
+      "description": "Planejamento para registrar alterações, comparar versões e restaurar mudanças futuras.",
+      "status": "Planejado",
+      "actions": ["ver registros", "comparar antes e depois", "restaurar versão", "revisar risco"],
+      "editableItems": ["rascunhos", "versões", "autor", "data", "resumo", "risco"],
+      "commonRisks": ["confundir histórico local com auditoria real", "restaurar versão errada", "perder contexto da mudança"],
+      "quickReplies": ["O que será registrado?", "Como comparar antes e depois?", "Como restaurar versão?", "O que ainda é protótipo?"],
+      "tasks": [
+        {
+          "id": "history_records",
+          "keywords": ["registrado", "registro", "histórico", "historico", "auditoria"],
+          "risk": "Alto",
+          "response": "Você está em Histórico. No fluxo futuro, cada mudança importante deve registrar quem alterou, quando alterou, o que mudou, qual era o valor anterior, qual é o novo valor, risco e status de publicação. Hoje isso ainda é planejamento.",
+          "quickReplies": ["Como comparar antes e depois?", "O que ainda é protótipo?"]
+        },
+        {
+          "id": "compare_versions",
+          "keywords": ["comparar", "antes e depois", "diferença", "diferenca", "versões", "versoes"],
+          "risk": "Médio",
+          "response": "Você está em Histórico. Comparar antes e depois deve mostrar o texto antigo ao lado do novo, a imagem anterior ao lado da nova e o impacto da mudança. Isso ajuda a revisar sem depender de memória.",
+          "quickReplies": ["Como restaurar versão?", "O que será registrado?"]
+        },
+        {
+          "id": "restore_version",
+          "keywords": ["restaurar", "voltar versão", "voltar versao", "desfazer", "recuperar"],
+          "risk": "Crítico",
+          "response": "Você está em Histórico. Restaurar versão deve ser uma ação cuidadosa: escolha a versão, veja a comparação, confirme o impacto e só então restaure. Na Fase 0.2, isso ainda não funciona de verdade; é apenas o desenho do fluxo futuro.",
+          "quickReplies": ["Como comparar antes e depois?", "O que ainda é protótipo?"]
+        }
+      ]
+    },
+    "auditor": {
+      "route": "/studio/auditor/",
+      "module": "Auditor VnA",
+      "description": "Guia contextual para orientar o uso do Studio, revisar riscos e explicar limites da fase atual.",
+      "status": "Funcional parcial",
+      "actions": ["orientar caminho visual", "responder por contexto", "classificar risco simples", "registrar histórico local"],
+      "editableItems": ["perguntas", "modos", "sugestões rápidas", "histórico local"],
+      "commonRisks": ["achar que o Auditor altera o site sozinho", "confundir protótipo com salvamento real"],
+      "quickReplies": ["Como você pode me ajudar?", "Você altera o site sozinho?", "O que ainda é protótipo?", "Como revisar uma mudança?"],
+      "tasks": [
+        {
+          "id": "auditor_help",
+          "keywords": ["como você pode", "como voce pode", "me ajudar", "ajuda", "auditor"],
+          "risk": "Baixo",
+          "response": "Eu posso te ajudar a encontrar o lugar certo no Studio, explicar o risco de uma mudança, sugerir o que revisar antes de publicar e lembrar o que ainda é protótipo. Eu não faço alterações sozinho; eu guio o caminho.",
+          "quickReplies": ["Você altera o site sozinho?", "Como revisar uma mudança?"]
+        },
+        {
+          "id": "auditor_not_executor",
+          "keywords": ["você altera", "voce altera", "você salva", "voce salva", "você publica", "voce publica", "sozinho"],
+          "risk": "Baixo",
+          "response": "Não. Eu não altero, salvo nem publico o site sozinho. Eu explico o caminho, ajudo a revisar riscos e digo o que observar. Quando o Studio tiver salvamento real, a ação ainda deverá ser feita por uma pessoa autorizada.",
+          "quickReplies": ["O que ainda é protótipo?", "Como revisar uma mudança?"]
+        }
+      ]
+    },
+    "config": {
+      "route": "/studio/config/",
+      "module": "Configurações",
+      "description": "Área futura para domínio, SEO global, publicação, integrações e políticas do Studio.",
+      "status": "Planejado",
+      "actions": ["revisar publicação", "planejar domínio", "ver SEO global", "entender integrações futuras"],
+      "editableItems": ["domínio", "SEO global", "publicação", "políticas", "integrações"],
+      "commonRisks": ["alterar domínio sem revisão", "confundir configuração planejada com função ativa", "colocar segredo no lugar errado"],
+      "quickReplies": ["Como funciona publicação?", "O que é ação crítica?", "Quando mexer no domínio?", "O que ainda é protótipo?"],
+      "tasks": [
+        {
+          "id": "publish_flow",
+          "keywords": ["publicar", "publicação", "publicacao", "preview", "colocar no ar"],
+          "risk": "Crítico",
+          "response": "Você está em Configurações. Publicar deve ser um fluxo com rascunho, revisão, preview, aprovação e versão registrada. Nesta fase, essa tela só documenta o caminho; publicação real ainda não é feita pelo Studio.",
+          "quickReplies": ["O que é ação crítica?", "Como revisar antes de publicar?"]
+        },
+        {
+          "id": "domain_settings",
+          "keywords": ["domínio", "dominio", "dns", "url"],
+          "risk": "Crítico",
+          "response": "Você está em Configurações. Domínio e DNS são mudanças críticas. No Studio futuro, esse tipo de ação deve exigir aprovação do Proprietário, confirmação forte e registro no histórico. Não trate como ajuste comum de texto.",
+          "quickReplies": ["O que é ação crítica?", "O que ainda é protótipo?"]
+        }
+      ]
+    }
+  }
+}

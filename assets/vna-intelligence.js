@@ -398,7 +398,7 @@
     const intent = findBestIntent(question);
     const risk = classifyRisk(question, intent?.risk);
     const baseText = intent?.response || state.assistant?.fallback;
-    const text = `Risco estimado: ${risk}. ${riskDescription(risk)}\n\n${baseText}\n\nLembrete:\nNa V1, permissões e histórico são protótipos locais/documentação. Não coloque segredos no repositório.`;
+    const text = `Risco estimado: ${risk}. ${riskDescription(risk)}\n\n${baseText}\n\nLembrete:\nNesta Fase 0, o Studio ainda é protótipo estático. Use as orientações como apoio de navegação e revisão; salvamento real virá em fase futura.`;
 
     saveHistory({ question, mode: currentMode()?.label || state.mode, risk });
 
@@ -433,7 +433,7 @@
     input.name = 'message';
     input.autocomplete = 'off';
     input.placeholder = admin ? 'Pergunte sobre conteúdo, técnica, SEO, segurança ou publicação...' : 'Digite sua pergunta...';
-    input.setAttribute('aria-label', admin ? 'Mensagem para o Auditor Admin VnA' : 'Mensagem para o Assistente VnA');
+    input.setAttribute('aria-label', admin ? 'Mensagem para o Auditor VnA' : 'Mensagem para o Assistente VnA');
 
     const send = makeElement('button', 'vna-intel-send', 'Enviar');
     send.type = 'submit';
@@ -569,8 +569,8 @@
     const header = makeElement('div', 'vna-intel-header');
     const headerText = makeElement('div');
     headerText.append(
-      makeElement('h2', 'vna-intel-title', state.assistant?.name || 'Auditor Admin VnA'),
-      makeElement('p', 'vna-intel-subtitle', state.assistant?.description || 'Guia interno do site.'),
+      makeElement('h2', 'vna-intel-title', state.assistant?.name || 'Auditor VnA'),
+      makeElement('p', 'vna-intel-subtitle', state.assistant?.description || 'Módulo interno do VnA Studio.'),
     );
     header.append(headerText);
     chatMount.append(header, elements.messages, elements.footer);

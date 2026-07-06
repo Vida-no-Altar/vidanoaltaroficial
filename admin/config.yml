@@ -123,6 +123,12 @@ collections:
                 widget: "list"
                 field: { label: "Linha", name: "line", widget: "string" }
               - { label: "Texto complementar", name: "text", widget: "text" }
+              - { label: "Fechamento", name: "closing", widget: "string", required: false }
+              - label: "Texto alternativo da imagem"
+                name: "imageAlt"
+                widget: "string"
+                required: false
+                pattern: ["^Matheus, criador do Vida no Altar, segurando uma Bíblia$", "Preserve o texto alternativo institucional da imagem Sobre."]
           - label: "Conteúdos em destaque"
             name: "featuredContent"
             widget: "object"

@@ -4,18 +4,18 @@
 
 Migrar o Admin atual para o VnA Studio sem quebrar o site público, o Assistente Público VnA, o VnA Intelligence Core, GitHub Pages ou Cloudflare Pages.
 
-## Estado atual
+## Estado anterior
 
-O Admin existente tinha três funções principais:
+O Admin antigo tinha três funções principais:
 
 - `/admin/`: editor técnico baseado em Decap CMS.
-- `/admin/auditor.html`: Auditor Admin VnA.
+- `/admin/auditor.html`: rota legada do auditor administrativo.
 - `/admin/assistente.html`: assistente administrativo legado.
 
 ## Estado da Fase 0
 
 - `/studio/` passa a ser a rota oficial.
-- `/studio/auditor/` recebe o Auditor VnA como módulo do Studio.
+- `/studio/auditor/` recebe o Auditor VnA como módulo interno do Studio.
 - `/admin/` passa a exibir aviso de migração.
 - `/admin/auditor.html` aponta para `/studio/auditor/`.
 - `/admin/assistente.html` fica marcado como legado.
@@ -23,7 +23,22 @@ O Admin existente tinha três funções principais:
 
 ## Decisão sobre o assistente legado
 
-O Assistente Admin antigo é redundante em relação ao Auditor VnA. Ele deve ser mantido apenas como referência durante a transição e removido em uma fase futura, depois que o Auditor VnA cobrir todos os fluxos necessários no Studio.
+O assistente administrativo antigo é redundante em relação ao Auditor VnA. Ele deve ser mantido apenas como referência durante a transição e removido em uma fase futura, depois que o Auditor VnA cobrir todos os fluxos necessários no Studio.
+
+## Decisão sobre o Auditor VnA
+
+O Auditor VnA deve ensinar o uso do Studio, não transformar o usuário comum em editor técnico.
+
+Para perguntas de rotina, a orientação correta é por módulos visuais:
+
+- Studio > Páginas
+- Studio > Editor
+- Studio > Conteúdos
+- Studio > Produtos
+- Studio > Mídia
+- Studio > Configurações
+
+A camada de arquivos continua existindo apenas como base técnica da Fase 0 e deve ficar restrita à manutenção do projeto.
 
 ## Riscos
 
@@ -51,4 +66,4 @@ Adicionar autenticação improvisada, senha no front-end, tokens no repositório
 
 ## Próxima fase sugerida
 
-Fase 1 deve priorizar formulários reais para editar `content/site-content.json`, `content/content-catalog.json` e `content/product-catalog.json`, ainda sem tentar criar uma plataforma complexa completa.
+Fase 1 deve priorizar formulários reais no Studio para editar textos, páginas, conteúdos e produtos sem abrir arquivos manualmente. A persistência real deve vir depois, com API própria, banco e fluxo de publicação controlado.

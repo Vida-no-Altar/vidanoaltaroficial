@@ -133,7 +133,7 @@ async function validateJson() {
   check(studio.name === 'VnA Studio', 'studio-core.json precisa nomear o VnA Studio.');
   check(studio.officialRoute === '/studio/', 'A rota oficial do Studio precisa ser /studio/.');
   check(Array.isArray(studio.routes) && studio.routes.length === 10, 'Studio precisa registrar as 10 rotas planejadas.');
-  check(studio.routes.some((route) => route.path === '/studio/auditor/'), 'Studio precisa registrar /studio/auditor/.');
+  check(studio.routes.some((route) => route.path === '/studio/auditor/' && route.name === 'Auditor VnA'), 'Studio precisa registrar /studio/auditor/ como Auditor VnA.');
   check(studio.futureArchitecture?.hosting?.includes('Cloudflare Pages'), 'Arquitetura futura precisa documentar Cloudflare Pages.');
   check(studio.futureArchitecture?.api?.includes('Cloudflare Workers'), 'Arquitetura futura precisa documentar Workers.');
   check(studio.futureArchitecture?.database?.includes('Cloudflare D1'), 'Arquitetura futura precisa documentar D1.');
@@ -148,8 +148,51 @@ async function validateJson() {
   check(productCatalog.guidedBibleDiagnosis?.questions?.some((item) => item.key === 'churchTranslation'), 'Diagnóstico precisa perguntar tradução usada na igreja.');
   check(publicAssistant.name === 'Assistente VnA', 'Assistente Público incorreto.');
   check(publicAssistant.modes?.length === 4, 'Assistente Público precisa ter quatro modos.');
-  check(auditor.name === 'Auditor Admin VnA', 'Auditor precisa manter compatibilidade com o nome legado.');
-  check(auditor.fallback?.includes('studio/'), 'Auditor precisa orientar a estrutura studio/.');
+
+  check(auditor.name === 'Auditor VnA', 'Auditor precisa se apresentar como Auditor VnA.');
+  check(auditor.type === 'studio-auditor', 'Auditor precisa ser módulo do VnA Studio.');
+  check(auditor.initialMessage?.startsWith('Olá! Eu sou o Auditor VnA.'), 'Mensagem inicial do Auditor precisa usar Auditor VnA.');
+  check(auditor.fallback?.includes('VnA Studio'), 'Auditor precisa orientar a estrutura do VnA Studio.');
+
+  const requiredQuickReplies = [
+    'Onde edito textos no Studio?',
+    'Como criar uma página?',
+    'Como cadastrar um conteúdo?',
+    'Como cadastrar uma Bíblia ou livro?',
+    'Como trocar uma imagem?',
+    'Como revisar antes de publicar?',
+    'O que ainda é protótipo?',
+  ];
+  for (const reply of requiredQuickReplies) {
+    check(auditor.quickReplies?.includes(reply), `Sugestão rápida ausente no Auditor: ${reply}`);
+  }
+
+  const auditorIntents = (auditor.modes || []).flatMap((mode) => (mode.intents || []).map((intent) => ({ ...intent, modeId: mode.id })));
+  const editTextIntent = auditorIntents.find((intent) => intent.id === 'edit_site_texts');
+  check(editTextIntent?.response?.includes('Studio > Páginas > Home'), 'Resposta de edição de textos precisa apontar para Studio > Páginas > Home.');
+  check(editTextIntent?.response?.includes('Studio > Editor'), 'Resposta de edição de textos precisa apontar para Studio > Editor.');
+  check(!editTextIntent?.response?.includes('content/site-content.json'), 'Resposta de edição de textos não deve citar content/site-content.json.');
+
+  const commonForbiddenPatterns = [
+    /content\/site-content\.json/i,
+    /content\/content-catalog\.json/i,
+    /content\/product-catalog\.json/i,
+    /edite o arquivo/i,
+    /abra o json/i,
+    /mexa no html/i,
+    /altere o css/i,
+    /vá no github/i,
+    /va no github/i,
+  ];
+  for (const mode of auditor.modes || []) {
+    if (mode.id === 'tecnico') continue;
+    for (const intent of mode.intents || []) {
+      for (const pattern of commonForbiddenPatterns) {
+        check(!pattern.test(intent.response || ''), `Resposta comum do Auditor não deve orientar edição técnica: ${mode.id}/${intent.id}`);
+      }
+    }
+  }
+
   check(affiliate.text?.includes('Alguns links podem ser de afiliado'), 'Aviso de afiliado ausente.');
 }
 
@@ -175,6 +218,8 @@ async function validateHtml() {
   check(files['studio/index.html'].includes('VnA Studio'), '/studio/ precisa abrir dashboard.');
   check(files['studio/auditor/index.html'].includes('data-vna-intelligence="auditor"'), '/studio/auditor/ precisa carregar o Auditor.');
   check(files['studio/auditor/index.html'].includes('<base href="../../"'), '/studio/auditor/ precisa ter base compatível com GitHub Pages.');
+  check(!files['studio/auditor/index.html'].includes('Auditor Admin VnA'), '/studio/auditor/ não deve mostrar Auditor Admin VnA.');
+  check(files['studio/auditor/index.html'].includes('Registros salvos apenas neste navegador para apoiar testes do protótipo. Isso ainda não é auditoria real multiusuário.'), 'Histórico local do Auditor precisa usar o texto correto.');
 
   const ids = findAll(files['index.html'], /\sid="([^"]+)"/g);
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
@@ -205,6 +250,7 @@ async function validateDocsSafetyAndConfig() {
   check(robots.includes('Disallow: /studio/'), 'robots.txt precisa bloquear /studio/.');
   check(readme.includes('VnA Studio'), 'README precisa documentar VnA Studio.');
   check(readme.includes('/studio/auditor/'), 'README precisa documentar /studio/auditor/.');
+  check(readme.includes('Ele não deve orientar usuários leigos a editar arquivos do projeto.'), 'README precisa explicar o papel correto do Auditor VnA.');
   check(config.includes('repo: Vida-no-Altar/vidanoaltaroficial'), 'admin/config.yml precisa apontar para o repositório oficial.');
   check(config.includes('file: "content/site-content.json"'), 'admin/config.yml precisa editar content/site-content.json.');
   check(config.includes('media_folder: "public/uploads"'), 'admin/config.yml precisa salvar mídias em public/uploads.');
@@ -262,7 +308,7 @@ async function validateServerRoutes() {
       ['/content/content-catalog.json', 'Lei da Semeadura'],
       ['/content/product-catalog.json', 'Bíblia para começar'],
       ['/content/public-assistant.json', 'Assistente VnA'],
-      ['/content/admin-auditor.json', 'Auditor Admin VnA'],
+      ['/content/admin-auditor.json', 'Auditor VnA'],
       ['/content/affiliate-disclosure.json', 'Alguns links podem ser de afiliado'],
       ['/content/site-content.json', 'Presença que transforma gerações'],
       ['/robots.txt', 'Disallow: /studio/'],

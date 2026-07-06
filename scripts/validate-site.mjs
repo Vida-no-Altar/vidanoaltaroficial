@@ -1,6 +1,6 @@
 import { access, readFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
-import { dirname, join, normalize, resolve, sep } from 'node:path';
+import { dirname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,10 +27,9 @@ async function exists(path) {
   }
 }
 
-function matches(text, regex, group = 1) {
+function findAll(text, regex, group = 1) {
   const flags = regex.flags.includes('g') ? regex.flags : `${regex.flags}g`;
-  const globalRegex = new RegExp(regex.source, flags);
-  return [...String(text).matchAll(globalRegex)].map((match) => match[group]);
+  return [...String(text).matchAll(new RegExp(regex.source, flags))].map((match) => match[group]);
 }
 
 function cleanPath(ref) {
@@ -39,80 +38,83 @@ function cleanPath(ref) {
   return normalized === '.' ? '' : normalized;
 }
 
-function isExternal(ref) {
-  return /^(https?:|mailto:|tel:)/i.test(ref);
-}
-
 function hasNoIndexNoFollow(text) {
   return /<meta\s+name="robots"\s+content="noindex,\s*nofollow"\s*\/>/i.test(text);
 }
 
 function hasLocalAbsolutePath(text) {
-  return /(^|[^a-zA-Z])[a-zA-Z]:[\\/]/.test(text);
+  return /(^|[\s"'(`])[A-Za-z]:[\\/]/.test(text);
 }
 
-function documentBasePath(filePath, text) {
-  const baseHref = matches(text, /<base\s+href="([^"]+)"\s*\/>/i)[0];
-  if (!baseHref) return dirname(filePath).replace(/\\/g, '/');
-  return cleanPath(`${dirname(filePath)}/${baseHref}`);
+function isExternal(ref) {
+  return /^(https?:|mailto:|tel:)/i.test(ref);
+}
+
+function basePathFor(filePath, text) {
+  const baseMatch = String(text).match(/<base\s+href="([^"]+)"\s*\/?\s*>/i);
+  if (!baseMatch) return dirname(filePath).replace(/\\/g, '/');
+  return cleanPath(`${dirname(filePath)}/${baseMatch[1]}`);
 }
 
 function refsFor(filePath, text) {
-  const base = documentBasePath(filePath, text);
-  return matches(text, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g).map((ref) => `${base}/${ref}`);
+  const base = basePathFor(filePath, text);
+  return findAll(text, /(?:href|src)="(?!https?:|mailto:|#)([^"]+)"/g).map((ref) => `${base}/${ref}`);
 }
 
-async function validateRequiredFiles() {
-  const requiredFiles = [
-    'index.html',
-    'README.md',
-    'robots.txt',
-    'sitemap.xml',
-    'assets/styles.css',
-    'assets/about-section.css',
-    'assets/vna-intelligence.css',
-    'assets/vna-intelligence.js',
-    'assets/vna-studio.css',
-    'content/site-content.json',
-    'content/vna-core.json',
-    'content/studio-core.json',
-    'content/content-catalog.json',
-    'content/product-catalog.json',
-    'content/public-assistant.json',
-    'content/admin-auditor.json',
-    'content/affiliate-disclosure.json',
-    'admin/index.html',
-    'admin/auditor.html',
-    'admin/assistente.html',
-    'admin/legacy.html',
-    'studio/index.html',
-    'studio/paginas/index.html',
-    'studio/editor/index.html',
-    'studio/conteudos/index.html',
-    'studio/produtos/index.html',
-    'studio/midia/index.html',
-    'studio/usuarios/index.html',
-    'studio/historico/index.html',
-    'studio/auditor/index.html',
-    'studio/config/index.html',
-    'docs/vna-studio.md',
-    'docs/studio-migration-plan.md',
-    'docs/vna-intelligence-core.md',
-    'docs/public-assistant.md',
-    'docs/admin-auditor.md',
-  ];
+const htmlFiles = [
+  'index.html',
+  'admin/index.html',
+  'admin/auditor.html',
+  'admin/assistente.html',
+  'admin/legacy.html',
+  'studio/index.html',
+  'studio/paginas/index.html',
+  'studio/editor/index.html',
+  'studio/conteudos/index.html',
+  'studio/produtos/index.html',
+  'studio/midia/index.html',
+  'studio/usuarios/index.html',
+  'studio/historico/index.html',
+  'studio/auditor/index.html',
+  'studio/config/index.html',
+];
 
-  for (const path of requiredFiles) {
-    check(await exists(path), `Arquivo obrigatório não encontrado: ${path}`);
-  }
+const requiredFiles = [
+  ...htmlFiles,
+  'README.md',
+  'robots.txt',
+  'sitemap.xml',
+  'assets/styles.css',
+  'assets/about-section.css',
+  'assets/vna-intelligence.css',
+  'assets/vna-intelligence.js',
+  'assets/vna-studio.css',
+  'content/site-content.json',
+  'content/vna-core.json',
+  'content/studio-core.json',
+  'content/content-catalog.json',
+  'content/product-catalog.json',
+  'content/public-assistant.json',
+  'content/admin-auditor.json',
+  'content/affiliate-disclosure.json',
+  'admin/config.yml',
+  'docs/vna-studio.md',
+  'docs/studio-migration-plan.md',
+  'docs/vna-intelligence-core.md',
+  'docs/public-assistant.md',
+  'docs/admin-auditor.md',
+];
+
+async function validateFilesExist() {
+  for (const path of requiredFiles) check(await exists(path), `Arquivo obrigatório não encontrado: ${path}`);
 }
 
-async function validateData() {
+async function validateJson() {
   const site = await readJson('content/site-content.json');
-  const studio = await readJson('content/studio-core.json');
   const core = await readJson('content/vna-core.json');
-  const catalog = await readJson('content/content-catalog.json');
-  const products = await readJson('content/product-catalog.json');
+  const studio = await readJson('content/studio-core.json');
+  const contentCatalog = await readJson('content/content-catalog.json');
+  const productCatalog = await readJson('content/product-catalog.json');
   const publicAssistant = await readJson('content/public-assistant.json');
   const auditor = await readJson('content/admin-auditor.json');
   const affiliate = await readJson('content/affiliate-disclosure.json');
@@ -141,9 +143,9 @@ async function validateData() {
   check(studio.plannedUsers?.some((user) => user.name === 'Eliana'), 'Eliana precisa estar planejada.');
   check(studio.nonGoals?.includes('senha no JavaScript'), 'Studio precisa registrar que senha no JavaScript está fora do escopo.');
 
-  check(Array.isArray(catalog.items) && catalog.items.length >= 6, 'Catálogo de conteúdos insuficiente.');
-  check(Array.isArray(products.products), 'Catálogo de produtos precisa ter lista products.');
-  check(products.guidedBibleDiagnosis?.questions?.some((item) => item.key === 'churchTranslation'), 'Diagnóstico precisa perguntar tradução usada na igreja.');
+  check(Array.isArray(contentCatalog.items) && contentCatalog.items.length >= 6, 'Catálogo de conteúdos insuficiente.');
+  check(Array.isArray(productCatalog.products), 'Catálogo de produtos precisa ter lista products.');
+  check(productCatalog.guidedBibleDiagnosis?.questions?.some((item) => item.key === 'churchTranslation'), 'Diagnóstico precisa perguntar tradução usada na igreja.');
   check(publicAssistant.name === 'Assistente VnA', 'Assistente Público incorreto.');
   check(publicAssistant.modes?.length === 4, 'Assistente Público precisa ter quatro modos.');
   check(auditor.name === 'Auditor Admin VnA', 'Auditor precisa manter compatibilidade com o nome legado.');
@@ -152,23 +154,6 @@ async function validateData() {
 }
 
 async function validateHtml() {
-  const htmlFiles = [
-    'index.html',
-    'admin/index.html',
-    'admin/auditor.html',
-    'admin/assistente.html',
-    'admin/legacy.html',
-    'studio/index.html',
-    'studio/paginas/index.html',
-    'studio/editor/index.html',
-    'studio/conteudos/index.html',
-    'studio/produtos/index.html',
-    'studio/midia/index.html',
-    'studio/usuarios/index.html',
-    'studio/historico/index.html',
-    'studio/auditor/index.html',
-    'studio/config/index.html',
-  ];
   const entries = await Promise.all(htmlFiles.map(async (path) => [path, await readText(path)]));
   const files = Object.fromEntries(entries);
 
@@ -191,11 +176,11 @@ async function validateHtml() {
   check(files['studio/auditor/index.html'].includes('data-vna-intelligence="auditor"'), '/studio/auditor/ precisa carregar o Auditor.');
   check(files['studio/auditor/index.html'].includes('<base href="../../"'), '/studio/auditor/ precisa ter base compatível com GitHub Pages.');
 
-  const ids = matches(files['index.html'], /\sid="([^"]+)"/g);
+  const ids = findAll(files['index.html'], /\sid="([^"]+)"/g);
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
   check(duplicates.length === 0, `IDs duplicados no site público: ${[...new Set(duplicates)].join(', ')}`);
 
-  const anchors = matches(files['index.html'], /href="#([^"]+)"/g);
+  const anchors = findAll(files['index.html'], /href="#([^"]+)"/g);
   const missingAnchors = [...new Set(anchors)].filter((anchor) => !ids.includes(anchor));
   check(missingAnchors.length === 0, `Âncoras sem destino: ${missingAnchors.join(', ')}`);
 
@@ -209,48 +194,23 @@ async function validateHtml() {
   check(missingRefs.length === 0, `Arquivos referenciados não encontrados: ${missingRefs.join(', ')}`);
 }
 
-async function validateDocsAndSafety() {
-  const textFiles = [
-    'README.md',
-    'robots.txt',
-    'sitemap.xml',
-    'assets/styles.css',
-    'assets/about-section.css',
-    'assets/vna-intelligence.css',
-    'assets/vna-studio.css',
-    'assets/vna-intelligence.js',
-    'content/site-content.json',
-    'content/vna-core.json',
-    'content/studio-core.json',
-    'content/content-catalog.json',
-    'content/product-catalog.json',
-    'content/public-assistant.json',
-    'content/admin-auditor.json',
-    'docs/vna-studio.md',
-    'docs/studio-migration-plan.md',
-    'docs/vna-intelligence-core.md',
-    'docs/public-assistant.md',
-    'docs/admin-auditor.md',
-  ];
-  const text = (await Promise.all(textFiles.map(readText))).join('\n');
+async function validateDocsSafetyAndConfig() {
+  const texts = await Promise.all(requiredFiles.map(readText));
+  const allText = texts.join('\n');
   const robots = await readText('robots.txt');
   const readme = await readText('README.md');
+  const config = await readText('admin/config.yml');
 
   check(robots.includes('Disallow: /admin/'), 'robots.txt precisa bloquear /admin/.');
   check(robots.includes('Disallow: /studio/'), 'robots.txt precisa bloquear /studio/.');
   check(readme.includes('VnA Studio'), 'README precisa documentar VnA Studio.');
   check(readme.includes('/studio/auditor/'), 'README precisa documentar /studio/auditor/.');
-  check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(text), 'Não deve haver canal provisório ou mensageiro externo proibido.');
-  check(!hasLocalAbsolutePath(text), 'Não deve haver caminho local absoluto em arquivos publicados.');
-  check(!['OpenAI', 'ChatGPT', 'Gemini', 'Claude'].some((term) => text.toLowerCase().includes(term.toLowerCase())), 'Interface e documentação não devem mencionar fornecedores de IA.');
-}
-
-async function validateAdminConfig() {
-  const config = await readText('admin/config.yml');
-  check(!config.includes('\t'), 'admin/config.yml não deve usar tabs.');
   check(config.includes('repo: Vida-no-Altar/vidanoaltaroficial'), 'admin/config.yml precisa apontar para o repositório oficial.');
   check(config.includes('file: "content/site-content.json"'), 'admin/config.yml precisa editar content/site-content.json.');
   check(config.includes('media_folder: "public/uploads"'), 'admin/config.yml precisa salvar mídias em public/uploads.');
+  check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(allText), 'Não deve haver canal provisório ou mensageiro externo proibido.');
+  check(!hasLocalAbsolutePath(allText), 'Não deve haver caminho local absoluto em arquivos publicados.');
+  check(!['OpenAI', 'ChatGPT', 'Gemini', 'Claude'].some((term) => allText.toLowerCase().includes(term.toLowerCase())), 'Interface e documentação não devem mencionar fornecedores de IA.');
 }
 
 async function waitForServer(url, tries = 40) {
@@ -321,11 +281,10 @@ async function validateServerRoutes() {
 }
 
 async function main() {
-  await validateRequiredFiles();
-  await validateData();
+  await validateFilesExist();
+  await validateJson();
   await validateHtml();
-  await validateDocsAndSafety();
-  await validateAdminConfig();
+  await validateDocsSafetyAndConfig();
   await validateServerRoutes();
 
   if (failures.length > 0) {

@@ -1,8 +1,10 @@
 (() => {
   const script = document.currentScript;
   const agentType = script?.dataset.vnaIntelligence || document.body.dataset.vnaIntelligence || 'public';
-  const isAuditor = agentType === 'auditor';
-  const pathPrefix = window.location.pathname.includes('/admin/') ? '../' : '';
+  const isAuditorPage = agentType === 'auditor';
+  const isStudioAuditorWidget = agentType === 'studio-auditor';
+  const isAuditor = isAuditorPage || isStudioAuditorWidget;
+  const pathPrefix = script?.dataset.vnaRoot ?? (window.location.pathname.includes('/admin/') ? '../' : '');
   const historyKey = 'vna-auditor-history-v1';
 
   const state = {
@@ -11,6 +13,8 @@
     productCatalog: null,
     affiliate: null,
     assistant: null,
+    studioContext: null,
+    contextKey: null,
     mode: isAuditor ? 'conteudo' : 'descobrir',
     initialized: false,
     bibleFlow: null,
@@ -23,6 +27,7 @@
     affiliate: 'content/affiliate-disclosure.json',
     publicAssistant: 'content/public-assistant.json',
     adminAuditor: 'content/admin-auditor.json',
+    studioContext: 'content/studio-context.json',
   };
 
   function normalizeText(value) {
@@ -37,12 +42,6 @@
 
   function tokenize(value) {
     return normalizeText(value).split(' ').filter((token) => token.length >= 3);
-  }
-
-  function asText(value) {
-    if (typeof value === 'string') return value;
-    if (typeof value === 'number' || typeof value === 'boolean') return String(value);
-    return '';
   }
 
   function isSafeUrl(url) {
@@ -63,20 +62,25 @@
 
   async function loadIntelligence() {
     const assistantPath = isAuditor ? routes.adminAuditor : routes.publicAssistant;
-    const [core, contentCatalog, productCatalog, affiliate, assistant] = await Promise.all([
+    const requests = [
       loadJson(routes.core),
       loadJson(routes.contentCatalog),
       loadJson(routes.productCatalog),
       loadJson(routes.affiliate),
       loadJson(assistantPath),
-    ]);
+    ];
+    if (isAuditor) requests.push(loadJson(routes.studioContext));
+
+    const [core, contentCatalog, productCatalog, affiliate, assistant, studioContext] = await Promise.all(requests);
 
     state.core = core;
     state.contentCatalog = contentCatalog;
     state.productCatalog = productCatalog;
     state.affiliate = affiliate;
     state.assistant = assistant;
+    state.studioContext = studioContext || null;
     if (assistant.modes?.[0]?.id) state.mode = assistant.modes[0].id;
+    if (isAuditor) state.contextKey = inferContextKey();
   }
 
   function makeElement(tag, className, text) {
@@ -146,12 +150,12 @@
     return getModes().flatMap((mode) => (mode.intents || []).map((intent) => ({ ...intent, modeId: mode.id })));
   }
 
-  function scoreIntent(question, intent) {
+  function scoreKeywords(question, keywords = []) {
     const normalizedQuestion = normalizeText(question);
     const questionTokens = new Set(tokenize(question));
     let score = 0;
 
-    for (const keyword of intent.keywords || []) {
+    for (const keyword of keywords) {
       const normalizedKeyword = normalizeText(keyword);
       if (!normalizedKeyword) continue;
       if (normalizedQuestion.includes(normalizedKeyword)) {
@@ -164,6 +168,10 @@
     }
 
     return score;
+  }
+
+  function scoreIntent(question, intent) {
+    return scoreKeywords(question, intent.keywords || []);
   }
 
   function findBestIntent(question) {
@@ -180,6 +188,54 @@
     }
 
     return bestScore >= 3 ? best : null;
+  }
+
+  function inferContextKey() {
+    const contexts = state.studioContext?.contexts || {};
+    const params = new URLSearchParams(window.location.search);
+    const explicit = params.get('context') || document.body.dataset.studioContext || script?.dataset.studioContext;
+    if (explicit && contexts[explicit]) return explicit;
+
+    const pathname = window.location.pathname.replace(/\/index\.html$/i, '/');
+    const match = Object.entries(contexts)
+      .filter(([, context]) => context.route && pathname.endsWith(context.route))
+      .sort((a, b) => b[1].route.length - a[1].route.length)[0];
+
+    return match?.[0] || state.studioContext?.defaultContext || 'auditor';
+  }
+
+  function currentStudioContext() {
+    const contexts = state.studioContext?.contexts || {};
+    return contexts[state.contextKey] || contexts[state.studioContext?.defaultContext] || null;
+  }
+
+  function findContextTask(question) {
+    const context = currentStudioContext();
+    const tasks = context?.tasks || [];
+    let best = null;
+    let bestScore = 0;
+
+    for (const task of tasks) {
+      const score = scoreKeywords(question, task.keywords || []);
+      if (score > bestScore) {
+        best = task;
+        bestScore = score;
+      }
+    }
+
+    return bestScore >= 3 ? best : null;
+  }
+
+  function contextQuickReplies() {
+    return currentStudioContext()?.quickReplies || state.assistant?.quickReplies || [];
+  }
+
+  function initialAuditorMessage() {
+    const context = currentStudioContext();
+    if (context && state.contextKey !== 'auditor') {
+      return `Estou acompanhando a tela ${context.module}. ${context.description}\n\nPosso te orientar pelo caminho visual do Studio, explicar riscos simples e lembrar o que ainda é protótipo.`;
+    }
+    return state.assistant.initialMessage;
   }
 
   function hasSafetyMatch(question) {
@@ -373,8 +429,28 @@
     return found?.item?.level || 'Baixo';
   }
 
-  function riskDescription(level) {
-    return (state.assistant?.riskMatrix || []).find((item) => item.level === level)?.description || '';
+  function riskGuidance(level) {
+    const guidance = {
+      Baixo: 'É uma mudança simples. Mesmo assim, vale conferir texto e visual antes de considerar pronto.',
+      Médio: 'Essa é uma alteração comum, mas vale revisar antes de publicar porque pode aparecer para todo visitante.',
+      Alto: 'Essa mudança pede mais cuidado. Ela pode mexer na estrutura, na mensagem principal ou na forma como o visitante encontra algo importante.',
+      Crítico: 'Aqui a atenção precisa ser maior. Mudanças críticas devem ter aprovação clara e não devem ser tratadas como ajuste comum.',
+    };
+    return guidance[level] || guidance.Baixo;
+  }
+
+  function shouldMentionPrototype(question, text, context) {
+    if (/prot[oó]tipo|nesta fase|fase 0/i.test(text)) return false;
+    const normalized = normalizeText(question);
+    const actionAsked = /(salvar|publicar|criar|cadastrar|trocar|enviar|upload|restaurar|login|permissao|permissão|dominio|domínio)/i.test(normalized);
+    return actionAsked || /protótipo|planejado|futuro/i.test(context?.status || '');
+  }
+
+  function modeNudge(intent, task) {
+    if (!intent?.modeId || task || intent.modeId === state.mode) return '';
+    const mode = getModes().find((item) => item.id === intent.modeId);
+    if (!mode) return '';
+    return `Essa pergunta puxa mais para ${mode.label}. Vou te orientar por esse lado.`;
   }
 
   function readHistory() {
@@ -395,17 +471,37 @@
   }
 
   function answerAuditor(question) {
+    const context = currentStudioContext();
+    const task = findContextTask(question);
     const intent = findBestIntent(question);
-    const risk = classifyRisk(question, intent?.risk);
-    const baseText = intent?.response || state.assistant?.fallback;
-    const text = `Risco estimado: ${risk}. ${riskDescription(risk)}\n\n${baseText}\n\nLembrete:\nNesta Fase 0, o Studio ainda é protótipo estático. Use as orientações como apoio de navegação e revisão; salvamento real virá em fase futura.`;
+    const risk = classifyRisk(question, task?.risk || intent?.risk);
+    const sourceText = task?.response || intent?.response || state.assistant?.fallback;
+    const parts = [];
+    const nudge = modeNudge(intent, task);
 
-    saveHistory({ question, mode: currentMode()?.label || state.mode, risk });
+    if (nudge) parts.push(nudge);
+    if (!task && context && state.contextKey !== 'auditor' && !/^Você está/i.test(sourceText)) {
+      parts.push(`Você está em ${context.module}. ${sourceText}`);
+    } else {
+      parts.push(sourceText);
+    }
+
+    parts.push(riskGuidance(risk));
+
+    if (shouldMentionPrototype(question, sourceText, context)) {
+      parts.push(state.studioContext?.globalPrototypeNote || 'Nesta fase, algumas ações ainda não salvam de verdade.');
+    }
+
+    if (!task && !intent && context) {
+      parts.push(`Para eu te guiar melhor, diga qual área você quer mexer em ${context.module}: ${[...(context.editableItems || [])].slice(0, 4).join(', ')}.`);
+    }
+
+    saveHistory({ question, mode: currentMode()?.label || state.mode, risk, context: context?.module || 'Studio' });
 
     return {
-      text,
+      text: parts.filter(Boolean).join('\n\n'),
       links: [],
-      quickReplies: intent?.quickReplies || currentMode()?.quickReplies || [],
+      quickReplies: task?.quickReplies || intent?.quickReplies || contextQuickReplies(),
     };
   }
 
@@ -432,7 +528,7 @@
     input.type = 'text';
     input.name = 'message';
     input.autocomplete = 'off';
-    input.placeholder = admin ? 'Pergunte sobre conteúdo, técnica, SEO, segurança ou publicação...' : 'Digite sua pergunta...';
+    input.placeholder = admin ? 'Pergunte sobre esta tela, uma mudança ou um risco...' : 'Digite sua pergunta...';
     input.setAttribute('aria-label', admin ? 'Mensagem para o Auditor VnA' : 'Mensagem para o Assistente VnA');
 
     const send = makeElement('button', 'vna-intel-send', 'Enviar');
@@ -465,8 +561,8 @@
         container.querySelectorAll('.vna-intel-mode').forEach((item) => {
           item.setAttribute('aria-pressed', String(item.dataset.mode === state.mode));
         });
-        renderQuickReplies(elements.chips, mode.quickReplies, (reply) => submitQuestion(reply, elements));
-        appendMessage(elements.messages, 'agent', `Modo ${mode.label} ativo. ${mode.description || ''}`.trim());
+        renderQuickReplies(elements.chips, contextQuickReplies(), (reply) => submitQuestion(reply, elements));
+        appendMessage(elements.messages, 'agent', `Modo ${mode.label} ativo. Pode perguntar normalmente; se sua dúvida for de outro tipo, eu ajusto a orientação.`);
         elements.input.focus();
       });
       container.append(button);
@@ -532,6 +628,22 @@
     });
   }
 
+  function createAuditorPanel({ compact = false } = {}) {
+    const context = currentStudioContext();
+    const panel = makeElement('section', compact ? 'vna-intel-panel vna-intel-panel-studio' : '');
+    const header = makeElement('div', 'vna-intel-header');
+    const headerText = makeElement('div');
+    headerText.append(
+      makeElement('h2', 'vna-intel-title', state.assistant?.name || 'Auditor VnA'),
+      makeElement('p', 'vna-intel-subtitle', context ? `Contexto: ${context.module} · ${context.status}` : 'Módulo interno do VnA Studio.'),
+    );
+    header.append(headerText);
+
+    const contextBar = makeElement('div', 'vna-intel-context-bar', context ? `${context.description}` : 'Guia contextual do Studio.');
+    const elements = createChatElements({ admin: true });
+    return { panel, header, contextBar, elements };
+  }
+
   function renderHistory(container) {
     const entries = readHistory();
     container.replaceChildren();
@@ -546,7 +658,7 @@
       item.append(
         makeElement('strong', '', `${entry.risk} · ${entry.mode}`),
         makeElement('span', '', Number.isNaN(date.getTime()) ? '' : date.toLocaleString('pt-BR')),
-        makeElement('p', '', entry.question),
+        makeElement('p', '', entry.context ? `${entry.context}: ${entry.question}` : entry.question),
       );
       container.append(item);
     }
@@ -563,22 +675,14 @@
     const clearHistory = root.querySelector('[data-vna-auditor-clear]');
     if (!modeMount || !quickMount || !chatMount || !historyMount) return;
 
-    const elements = createChatElements({ admin: true });
+    const { header, contextBar, elements } = createAuditorPanel();
     elements.renderHistory = () => renderHistory(historyMount);
-
-    const header = makeElement('div', 'vna-intel-header');
-    const headerText = makeElement('div');
-    headerText.append(
-      makeElement('h2', 'vna-intel-title', state.assistant?.name || 'Auditor VnA'),
-      makeElement('p', 'vna-intel-subtitle', state.assistant?.description || 'Módulo interno do VnA Studio.'),
-    );
-    header.append(headerText);
-    chatMount.append(header, elements.messages, elements.footer);
+    chatMount.append(header, contextBar, elements.messages, elements.footer);
 
     renderModeButtons(modeMount, elements, true);
-    renderQuickReplies(quickMount, currentMode()?.quickReplies || [], (reply) => submitQuestion(reply, elements));
-    renderQuickReplies(elements.chips, currentMode()?.quickReplies || [], (reply) => submitQuestion(reply, elements));
-    appendMessage(elements.messages, 'agent', state.assistant.initialMessage);
+    renderQuickReplies(quickMount, contextQuickReplies(), (reply) => submitQuestion(reply, elements));
+    renderQuickReplies(elements.chips, contextQuickReplies(), (reply) => submitQuestion(reply, elements));
+    appendMessage(elements.messages, 'agent', initialAuditorMessage());
     renderHistory(historyMount);
 
     clearHistory?.addEventListener('click', () => {
@@ -587,10 +691,61 @@
     });
   }
 
+  function initStudioAuditorWidget() {
+    if (document.querySelector('[data-vna-intel-studio]')) return;
+
+    const button = makeElement('button', 'vna-intel-fab vna-intel-fab-studio');
+    button.type = 'button';
+    button.dataset.vnaIntelStudio = 'button';
+    button.setAttribute('aria-label', 'Abrir Auditor VnA contextual');
+    button.setAttribute('aria-expanded', 'false');
+    button.innerHTML = '<span class="vna-intel-fab-icon" aria-hidden="true"></span><span>Auditor VnA</span>';
+
+    const { panel, header, contextBar, elements } = createAuditorPanel({ compact: true });
+    panel.hidden = true;
+    panel.dataset.vnaIntelStudio = 'panel';
+    panel.setAttribute('aria-label', 'Auditor VnA contextual');
+
+    const close = makeElement('button', 'vna-intel-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Fechar Auditor VnA');
+    header.append(close);
+
+    panel.append(header, contextBar, elements.messages, elements.footer);
+    document.body.append(button, panel);
+
+    function openPanel() {
+      panel.hidden = false;
+      button.setAttribute('aria-expanded', 'true');
+      if (!state.initialized) {
+        appendMessage(elements.messages, 'agent', initialAuditorMessage());
+        renderQuickReplies(elements.chips, contextQuickReplies(), (reply) => submitQuestion(reply, elements));
+        state.initialized = true;
+      }
+      elements.input.focus();
+    }
+
+    function closePanel() {
+      panel.hidden = true;
+      button.setAttribute('aria-expanded', 'false');
+      button.focus();
+    }
+
+    button.addEventListener('click', () => {
+      if (panel.hidden) openPanel();
+      else closePanel();
+    });
+    close.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !panel.hidden) closePanel();
+    });
+  }
+
   async function init() {
     try {
       await loadIntelligence();
-      if (isAuditor) initAuditorPage();
+      if (isAuditorPage) initAuditorPage();
+      else if (isStudioAuditorWidget) initStudioAuditorWidget();
       else initPublicWidget();
     } catch (error) {
       console.warn('VnA Intelligence Core indisponivel:', error);

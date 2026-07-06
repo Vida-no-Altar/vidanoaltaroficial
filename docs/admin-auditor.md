@@ -2,14 +2,17 @@
 
 ## Função
 
-O Auditor VnA é um módulo interno do VnA Studio para revisar, orientar e proteger alterações feitas dentro do Studio.
+O Auditor VnA é um módulo interno do VnA Studio para orientar o uso do painel, revisar riscos simples e proteger decisões antes de publicar alterações.
+
+Na Fase 0.2, ele deixa de ser apenas uma lista de respostas gerais e passa a funcionar como guia contextual.
 
 Ele ajuda a:
 
 - encontrar o módulo certo do Studio;
-- entender riscos antes de alterar páginas, conteúdos, produtos, imagens e configurações;
-- revisar linguagem, SEO, segurança e publicação;
-- explicar o que ainda é protótipo na Fase 0;
+- responder conforme a tela atual;
+- explicar riscos em linguagem simples;
+- sugerir o que revisar antes de publicar;
+- explicar o que ainda é protótipo;
 - apoiar testes com histórico local no navegador.
 
 O Auditor VnA não deve orientar usuários leigos a editar arquivos do projeto. A rotina esperada é sempre pelo Studio: Páginas, Editor, Conteúdos, Produtos, Mídia, Configurações e Publicação futura.
@@ -20,6 +23,14 @@ O Auditor VnA não deve orientar usuários leigos a editar arquivos do projeto. 
 /studio/auditor/
 ```
 
+Também é possível abrir o Auditor com contexto:
+
+```text
+/studio/auditor/?context=editor
+/studio/auditor/?context=midia
+/studio/auditor/?context=produtos
+```
+
 Rotas legadas:
 
 ```text
@@ -28,62 +39,77 @@ Rotas legadas:
 
 A rota legada deve apenas apontar para o Studio e não competir como painel antigo.
 
-## Como deve responder
+## Contexto por tela
 
-Para perguntas comuns, o Auditor deve responder em formato de uso do Studio.
-
-Exemplo de estrutura recomendada:
+O contexto fica em:
 
 ```text
-Caminho no Studio:
-Studio > Páginas > Home ou Studio > Editor
-
-O que revisar:
-Bloco Hero, Sobre, Projetos ou Conteúdos em destaque.
-
-Risco:
-Médio ou alto, dependendo da mudança.
-
-Observação da Fase 0:
-A tela ainda é protótipo e o salvamento real virá na fase de persistência.
+content/studio-context.json
 ```
 
-Ele não deve responder perguntas comuns com instruções como abrir JSON, mexer em HTML, alterar CSS ou ir para o GitHub.
+Cada tela informa ao JavaScript qual módulo está aberto usando `data-studio-context`.
+
+O contexto define:
+
+- rota atual;
+- nome do módulo;
+- descrição do módulo;
+- ações principais;
+- itens editáveis planejados;
+- riscos comuns;
+- status da tela;
+- sugestões rápidas;
+- respostas de tarefas daquele módulo.
+
+## Como deve responder
+
+O Auditor deve soar como guia do painel, não como relatório técnico.
+
+Formato esperado:
+
+```text
+Você está no Editor visual. Para trocar uma imagem, selecione o bloco onde a imagem aparece, abra a área Imagem no painel de edição e escolha Substituir imagem.
+
+Essa é uma alteração comum, mas vale revisar antes de publicar porque pode aparecer para todo visitante.
+
+Nesta fase, o Studio ainda é um protótipo. Algumas ações mostram o caminho, mas ainda não salvam de verdade.
+```
+
+Evite começar respostas comuns com frases secas como "Risco estimado".
+
+Evite avisos técnicos fora de contexto.
+
+Evite mandar usuários comuns abrir JSON, HTML, CSS, GitHub ou arquivos do projeto.
 
 ## Modos
 
-Conteúdo:
-Páginas, blocos, textos, conteúdos, produtos, projetos e linguagem do VnA Studio.
+Os modos continuam existindo:
 
-Técnico:
-Limitações da Fase 0, protótipo estático, arquitetura futura, Pages, Workers, D1 e R2. Mesmo neste modo, a resposta deve explicar que o objetivo do Studio é esconder a camada técnica da rotina.
+- Conteúdo;
+- Técnico;
+- SEO;
+- Segurança;
+- Publicação.
 
-SEO:
-SEO de páginas, conteúdos, compartilhamento, headings e imagens pelo fluxo planejado do Studio.
+Mas o usuário não precisa escolher perfeitamente. Se a pergunta parecer de outro modo, o Auditor pode orientar por esse lado naturalmente.
 
-Segurança:
-Limites reais da Fase 0, ausência de login real, noindex/robots como organização e não como segurança, permissões futuras e ações críticas.
-
-Publicação:
-Fluxo planejado de rascunho, revisão, preview, aprovação e publicação pelo Studio.
-
-## Riscos
+## Riscos em linguagem humana
 
 Baixo:
-Correções simples de texto, typos e ajustes pequenos em blocos já existentes.
+Mudança simples, mas ainda merece uma conferida.
 
 Médio:
-Mudança de texto institucional, links, descrições, cards, conteúdos comuns e produtos básicos.
+Alteração comum que pode aparecer para todo visitante.
 
 Alto:
-Alteração de estrutura visual, remoção de projeto, troca de imagem principal, status de projeto ativo ou SEO principal.
+Mudança que pode afetar estrutura, mensagem principal ou navegação.
 
 Crítico:
-Usuários, permissões, autenticação, domínio, DNS, publicação, integrações e ações irreversíveis.
+Mudança sensível que deve exigir aprovação clara em fase futura.
 
 ## Histórico local
 
-A Fase 0 usa `localStorage` para manter um histórico local das perguntas feitas ao Auditor.
+A Fase 0.2 usa `localStorage` para manter um histórico local das perguntas feitas ao Auditor.
 
 Texto oficial do histórico:
 
@@ -97,19 +123,21 @@ Esse histórico pode ser apagado, alterado ou perdido. Ele não substitui audito
 
 O Auditor não cria login real, permissões reais, proteção de rota ou auditoria multiusuário.
 
-Como a Fase 0 é estática, o Studio deve ser tratado como protótipo público do ponto de vista técnico. `noindex` e `robots.txt` ajudam a evitar indexação, mas não são segurança.
+Como a Fase 0.2 é estática, o Studio deve ser tratado como protótipo público do ponto de vista técnico. `noindex` e `robots.txt` ajudam a evitar indexação, mas não são segurança.
 
 Segurança real deve vir em fase futura com autenticação, permissões por função, segunda etapa obrigatória, reautenticação em ações críticas e backend próprio.
 
 ## Manutenção técnica das respostas
 
-A base técnica do Auditor fica em:
+Bases técnicas:
 
 ```text
 content/admin-auditor.json
+content/studio-context.json
+assets/vna-intelligence.js
 ```
 
-Esse arquivo é manutenção do projeto, não fluxo de uso para o usuário comum do Studio.
+Esses arquivos são manutenção do projeto, não fluxo de uso para o usuário comum do Studio.
 
 Ao alterar respostas, mantenha a orientação pelo Studio:
 
@@ -120,4 +148,4 @@ Ao alterar respostas, mantenha a orientação pelo Studio:
 - `Studio > Mídia`
 - `Studio > Configurações`
 
-Evite respostas comuns que mandem editar arquivos diretamente. A exceção é uma pergunta claramente técnica, e mesmo assim a resposta deve explicar que a meta do Studio é esconder essa camada da rotina.
+A exceção é uma pergunta claramente técnica, e mesmo assim a resposta deve explicar que a meta do Studio é esconder essa camada da rotina.

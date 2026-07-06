@@ -1,0 +1,74 @@
+{
+  "version": "0.1.0",
+  "name": "VnA Studio",
+  "phase": "Fase 0",
+  "updatedAt": "2026-07-05",
+  "description": "O painel visual para criar, editar e publicar o ecossistema Vida no Altar.",
+  "officialRoute": "/studio/",
+  "legacyRoute": "/admin/",
+  "status": "protótipo estático navegável",
+  "principles": [
+    "O VnA Studio evolui o Admin existente; não é um painel concorrente.",
+    "Tudo que for editável no site público deve caminhar para edição visual no Studio.",
+    "A Fase 0 não implementa autenticação, persistência real, banco de dados ou API própria.",
+    "Nenhuma senha, token ou segredo deve ser armazenado no front-end ou no repositório."
+  ],
+  "routes": [
+    { "path": "/studio/", "name": "Dashboard", "status": "protótipo", "purpose": "Visão geral do ecossistema, atalhos e estado da migração." },
+    { "path": "/studio/paginas/", "name": "Páginas", "status": "protótipo", "purpose": "Planejar edição visual de seções e páginas públicas." },
+    { "path": "/studio/editor/", "name": "Editor visual", "status": "protótipo", "purpose": "Fundação para edição visual futura e ponte temporária com o editor técnico legado." },
+    { "path": "/studio/conteudos/", "name": "Conteúdos", "status": "protótipo", "purpose": "Organizar catálogo editorial, projetos, temas, formatos e links." },
+    { "path": "/studio/produtos/", "name": "Produtos e indicações", "status": "protótipo", "purpose": "Preparar cadastro ético de Bíblias, livros, materiais e links afiliados." },
+    { "path": "/studio/midia/", "name": "Mídia", "status": "protótipo", "purpose": "Organizar imagens, logos, thumbnails, uploads e arquivos futuros." },
+    { "path": "/studio/usuarios/", "name": "Usuários e permissões", "status": "planejado", "purpose": "Documentar funções futuras sem simular autenticação." },
+    { "path": "/studio/historico/", "name": "Histórico e versões", "status": "planejado", "purpose": "Preparar auditoria, restauração e trilha de alterações futuras." },
+    { "path": "/studio/auditor/", "name": "Auditor VnA", "status": "ativo estático", "purpose": "Reposicionar o Auditor Admin como módulo do Studio." },
+    { "path": "/studio/config/", "name": "Configurações", "status": "protótipo", "purpose": "Documentar domínio, SEO, publicação, integrações futuras e limites atuais." }
+  ],
+  "legacyRoutes": [
+    { "path": "/admin/", "behavior": "Aviso claro de migração para /studio/.", "future": "Remover quando o Studio tiver editor visual real." },
+    { "path": "/admin/auditor.html", "behavior": "Aviso de migração para /studio/auditor/.", "future": "Remover após estabilizar a rota nova." },
+    { "path": "/admin/assistente.html", "behavior": "Marcado como assistente legado e redundante.", "future": "Remover quando o Auditor VnA cobrir os fluxos úteis." },
+    { "path": "/admin/legacy.html", "behavior": "Ponte temporária para o Decap CMS existente.", "future": "Substituir por editor visual próprio." }
+  ],
+  "futureArchitecture": {
+    "hosting": "Cloudflare Pages para site público e Studio.",
+    "api": "Cloudflare Workers para API própria.",
+    "database": "Cloudflare D1 para dados estruturados.",
+    "storage": "Cloudflare R2 para imagens e arquivos.",
+    "accessLayer": "Cloudflare Access como camada extra opcional.",
+    "authentication": "E-mail e senha como login principal, com segunda etapa obrigatória.",
+    "authorization": "Permissões por função e reautenticação em ações críticas.",
+    "criticalActions": ["publicar", "alterar domínio", "alterar usuários", "alterar permissões", "excluir conteúdo", "trocar imagem principal"]
+  },
+  "plannedUsers": [
+    { "name": "Matheus", "futureEmail": "matheus@vidanoaltaroficial.com.br", "role": "Proprietário", "permission": "total" },
+    { "name": "Everaldo", "futureEmail": "everaldo@vidanoaltaroficial.com.br", "role": "Editor", "permission": "textos, imagens, links, conteúdos e produtos básicos" },
+    { "name": "Eliana", "futureEmail": "eliana@vidanoaltaroficial.com.br", "role": "Editora", "permission": "textos, imagens, links, conteúdos e produtos básicos" }
+  ],
+  "phase0Scope": [
+    "Plano de migração do Admin atual para o Studio.",
+    "Documentação da arquitetura futura.",
+    "Protótipos estáticos navegáveis das telas principais.",
+    "Estrutura inicial de rotas em /studio/.",
+    "Avisos claros nas rotas legadas de /admin/.",
+    "Auditor VnA reposicionado como módulo do Studio."
+  ],
+  "nonGoals": [
+    "login real",
+    "login simulado",
+    "senha no JavaScript",
+    "tokens ou segredos no repositório",
+    "persistência real",
+    "API própria",
+    "banco de dados",
+    "editor visual funcional completo"
+  ],
+  "editableSurfacePlan": [
+    { "area": "Site público", "currentFile": "content/site-content.json", "futureStudioModule": "/studio/paginas/" },
+    { "area": "Catálogo de conteúdos", "currentFile": "content/content-catalog.json", "futureStudioModule": "/studio/conteudos/" },
+    { "area": "Produtos e indicações", "currentFile": "content/product-catalog.json", "futureStudioModule": "/studio/produtos/" },
+    { "area": "Mídia", "currentFile": "public/images/ e public/uploads/", "futureStudioModule": "/studio/midia/" },
+    { "area": "Auditoria e orientação", "currentFile": "content/admin-auditor.json", "futureStudioModule": "/studio/auditor/" }
+  ]
+}

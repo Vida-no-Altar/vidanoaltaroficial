@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>VnA Studio | Vida no Altar</title>
+    <link rel="stylesheet" href="../assets/vna-studio.css" />
+  </head>
+  <body class="studio-body">
+    <div class="studio-shell">
+      <aside class="studio-sidebar">
+        <a class="studio-brand" href="./" aria-label="VnA Studio, dashboard"><img src="../Logo Vida no Altar.png" alt="" /><span><strong>VnA Studio</strong><span>Fase 0</span></span></a>
+        <nav class="studio-nav" aria-label="Navegação do VnA Studio">
+          <a href="./" aria-current="page">Dashboard</a><a href="paginas/">Páginas</a><a href="editor/">Editor visual</a><a href="conteudos/">Conteúdos</a><a href="produtos/">Produtos</a><a href="midia/">Mídia</a><a href="usuarios/">Usuários</a><a href="historico/">Histórico</a><a href="auditor/">Auditor VnA</a><a href="config/">Configurações</a>
+        </nav>
+        <p class="studio-sidebar-note">Protótipo estático. Sem login real, sem senhas locais, sem banco de dados e sem persistência real nesta fase.</p>
+      </aside>
+      <main class="studio-main">
+        <section class="studio-hero">
+          <p class="studio-eyebrow">Painel oficial</p>
+          <h1>VnA Studio</h1>
+          <p>O painel visual para criar, editar e publicar o ecossistema Vida no Altar. Nesta Fase 0, a base é arquitetura, migração e protótipo navegável.</p>
+          <div class="studio-status-row"><span class="studio-status">Fase 0</span><span class="studio-status">Estático</span><span class="studio-status">Sem autenticação real</span><span class="studio-status">Compatível com Pages</span></div>
+          <div class="studio-actions"><a class="studio-button" href="auditor/">Abrir Auditor VnA</a><a class="studio-button studio-button-secondary" href="../">Ver site público</a></div>
+        </section>
+
+        <section class="studio-section">
+          <h2>Módulos principais</h2>
+          <div class="studio-grid">
+            <article class="studio-card"><h3>Páginas</h3><p>Mapa futuro das seções editáveis do site público, começando pela landing page atual.</p><a href="paginas/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Editor visual</h3><p>Fundação para edição tipo construtor visual, com ponte temporária para o editor técnico legado.</p><a href="editor/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Conteúdos</h3><p>Central para devocionais, séries, temas, versículos, formatos e catálogo editorial.</p><a href="conteudos/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Produtos</h3><p>Estrutura para indicações éticas de Bíblias, livros e materiais, com transparência de afiliados.</p><a href="produtos/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Mídia</h3><p>Organização futura de imagens, thumbnails, logos, uploads e arquivos públicos.</p><a href="midia/">Ver módulo</a></article>
+            <article class="studio-card"><h3>Auditor VnA</h3><p>O Auditor Admin passa a ser módulo do Studio, mantendo regras, riscos e histórico local.</p><a href="auditor/">Ver módulo</a></article>
+          </div>
+        </section>
+
+        <section class="studio-section studio-grid studio-grid-two">
+          <div class="studio-panel"><h2>Arquitetura futura</h2><ul class="studio-list"><li>Cloudflare Pages para site público e Studio.</li><li>Cloudflare Workers para API própria.</li><li>Cloudflare D1 para dados estruturados.</li><li>Cloudflare R2 para imagens e arquivos.</li><li>Cloudflare Access como camada extra opcional.</li><li>Login futuro por e-mail e senha, com segunda etapa obrigatória.</li></ul></div>
+          <div class="studio-panel"><h2>Migração do Admin</h2><ul class="studio-list"><li><strong>/studio/</strong> é a rota oficial nova.</li><li><strong>/admin/</strong> vira legado temporário com aviso claro.</li><li><strong>/admin/legacy.html</strong> preserva o editor técnico existente.</li><li><strong>/admin/auditor.html</strong> aponta para <strong>/studio/auditor/</strong>.</li></ul></div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

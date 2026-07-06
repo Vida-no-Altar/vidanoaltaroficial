@@ -1,6 +1,6 @@
 # Vida no Altar - Landing Page
 
-Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, com conteúdo editável, área admin, assistentes próprios por regras e o primeiro núcleo do VnA Intelligence Core.
+Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, com conteúdo editável, VnA Studio em Fase 0, assistentes próprios por regras e o VnA Intelligence Core.
 
 ## Como rodar localmente
 
@@ -32,9 +32,62 @@ Antes de publicar ou commitar mudanças, rode:
 npm test
 ~~~
 
-Esse teste valida JSONs, links internos, arquivos referenciados, admin, assistentes, VnA Intelligence Core, rotas servidas localmente e ausência de caminhos locais absolutos ou canais provisórios indesejados.
+Esse teste valida JSONs, links internos, arquivos referenciados, rotas públicas, Studio, Admin legado, assistentes, VnA Intelligence Core e ausência de caminhos locais absolutos ou canais provisórios indesejados.
 
 Também existe verificação automática no GitHub Actions em todo push, pull request e execução manual.
+
+## VnA Studio
+
+O VnA Studio é a evolução do Admin existente. Ele não é um painel separado.
+
+Rota oficial:
+
+~~~text
+/studio/
+~~~
+
+Descrição:
+
+~~~text
+O painel visual para criar, editar e publicar o ecossistema Vida no Altar.
+~~~
+
+Rotas da Fase 0:
+
+~~~text
+/studio/              Dashboard
+/studio/paginas/      Páginas
+/studio/editor/       Editor visual
+/studio/conteudos/    Conteúdos
+/studio/produtos/     Produtos e indicações
+/studio/midia/        Mídia
+/studio/usuarios/     Usuários e permissões
+/studio/historico/    Histórico e versões
+/studio/auditor/      Auditor VnA
+/studio/config/       Configurações
+~~~
+
+A Fase 0 é estática e navegável. Não há login real novo, banco de dados, API própria, upload real ou persistência real.
+
+Arquivos principais:
+
+~~~text
+content/studio-core.json
+assets/vna-studio.css
+studio/
+docs/vna-studio.md
+docs/studio-migration-plan.md
+~~~
+
+## Admin legado
+
+`/admin/` agora é rota legada temporária e aponta para `/studio/`.
+
+`/admin/auditor.html` aponta para `/studio/auditor/`.
+
+`/admin/assistente.html` fica marcado como assistente legado.
+
+`/admin/legacy.html` preserva temporariamente o Decap CMS existente. Ele é ponte técnica, não o VnA Studio final.
 
 ## VnA Intelligence Core
 
@@ -43,7 +96,7 @@ O VnA Intelligence Core é a camada estática que organiza dados e regras para o
 Ele sustenta:
 
 - Assistente Público VnA;
-- Auditor Admin VnA;
+- Auditor VnA;
 - base institucional;
 - catálogo de conteúdos;
 - estrutura futura para recomendação de Bíblias e livros;
@@ -62,7 +115,7 @@ content/admin-auditor.json
 content/affiliate-disclosure.json
 assets/vna-intelligence.js
 assets/vna-intelligence.css
-admin/auditor.html
+studio/auditor/index.html
 docs/vna-intelligence-core.md
 docs/public-assistant.md
 docs/admin-auditor.md
@@ -102,8 +155,6 @@ content/vna-core.json
 
 Esse arquivo guarda marca, slogan, descrição, público, valores, projetos, contato, redes oficiais, assets oficiais, limites do assistente e regras éticas para afiliados.
 
-Use esse arquivo quando a mudança for sobre identidade, projetos, contatos oficiais ou regras gerais do ecossistema.
-
 ## Como editar o catálogo de conteúdos
 
 Edite:
@@ -111,25 +162,6 @@ Edite:
 ~~~text
 content/content-catalog.json
 ~~~
-
-Cada item pode ter:
-
-- `id`
-- `title`
-- `project`
-- `type`
-- `primaryTheme`
-- `secondaryThemes`
-- `verses`
-- `duration`
-- `format`
-- `shortDescription`
-- `internalSummary`
-- `recommendedAudience`
-- `recommendedMoment`
-- `link`
-- `thumbnail`
-- `status`
 
 Se ainda não existir link direto para um conteúdo, use `"#"`. Não invente URL.
 
@@ -142,8 +174,6 @@ content/product-catalog.json
 ~~~
 
 A V1 ainda não é loja. O arquivo prepara a estrutura para Bíblias, livros e materiais futuros.
-
-Produtos reais devem entrar em `products` com dados como categoria, tradução, editora, perfil indicado, nível de leitura, recursos, preço aproximado opcional, links afiliados e status.
 
 Enquanto não houver produto real cadastrado, o assistente não recomenda produto específico nem inventa link.
 
@@ -183,23 +213,14 @@ As respostas e modos ficam em:
 content/public-assistant.json
 ~~~
 
-Modos:
-
-- Descobrir;
-- Encontrar;
-- Entender;
-- Escolher.
-
-Para alterar respostas, edite intents, keywords, response e quickReplies nesse JSON. Para conteúdos pesquisáveis, edite `content/content-catalog.json`.
-
 Para desativar o widget público, remova do `index.html` o CSS e o script `vna-intelligence`.
 
-## Auditor Admin VnA
+## Auditor VnA
 
 Acesse:
 
 ~~~text
-/admin/auditor.html
+/studio/auditor/
 ~~~
 
 As regras e respostas ficam em:
@@ -217,18 +238,6 @@ Modos:
 - Publicação.
 
 O Auditor classifica risco como Baixo, Médio, Alto ou Crítico. O histórico é salvo em `localStorage`, apenas no navegador do admin. Isso não é auditoria real multiusuário.
-
-A página antiga `/admin/assistente.html` continua disponível como assistente legado.
-
-## Painel administrativo
-
-A rota preparada para edição visual fica em:
-
-~~~text
-/admin/
-~~~
-
-Ela usa Decap CMS como base para editar `content/site-content.json` sem mexer no código. Antes de usar em produção, é necessário configurar autenticação segura com GitHub OAuth no provedor de hospedagem escolhido. Não coloque senha, token ou segredo dentro do repositório.
 
 ## Como trocar a logo
 
@@ -280,7 +289,7 @@ public/images/hero-devocional.webp
 
 Como é um site estático, ele pode ser publicado em GitHub Pages, Cloudflare Pages, Netlify, Vercel ou hospedagem estática equivalente.
 
-Para GitHub Pages, o repositório já possui workflow de qualidade. Para Cloudflare Pages, publique a raiz do projeto como site estático, sem build obrigatório.
+Para GitHub Pages, o repositório possui workflow de qualidade. Para Cloudflare Pages, publique a raiz do projeto como site estático, sem build obrigatório.
 
 Antes de publicar:
 
@@ -288,12 +297,12 @@ Antes de publicar:
 npm test
 ~~~
 
-## Limitações da V1
+## Limitações atuais
 
 - Não há IA generativa.
 - Não há backend obrigatório.
 - Não há banco de dados.
-- Não há login real novo para o VnA Intelligence Core.
+- Não há login real novo para o VnA Studio.
 - Não há loja, carrinho ou checkout.
 - O recomendador de Bíblias ainda não lista produtos reais.
 - O histórico do auditor é local e pode ser apagado ou alterado pelo navegador.
@@ -301,8 +310,8 @@ npm test
 
 ## Próximos passos recomendados
 
-1. Cadastrar conteúdos reais com links diretos em `content/content-catalog.json`.
-2. Cadastrar produtos reais revisados em `content/product-catalog.json`.
-3. Criar páginas internas para conteúdos quando houver volume suficiente.
-4. Evoluir o painel admin para editar os novos catálogos com segurança.
-5. Criar uma política editorial para recomendações, afiliados e revisão de conteúdo.
+1. Criar formulários reais no Studio para editar `content/site-content.json`.
+2. Cadastrar conteúdos reais com links diretos em `content/content-catalog.json`.
+3. Cadastrar produtos reais revisados em `content/product-catalog.json`.
+4. Evoluir o Studio para API própria, banco e permissões reais.
+5. Substituir o editor técnico legado por editor visual próprio.

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Editor técnico legado | Vida no Altar</title>
+    <style>
+      body { margin: 0; background: #262523; color: #f2ebdf; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .admin-loading { min-height: 100svh; display: grid; place-items: center; padding: 32px; text-align: center; }
+      .admin-loading strong { display: block; color: #d9b752; font-size: 1.2rem; margin-bottom: 8px; }
+      .admin-loading p { max-width: 620px; margin: 0; color: rgba(242, 235, 223, 0.76); line-height: 1.55; }
+      .admin-links { position: fixed; right: 16px; bottom: 16px; z-index: 1000; display: grid; gap: 8px; }
+      .admin-link { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(217, 183, 82, 0.58); border-radius: 8px; background: #d9b752; color: #1b1a18; padding: 0 12px; font-weight: 850; text-decoration: none; }
+      .admin-link-secondary { background: rgba(242, 235, 223, 0.08); color: #f2e1ac; }
+      .admin-link:focus-visible { outline: 3px solid #f2e1ac; outline-offset: 3px; }
+      @media (max-width: 520px) { .admin-links { left: 16px; } }
+    </style>
+  </head>
+  <body>
+    <nav class="admin-links" aria-label="Ferramentas administrativas legadas"><a class="admin-link" href="../studio/">VnA Studio</a><a class="admin-link admin-link-secondary" href="../studio/auditor/">Auditor VnA</a></nav>
+    <div class="admin-loading" data-admin-loading><div><strong>Editor técnico legado</strong><p>Carregando a ponte temporária de edição. Esta rota preserva o Decap CMS existente enquanto o VnA Studio ainda não possui editor visual real.</p></div></div>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>window.addEventListener("load", () => { if (!window.CMS) return; document.querySelector("[data-admin-loading]")?.remove(); });</script>
+  </body>
+</html>

@@ -1,29 +1,31 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "name": "VnA Studio",
-  "phase": "Fase 0",
-  "updatedAt": "2026-07-05",
+  "phase": "Fase 0.2",
+  "updatedAt": "2026-07-06",
   "description": "O painel visual para criar, editar e publicar o ecossistema Vida no Altar.",
   "officialRoute": "/studio/",
   "legacyRoute": "/admin/",
-  "status": "protótipo estático navegável",
+  "status": "protótipo estático navegável com Auditor contextual",
+  "contextSource": "content/studio-context.json",
   "principles": [
     "O VnA Studio evolui o Admin existente; não é um painel concorrente.",
     "Tudo que for editável no site público deve caminhar para edição visual no Studio.",
-    "A Fase 0 não implementa autenticação, persistência real, banco de dados ou API própria.",
+    "A Fase 0.2 não implementa autenticação, persistência real, banco de dados ou API própria.",
+    "O Auditor VnA deve orientar pelo contexto da tela atual, não por edição manual de arquivos.",
     "Nenhuma senha, token ou segredo deve ser armazenado no front-end ou no repositório."
   ],
   "routes": [
-    { "path": "/studio/", "name": "Dashboard", "status": "protótipo", "purpose": "Visão geral do ecossistema, atalhos e estado da migração." },
-    { "path": "/studio/paginas/", "name": "Páginas", "status": "protótipo", "purpose": "Planejar edição visual de seções e páginas públicas." },
-    { "path": "/studio/editor/", "name": "Editor visual", "status": "protótipo", "purpose": "Fundação para edição visual futura e ponte temporária com o editor técnico legado." },
-    { "path": "/studio/conteudos/", "name": "Conteúdos", "status": "protótipo", "purpose": "Organizar catálogo editorial, projetos, temas, formatos e links." },
-    { "path": "/studio/produtos/", "name": "Produtos e indicações", "status": "protótipo", "purpose": "Preparar cadastro ético de Bíblias, livros, materiais e links afiliados." },
-    { "path": "/studio/midia/", "name": "Mídia", "status": "protótipo", "purpose": "Organizar imagens, logos, thumbnails, uploads e arquivos futuros." },
-    { "path": "/studio/usuarios/", "name": "Usuários e permissões", "status": "planejado", "purpose": "Documentar funções futuras sem simular autenticação." },
-    { "path": "/studio/historico/", "name": "Histórico e versões", "status": "planejado", "purpose": "Preparar auditoria, restauração e trilha de alterações futuras." },
-    { "path": "/studio/auditor/", "name": "Auditor VnA", "status": "ativo estático", "purpose": "Orientar o uso do Studio, revisar riscos e proteger decisões antes de publicar alterações." },
-    { "path": "/studio/config/", "name": "Configurações", "status": "protótipo", "purpose": "Documentar domínio, SEO, publicação, integrações futuras e limites atuais." }
+    { "path": "/studio/", "name": "Dashboard", "status": "Protótipo visual", "purpose": "Visão geral do ecossistema, atalhos e estado da migração." },
+    { "path": "/studio/paginas/", "name": "Páginas", "status": "Protótipo visual", "purpose": "Planejar edição visual de seções e páginas públicas." },
+    { "path": "/studio/editor/", "name": "Editor visual", "status": "Protótipo visual", "purpose": "Fundação para edição visual futura por blocos." },
+    { "path": "/studio/conteudos/", "name": "Conteúdos", "status": "Protótipo visual", "purpose": "Organizar catálogo editorial, projetos, temas, formatos e links." },
+    { "path": "/studio/produtos/", "name": "Produtos e indicações", "status": "Protótipo visual", "purpose": "Preparar cadastro ético de Bíblias, livros, materiais e links afiliados." },
+    { "path": "/studio/midia/", "name": "Mídia", "status": "Protótipo visual", "purpose": "Organizar imagens, logos, thumbnails, uploads e arquivos futuros." },
+    { "path": "/studio/usuarios/", "name": "Usuários e permissões", "status": "Planejado", "purpose": "Documentar funções futuras sem simular autenticação." },
+    { "path": "/studio/historico/", "name": "Histórico e versões", "status": "Planejado", "purpose": "Preparar auditoria, restauração e trilha de alterações futuras." },
+    { "path": "/studio/auditor/", "name": "Auditor VnA", "status": "Funcional parcial", "purpose": "Orientar o uso do Studio por contexto, revisar riscos e proteger decisões antes de publicar alterações." },
+    { "path": "/studio/config/", "name": "Configurações", "status": "Planejado", "purpose": "Documentar domínio, SEO, publicação, integrações futuras e limites atuais." }
   ],
   "legacyRoutes": [
     { "path": "/admin/", "behavior": "Aviso claro de migração para /studio/.", "future": "Remover quando o Studio tiver editor visual real." },
@@ -46,13 +48,13 @@
     { "name": "Everaldo", "futureEmail": "everaldo@vidanoaltaroficial.com.br", "role": "Editor", "permission": "textos, imagens, links, conteúdos e produtos básicos" },
     { "name": "Eliana", "futureEmail": "eliana@vidanoaltaroficial.com.br", "role": "Editora", "permission": "textos, imagens, links, conteúdos e produtos básicos" }
   ],
-  "phase0Scope": [
-    "Plano de migração do Admin atual para o Studio.",
-    "Documentação da arquitetura futura.",
-    "Protótipos estáticos navegáveis das telas principais.",
-    "Estrutura inicial de rotas em /studio/.",
-    "Avisos claros nas rotas legadas de /admin/.",
-    "Auditor VnA reposicionado como módulo do Studio."
+  "phase02Scope": [
+    "Contexto local por tela do Studio.",
+    "Auditor VnA com respostas diferentes conforme módulo atual.",
+    "Sugestões rápidas por tela.",
+    "Widget contextual do Auditor em telas do Studio.",
+    "Badges de status: Protótipo visual, Funcional parcial, Futuro, Planejado e Legado.",
+    "Linguagem mais humana para risco e limitação de protótipo."
   ],
   "nonGoals": [
     "login real",
@@ -62,13 +64,15 @@
     "persistência real",
     "API própria",
     "banco de dados",
-    "editor visual funcional completo"
+    "editor visual funcional completo",
+    "upload real",
+    "publicação real pelo Studio"
   ],
   "editableSurfacePlan": [
     { "area": "Site público", "currentFile": "content/site-content.json", "futureStudioModule": "/studio/paginas/" },
     { "area": "Catálogo de conteúdos", "currentFile": "content/content-catalog.json", "futureStudioModule": "/studio/conteudos/" },
     { "area": "Produtos e indicações", "currentFile": "content/product-catalog.json", "futureStudioModule": "/studio/produtos/" },
     { "area": "Mídia", "currentFile": "public/images/ e public/uploads/", "futureStudioModule": "/studio/midia/" },
-    { "area": "Auditoria e orientação", "currentFile": "content/admin-auditor.json", "futureStudioModule": "/studio/auditor/" }
+    { "area": "Auditoria e orientação", "currentFile": "content/admin-auditor.json e content/studio-context.json", "futureStudioModule": "/studio/auditor/" }
   ]
 }

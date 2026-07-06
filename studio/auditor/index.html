@@ -9,23 +9,23 @@
     <link rel="stylesheet" href="assets/vna-studio.css" />
     <link rel="stylesheet" href="assets/vna-intelligence.css" />
   </head>
-  <body class="vna-intel-admin-page studio-body" data-vna-intelligence="auditor">
+  <body class="vna-intel-admin-page studio-body" data-vna-intelligence="auditor" data-studio-context="auditor">
     <main class="vna-intel-admin-main" data-vna-auditor>
       <div class="vna-intel-admin-top">
         <div>
-          <p class="vna-intel-admin-eyebrow">VnA Studio</p>
+          <p class="vna-intel-admin-eyebrow">VnA Studio · Fase 0.2</p>
           <h1>Auditor VnA</h1>
-          <p>Módulo interno do VnA Studio para revisar, orientar e proteger alterações feitas dentro do Studio.</p>
+          <p>Guia contextual do VnA Studio para orientar caminhos visuais, revisar riscos e explicar limites de cada módulo.</p>
         </div>
         <a class="vna-intel-back" href="studio/" aria-label="Voltar para o VnA Studio">Voltar ao Studio</a>
       </div>
-      <p class="vna-intel-admin-notice">Ferramenta experimental e estática: as respostas vêm de regras públicas e ajudam a navegar pelo Studio. Nesta Fase 0, algumas ações ainda não salvam de verdade.</p>
+      <p class="vna-intel-admin-notice">O Auditor agora usa o contexto da tela: Dashboard, Páginas, Editor, Conteúdos, Produtos, Mídia, Usuários, Histórico ou Configurações. Nesta fase, ele orienta e revisa, mas não altera nem salva o site sozinho.</p>
       <section class="vna-intel-admin-shell" aria-label="Auditor VnA no VnA Studio">
-        <aside class="vna-intel-admin-sidebar" aria-label="Modos e sugestões do auditor"><div><h2>Modos</h2><p>Escolha o tipo de revisão antes de perguntar.</p><div class="vna-intel-admin-modes" data-vna-auditor-modes></div></div><div><h3>Sugestões rápidas</h3><div class="vna-intel-admin-quick" data-vna-auditor-quick></div></div></aside>
+        <aside class="vna-intel-admin-sidebar" aria-label="Modos e sugestões do auditor"><div><h2>Modos</h2><p>Os modos continuam disponíveis, mas você pode perguntar naturalmente.</p><div class="vna-intel-admin-modes" data-vna-auditor-modes></div></div><div><h3>Sugestões rápidas</h3><div class="vna-intel-admin-quick" data-vna-auditor-quick></div></div></aside>
         <section class="vna-intel-admin-chat" data-vna-auditor-chat aria-label="Chat do Auditor VnA"></section>
         <aside class="vna-intel-admin-history" aria-label="Histórico local do Auditor VnA"><h2>Histórico local</h2><p>Registros salvos apenas neste navegador para apoiar testes do protótipo. Isso ainda não é auditoria real multiusuário.</p><div class="vna-intel-admin-history-list" data-vna-auditor-history></div><button class="vna-intel-history-clear" type="button" data-vna-auditor-clear>Limpar histórico</button></aside>
       </section>
     </main>
-    <script src="assets/vna-intelligence.js" defer data-vna-intelligence="auditor"></script>
+    <script src="assets/vna-intelligence.js" defer data-vna-intelligence="auditor" data-vna-root=""></script>
   </body>
 </html>

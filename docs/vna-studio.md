@@ -33,6 +33,23 @@ A Fase 0 entrega fundação, arquitetura e protótipos estáticos navegáveis. E
 /studio/config/       Configurações
 ```
 
+## Auditor VnA
+
+O Auditor VnA é um módulo interno do VnA Studio. Ele ensina o uso do Studio, ajuda a entender riscos, orienta revisão de mudanças e explica limites da Fase 0.
+
+Ele deve orientar caminhos como:
+
+```text
+Studio > Páginas > Home
+Studio > Editor
+Studio > Conteúdos
+Studio > Produtos
+Studio > Mídia
+Studio > Configurações
+```
+
+O Auditor VnA não deve orientar usuários leigos a editar JSON, HTML, CSS, JavaScript, GitHub ou arquivos do projeto. A camada técnica ainda existe por baixo, mas o objetivo do Studio é esconder isso da rotina.
+
 ## Relação com o Admin antigo
 
 `/admin/` agora é legado temporário. A rota mostra aviso claro apontando para `/studio/`.
@@ -77,13 +94,17 @@ Tudo em `/studio/` é estático e público do ponto de vista técnico, por isso 
 
 Os e-mails futuros ficam documentados em `content/studio-core.json`. Não há cadastro real de usuários nesta fase.
 
-## Fontes atuais de dados
+## Fontes técnicas atuais de dados
+
+Na Fase 0, o Studio ainda é estático. Por baixo da interface, estes arquivos sustentam o protótipo:
 
 - Site público: `content/site-content.json`
 - Conteúdos: `content/content-catalog.json`
 - Produtos: `content/product-catalog.json`
 - Auditor: `content/admin-auditor.json`
 - Base do Studio: `content/studio-core.json`
+
+Essas fontes são documentação e manutenção técnica. Para o usuário do Studio, a experiência deve ser pensada por módulos visuais, não por arquivos.
 
 ## Próximas fases
 

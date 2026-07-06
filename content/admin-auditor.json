@@ -1,153 +1,226 @@
 {
-  "name": "Auditor Admin VnA",
-  "type": "admin-auditor",
-  "description": "Guia interno para revisar conteúdo, técnica, SEO, segurança e publicação do site Vida no Altar.",
-  "initialMessage": "Olá! Eu sou o Auditor Admin VnA. Posso ajudar você a entender onde editar, classificar riscos e preparar mudanças com mais clareza. O histórico desta V1 é local neste navegador e não é auditoria real multiusuário.",
-  "fallback": "Não tenho uma resposta pronta para isso ainda. Verifique content/site-content.json, content/vna-core.json, content/content-catalog.json, content/product-catalog.json, index.html, assets/, studio/ ou README.md conforme o tipo de alteração.",
+  "name": "Auditor VnA",
+  "type": "studio-auditor",
+  "description": "Módulo interno do VnA Studio para revisar, orientar e proteger alterações feitas dentro do Studio.",
+  "initialMessage": "Olá! Eu sou o Auditor VnA. Posso te ajudar a usar o VnA Studio, entender riscos, revisar mudanças e encontrar o lugar certo para editar páginas, conteúdos, produtos, imagens e configurações. Nesta fase, o Studio ainda é um protótipo estático, então algumas ações ainda não salvam de verdade.",
+  "fallback": "Não tenho uma resposta pronta para isso ainda. Tente procurar pelo módulo mais próximo no VnA Studio: Páginas, Editor, Conteúdos, Produtos, Mídia, Usuários, Histórico, Auditor ou Configurações.",
+  "quickReplies": [
+    "Onde edito textos no Studio?",
+    "Como criar uma página?",
+    "Como cadastrar um conteúdo?",
+    "Como cadastrar uma Bíblia ou livro?",
+    "Como trocar uma imagem?",
+    "Como revisar antes de publicar?",
+    "O que ainda é protótipo?"
+  ],
   "riskMatrix": [
     {
       "level": "Baixo",
-      "description": "Correções simples de texto, typos e ajustes pequenos.",
+      "description": "Correções simples de texto, typos e ajustes pequenos em blocos já existentes.",
       "keywords": ["typo", "erro de digitação", "corrigir texto", "ajuste pequeno", "pontuação"]
     },
     {
       "level": "Médio",
-      "description": "Mudança de texto institucional, links e descrições de projeto.",
-      "keywords": ["texto institucional", "link", "descrição", "projeto", "conteúdo"]
+      "description": "Mudança de texto institucional, links, descrições, cards e conteúdos comuns.",
+      "keywords": ["texto institucional", "link", "descrição", "projeto", "conteúdo", "card", "imagem"]
     },
     {
       "level": "Alto",
-      "description": "Alteração de estrutura, remoção de projeto, troca de imagem principal ou SEO principal.",
-      "keywords": ["estrutura", "remover", "imagem principal", "hero", "seo principal", "index.html"]
+      "description": "Mudança de estrutura visual, remoção de projeto, troca de imagem principal, status de projeto ativo ou SEO principal.",
+      "keywords": ["estrutura", "remover", "ocultar", "imagem principal", "hero", "seo principal", "projeto ativo", "home"]
     },
     {
       "level": "Crítico",
-      "description": "Usuários, permissões, integrações, domínio, DNS, publicação e estrutura do Studio.",
-      "keywords": ["usuário", "permissão", "login", "oauth", "domínio", "dns", "deploy", "publicação", "admin", "studio", "chave"]
+      "description": "Usuários, permissões, autenticação, domínio, DNS, publicação, integrações e ações irreversíveis.",
+      "keywords": ["usuário", "permissão", "login", "domínio", "dns", "deploy", "publicação", "integração", "chave", "senha"]
     }
   ],
   "modes": [
     {
       "id": "conteudo",
       "label": "Conteúdo",
-      "description": "Textos, projetos, catálogo, linguagem e organização editorial.",
-      "quickReplies": ["Onde edito textos do site?", "Como cadastrar um conteúdo?", "Como melhorar a seção Sobre?", "Qual risco de mudar um projeto?"],
+      "description": "Páginas, blocos, textos, conteúdos, produtos, projetos e linguagem do VnA Studio.",
+      "quickReplies": [
+        "Onde edito textos no Studio?",
+        "Como criar uma página?",
+        "Como cadastrar um conteúdo?",
+        "Como cadastrar uma Bíblia ou livro?",
+        "Como trocar uma imagem?",
+        "Como revisar antes de publicar?",
+        "O que ainda é protótipo?"
+      ],
       "intents": [
         {
           "id": "edit_site_texts",
-          "keywords": ["textos", "hero", "sobre", "títulos", "subtítulos", "copy", "editar textos"],
+          "keywords": ["textos", "texto", "hero", "títulos", "titulos", "subtítulos", "subtitulos", "copy", "editar textos", "onde edito textos", "textos do site"],
           "risk": "Médio",
-          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nBlocos hero, startHere, projects, about, featuredContent, resourceHub e contact.\n\nSugestão:\nMantenha frases curtas, bíblicas, humanas e sem prometer mais do que o VnA entrega hoje.\n\nMotivo:\nEsse arquivo concentra a copy pública sem mexer na estrutura do site.",
-          "suggestedFiles": ["content/site-content.json"]
+          "response": "Os textos do site devem ser editados pelo VnA Studio. Para textos da página inicial, vá em Studio > Páginas > Home ou Studio > Editor. Dentro da página, escolha o bloco que deseja alterar, como Hero, Sobre, Projetos ou Conteúdos em destaque. Nesta fase, a tela ainda é um protótipo visual; a edição com salvamento real virá na fase de persistência.",
+          "quickReplies": ["Como melhorar a seção Sobre?", "Como revisar antes de publicar?", "O que ainda é protótipo?"]
+        },
+        {
+          "id": "create_page",
+          "keywords": ["criar página", "criar pagina", "nova página", "nova pagina", "página interna", "pagina interna", "aba", "nova parte"],
+          "risk": "Alto",
+          "response": "Para criar uma página no fluxo planejado, vá em Studio > Páginas e escolha Nova página. Defina nome, objetivo, status, blocos principais e destino de navegação. Nesta Fase 0, isso ainda é apenas protótipo: a criação real de páginas virá quando o Studio tiver persistência e publicação controlada.",
+          "quickReplies": ["Qual risco de mudar um projeto?", "Como revisar antes de publicar?"]
         },
         {
           "id": "content_catalog",
-          "keywords": ["catálogo", "catalogo", "cadastrar conteúdo", "cadastrar conteudo", "tema", "versículo", "versiculo"],
-          "risk": "Baixo",
-          "response": "Arquivo:\ncontent/content-catalog.json\n\nO que editar:\nAdicione um item em items com id, title, project, type, primaryTheme, secondaryThemes, verses, duration, format, shortDescription, internalSummary, recommendedAudience, recommendedMoment, link, thumbnail e status.\n\nSugestão:\nSe ainda não houver link direto, use \"#\" e deixe claro no resumo interno que o link será cadastrado depois.\n\nMotivo:\nO catálogo é a base para o Assistente Público encontrar conteúdos por tema sem inventar respostas.",
-          "suggestedFiles": ["content/content-catalog.json"]
+          "keywords": ["catálogo", "catalogo", "cadastrar conteúdo", "cadastrar conteudo", "novo conteúdo", "novo conteudo", "devocional", "vídeo", "video", "série", "serie", "estudo"],
+          "risk": "Médio",
+          "response": "Vá em Studio > Conteúdos. Ali ficará o gerenciador de vídeos, devocionais, estudos e séries. Clique em Novo conteúdo, preencha título, projeto, tipo, descrição, link, capa, tema e status. Nesta Fase 0, essa tela ainda é protótipo; o cadastro real será implementado quando o Studio tiver banco e API.",
+          "quickReplies": ["Como revisar antes de publicar?", "Como trocar uma imagem?"]
+        },
+        {
+          "id": "product_catalog",
+          "keywords": ["bíblia", "biblia", "livro", "produto", "indicação", "indicacao", "cadastrar uma bíblia", "cadastrar uma biblia", "cadastrar livro", "afiliado"],
+          "risk": "Médio",
+          "response": "Vá em Studio > Produtos. Esse módulo será o lugar para cadastrar Bíblias, livros e materiais indicados pelo VnA. O cadastro planejado deve ter nome, categoria, tradução ou tipo, editora, perfil indicado, perfil não indicado, nível de leitura, recursos, observações, status e links oficiais. A regra principal é: recomendação vem antes de comissão. Nesta Fase 0, o módulo ainda é protótipo e não salva produtos reais.",
+          "quickReplies": ["Como revisar antes de publicar?", "O que ainda é protótipo?"]
         },
         {
           "id": "about_section",
-          "keywords": ["sobre", "matheus", "imagem", "quem está por trás", "quem esta por tras"],
+          "keywords": ["sobre", "matheus", "quem está por trás", "quem esta por tras", "seção sobre", "secao sobre"],
           "risk": "Médio",
-          "response": "Arquivo:\ncontent/site-content.json e index.html\n\nO que editar:\nNo JSON, use about.eyebrow, about.title, about.intro, about.presenceLines, about.text e about.closing. A imagem fica em public/images/matheus-sobre-vna.png e .webp.\n\nSugestão:\nA seção deve humanizar o VnA sem transformar o site em portfólio pessoal.\n\nMotivo:\nA marca continua sendo Vida no Altar; a imagem do Matheus dá rosto e confiança ao projeto.",
-          "suggestedFiles": ["content/site-content.json", "index.html", "public/images/matheus-sobre-vna.png"]
+          "response": "Vá em Studio > Páginas > Home ou Studio > Editor. Procure o bloco Sobre o Vida no Altar. Revise o título, o texto principal, a frase de destaque, o texto pessoal e a imagem. O ideal é manter o texto humano, curto, bíblico e sem prometer mais do que o VnA entrega hoje.",
+          "quickReplies": ["Como trocar uma imagem?", "Como revisar antes de publicar?"]
+        },
+        {
+          "id": "project_risk",
+          "keywords": ["risco", "mudar projeto", "alterar projeto", "remover projeto", "ocultar projeto", "status de projeto", "projeto ativo"],
+          "risk": "Alto",
+          "response": "Risco médio ou alto, dependendo da mudança. Alterar texto de um projeto é risco médio. Ocultar, remover ou mudar o status de um projeto ativo pode ser risco alto, porque afeta o que o visitante encontra no site público. Antes de publicar, revise onde esse projeto aparece: Home, Projetos, Assistente Público e conteúdos relacionados.",
+          "quickReplies": ["Como revisar antes de publicar?", "Onde edito textos no Studio?"]
+        },
+        {
+          "id": "change_image",
+          "keywords": ["trocar imagem", "imagem", "logo", "capa", "thumbnail", "foto", "mídia", "midia"],
+          "risk": "Médio",
+          "response": "Para trocar uma imagem no fluxo do Studio, vá em Studio > Mídia para organizar o arquivo e depois em Studio > Páginas > Home ou Studio > Editor para escolher o bloco que usa essa imagem. Imagens principais, como Hero, logo e Sobre, exigem revisão mais cuidadosa porque afetam a identidade visual. Nesta Fase 0, a tela de mídia ainda é inventário visual; upload e salvamento real ficam para fase futura.",
+          "quickReplies": ["Como revisar antes de publicar?", "O que ainda é protótipo?"]
         }
       ]
     },
     {
       "id": "tecnico",
       "label": "Técnico",
-      "description": "Arquivos, assets, JSONs, scripts e estrutura estática.",
-      "quickReplies": ["Como entendo a estrutura?", "Onde troco imagens?", "Como alterar links?", "Como revisar antes de publicar?"],
+      "description": "Limitações da Fase 0, protótipo estático, futura persistência e arquitetura Cloudflare.",
+      "quickReplies": ["O que ainda é protótipo?", "Como funciona a Fase 0?", "Quando o Studio vai salvar de verdade?", "Como será a arquitetura futura?"],
       "intents": [
         {
-          "id": "project_structure",
-          "keywords": ["estrutura", "pastas", "arquivos", "como funciona", "assets", "content", "admin", "studio"],
+          "id": "phase0_limits",
+          "keywords": ["protótipo", "prototipo", "fase 0", "salvar", "salvamento", "persistência", "persistencia", "ainda não salva", "ainda nao salva"],
           "risk": "Médio",
-          "response": "Arquivo:\nREADME.md e docs/vna-studio.md\n\nO que editar:\nUse content/ para dados, assets/ para CSS e JS, public/images/ para imagens, studio/ para o VnA Studio, admin/ para legado temporário e docs/ para documentação.\n\nSugestão:\nNão mova arquivos públicos sem atualizar index.html, scripts e validação.\n\nMotivo:\nComo o site é estático, organização de caminhos é parte essencial da estabilidade.",
-          "suggestedFiles": ["README.md", "docs/vna-studio.md", "content/", "assets/", "studio/", "admin/", "docs/"]
+          "response": "Nesta Fase 0, o VnA Studio é um protótipo estático navegável. Ele organiza o painel, os módulos, a navegação e as regras de uso, mas ainda não salva alterações reais. A fase de persistência deve trazer banco, API própria, histórico real e publicação controlada. Por enquanto, use o Studio para entender o fluxo e revisar decisões antes de transformar isso em edição real.",
+          "quickReplies": ["Como revisar antes de publicar?", "Como será a arquitetura futura?"]
         },
         {
-          "id": "links_images",
-          "keywords": ["links", "redes", "youtube", "instagram", "tiktok", "imagem", "logo", "hero"],
-          "risk": "Médio",
-          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nlinks para redes e e-mail no bloco links. Imagem do hero no campo hero.image. Logo oficial no arquivo Logo Vida no Altar.png.\n\nSugestão:\nNão use caminhos locais do computador no HTML, CSS, JSON ou README. Use caminhos relativos do projeto.\n\nMotivo:\nCaminhos locais quebram no GitHub Pages e na Cloudflare Pages.",
-          "suggestedFiles": ["content/site-content.json", "Logo Vida no Altar.png", "public/images/"]
+          "id": "future_architecture",
+          "keywords": ["arquitetura", "cloudflare", "workers", "d1", "r2", "access", "api", "banco", "upload"],
+          "risk": "Crítico",
+          "response": "A arquitetura planejada do VnA Studio é: Cloudflare Pages para site e Studio, Workers para API própria, D1 para dados estruturados, R2 para imagens e arquivos, e Access como camada extra opcional. Login real, permissões, segunda etapa e reautenticação em ações críticas ficam para fases futuras. A Fase 0 apenas prepara essa direção sem criar segurança falsa.",
+          "quickReplies": ["Existe segurança real no Studio?", "O que ainda é protótipo?"]
         },
         {
-          "id": "review_changes",
-          "keywords": ["revisar", "validar", "teste", "npm test", "antes de publicar", "erro"],
-          "risk": "Baixo",
-          "response": "Arquivo:\nscripts/validate-site.mjs\n\nO que editar:\nNormalmente nada. Rode npm test antes de publicar.\n\nSugestão:\nConfira JSON válido, links internos, arquivos referenciados, rotas /studio/ e /admin/ legado.\n\nMotivo:\nA validação automática reduz risco de publicar uma mudança quebrada.",
-          "suggestedFiles": ["scripts/validate-site.mjs", ".github/workflows/quality.yml"]
+          "id": "technical_underneath",
+          "keywords": ["por baixo", "técnico", "tecnico", "estrutura técnica", "estrutura tecnica", "como funciona por baixo", "arquivos estáticos", "arquivos estaticos"],
+          "risk": "Médio",
+          "response": "Tecnicamente, o projeto ainda é um site estático. Isso significa que os dados e telas existem como recursos públicos servidos pelo navegador. Mas a direção do VnA Studio é esconder essa camada da rotina: o usuário deve pensar em páginas, blocos, conteúdos, produtos, mídia e publicação, não em editar código. A ponte técnica atual só deve ser usada durante a transição por quem entende o risco.",
+          "quickReplies": ["O que ainda é protótipo?", "Como revisar antes de publicar?"]
+        },
+        {
+          "id": "legacy_editor",
+          "keywords": ["legado", "editor legado", "decap", "admin antigo", "ponte técnica", "ponte tecnica"],
+          "risk": "Alto",
+          "response": "O editor técnico legado existe apenas como ponte enquanto o Studio não tem edição persistente. Ele não é o fluxo ideal do VnA Studio. Para uso comum, prefira Studio > Páginas, Studio > Editor, Studio > Conteúdos, Studio > Produtos e Studio > Mídia. A meta é substituir essa ponte por edição visual real em fase futura.",
+          "quickReplies": ["O que ainda é protótipo?", "Quando o Studio vai salvar de verdade?"]
         }
       ]
     },
     {
       "id": "seo",
       "label": "SEO",
-      "description": "Title, description, Open Graph, headings, imagens e alt text.",
-      "quickReplies": ["Onde edito SEO?", "Como melhorar alt text?", "Como revisar Open Graph?", "Qual risco de mudar o title?"],
+      "description": "SEO de páginas, conteúdos, compartilhamento e leitura semântica dentro do Studio.",
+      "quickReplies": ["Onde edito SEO?", "Como revisar título e descrição?", "Como melhorar alt text?", "Qual risco de mudar SEO principal?"],
       "intents": [
         {
-          "id": "seo_fields",
-          "keywords": ["seo", "title", "meta description", "keywords", "google", "busca"],
+          "id": "seo_page_fields",
+          "keywords": ["seo", "title", "título", "titulo", "meta description", "descrição", "descricao", "keywords", "google", "busca", "open graph", "compartilhamento"],
           "risk": "Alto",
-          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nCampos meta.title, meta.description, meta.keywords, meta.url e meta.image.\n\nSugestão:\nMantenha o title Vida no Altar | Presença que transforma gerações e uma description clara sobre conteúdo cristão para jovens, adolescentes e toda a igreja.\n\nMotivo:\nSEO principal afeta busca, compartilhamento e percepção institucional.",
-          "suggestedFiles": ["content/site-content.json", "index.html"]
+          "response": "No fluxo planejado, SEO de página deve ficar em Studio > Páginas > Home > SEO da página ou Studio > Editor > Configurações do bloco/página. Revise título, descrição, imagem de compartilhamento, URL canônica e texto social. Nesta Fase 0, essa tela ainda é protótipo; a edição real virá com persistência.",
+          "quickReplies": ["Como revisar antes de publicar?", "Qual risco de mudar SEO principal?"]
         },
         {
-          "id": "headings_alt",
-          "keywords": ["h1", "h2", "h3", "heading", "alt", "texto alternativo", "imagem social"],
+          "id": "content_seo",
+          "keywords": ["seo do conteúdo", "seo do conteudo", "conteúdo", "conteudo", "card", "capa", "thumbnail", "alt", "texto alternativo"],
           "risk": "Médio",
-          "response": "Arquivo:\nindex.html\n\nO que editar:\nUse um h1 principal, h2 para seções e h3 para cards. Imagens relevantes precisam de alt objetivo; imagens decorativas podem ter alt vazio.\n\nSugestão:\nA imagem do Matheus deve manter alt: Matheus, criador do Vida no Altar, segurando uma Bíblia.\n\nMotivo:\nIsso melhora acessibilidade, leitura por tecnologias assistivas e clareza semântica.",
-          "suggestedFiles": ["index.html", "content/site-content.json"]
+          "response": "Para conteúdos, o caminho planejado é Studio > Conteúdos > SEO do conteúdo. Revise título público, descrição curta, capa, texto alternativo, tema principal e status. Para imagens, o texto alternativo deve explicar a imagem quando ela comunica algo importante; imagens decorativas podem ser tratadas como apoio visual.",
+          "quickReplies": ["Como cadastrar um conteúdo?", "Como trocar uma imagem?"]
+        },
+        {
+          "id": "seo_risk",
+          "keywords": ["risco de seo", "mudar seo", "seo principal", "mudar title", "mudar descrição", "mudar descricao"],
+          "risk": "Alto",
+          "response": "Mudar SEO principal costuma ser risco alto, porque afeta busca, compartilhamento e percepção institucional. Antes de publicar, compare o texto antigo e o novo, confirme se a promessa continua fiel ao VnA e revise a prévia social. Mudanças pequenas em SEO de conteúdo comum tendem a ser risco médio.",
+          "quickReplies": ["Como revisar antes de publicar?", "Onde edito SEO?"]
         }
       ]
     },
     {
       "id": "seguranca",
       "label": "Segurança",
-      "description": "Limites reais da V1, riscos, permissões e segredos.",
-      "quickReplies": ["Existe segurança real no Studio?", "Posso colocar senha no código?", "Como classificar risco?", "O histórico é auditoria real?"],
+      "description": "Limites reais da Fase 0, acesso, permissões, histórico e ações críticas.",
+      "quickReplies": ["Existe segurança real no Studio?", "Robots e noindex protegem o Studio?", "O histórico é auditoria real?", "Quais ações são críticas?"],
       "intents": [
         {
           "id": "real_security_boundary",
-          "keywords": ["segurança", "seguranca", "senha", "token", "chave", "permissão", "permissao", "login", "oauth"],
+          "keywords": ["segurança", "seguranca", "senha", "token", "chave", "permissão", "permissao", "login", "autenticação", "autenticacao"],
           "risk": "Crítico",
-          "response": "Arquivo:\nREADME.md e docs/vna-studio.md\n\nO que editar:\nNão coloque senha, token, chave secreta ou credencial em HTML, JS ou JSON público.\n\nSugestão:\nNa Fase 0, o Studio é uma área estática com protótipos e orientação. Segurança real depende de autenticação futura com backend ou provedor seguro.\n\nMotivo:\nTudo em site estático público pode ser lido por visitantes. Não finja segurança real onde ela ainda não existe.",
-          "suggestedFiles": ["README.md", "docs/vna-studio.md", "admin/config.yml"]
+          "response": "Nesta Fase 0, o VnA Studio ainda não tem login real. Robots e noindex ajudam a evitar indexação, mas não são segurança. Segurança real precisa vir em fase futura com autenticação, permissões por função, segunda etapa obrigatória e reautenticação em ações críticas. Até lá, o Studio deve ser tratado como protótipo público do ponto de vista técnico.",
+          "quickReplies": ["Quais ações são críticas?", "O histórico é auditoria real?"]
         },
         {
           "id": "local_history",
-          "keywords": ["histórico", "historico", "auditoria", "localstorage", "multiusuário", "multiusuario"],
+          "keywords": ["histórico", "historico", "auditoria", "localstorage", "multiusuário", "multiusuario", "registro"],
           "risk": "Alto",
-          "response": "Arquivo:\nassets/vna-intelligence.js\n\nO que editar:\nO histórico local usa localStorage apenas como registro no navegador do admin.\n\nSugestão:\nUse isso como apoio pessoal, não como auditoria real multiusuário. Para auditoria real no futuro será necessário backend ou integração segura.\n\nMotivo:\nlocalStorage pode ser apagado, alterado e não prova autoria de mudanças.",
-          "suggestedFiles": ["assets/vna-intelligence.js", "docs/admin-auditor.md"]
+          "response": "O histórico local do Auditor serve apenas para apoiar testes do protótipo neste navegador. Isso ainda não é auditoria real multiusuário. Ele pode ser apagado, alterado ou perdido. Auditoria real deve registrar usuário, data, ação, antes/depois e versão publicada em uma fase com backend e permissões reais.",
+          "quickReplies": ["Existe segurança real no Studio?", "Quais ações são críticas?"]
+        },
+        {
+          "id": "critical_actions",
+          "keywords": ["ação crítica", "acao critica", "ações críticas", "acoes criticas", "perigoso", "irreversível", "irreversivel", "publicar", "excluir", "domínio", "dominio", "usuários", "usuarios"],
+          "risk": "Crítico",
+          "response": "Ações críticas no Studio futuro incluem publicar mudanças, excluir conteúdo, alterar domínio, alterar usuários, mudar permissões, trocar imagem principal e mexer em integrações. Essas ações devem exigir confirmação forte, reautenticação e registro de histórico real. Na Fase 0, trate isso como regra de produto, não como função pronta.",
+          "quickReplies": ["Como revisar antes de publicar?", "Existe segurança real no Studio?"]
         }
       ]
     },
     {
       "id": "publicacao",
       "label": "Publicação",
-      "description": "GitHub Pages, Cloudflare Pages, domínio, DNS e checklist de deploy.",
-      "quickReplies": ["Como publicar?", "Como preparar Cloudflare Pages?", "Como configurar domínio?", "Checklist antes do deploy"],
+      "description": "Fluxo planejado de rascunho, revisão, preview, aprovação e publicação pelo Studio.",
+      "quickReplies": ["Como revisar antes de publicar?", "Como será o preview?", "Como funciona publicação?", "O que ainda é protótipo?"],
       "intents": [
         {
-          "id": "publish_static",
-          "keywords": ["publicar", "deploy", "github pages", "cloudflare pages", "hospedagem", "site no ar"],
-          "risk": "Crítico",
-          "response": "Arquivo:\nREADME.md e .github/workflows/quality.yml\n\nO que editar:\nNormalmente nada no código para GitHub Pages. Para Cloudflare Pages, publique a raiz do projeto como site estático, sem build obrigatório.\n\nSugestão:\nAntes do deploy, rode npm test, confira GitHub Actions e teste a página pública em desktop e celular.\n\nMotivo:\nPublicação e domínio afetam o site inteiro, então são mudanças críticas.",
-          "suggestedFiles": ["README.md", ".github/workflows/quality.yml"]
+          "id": "review_before_publish",
+          "keywords": ["revisar", "validar", "antes de publicar", "checklist", "conferir", "erro"],
+          "risk": "Médio",
+          "response": "No fluxo planejado do VnA Studio, antes de publicar uma mudança você deve passar por rascunho, revisão, preview e confirmação. Confira texto, links, imagens, versão mobile, SEO, status do conteúdo e risco estimado. Nesta Fase 0, esse fluxo ainda é orientação visual; a publicação com controle real virá depois.",
+          "quickReplies": ["Como funciona publicação?", "Existe segurança real no Studio?"]
         },
         {
-          "id": "domain_dns",
-          "keywords": ["domínio", "dominio", "dns", "email profissional", "vidanoaltaroficial.com.br"],
+          "id": "publish_flow",
+          "keywords": ["publicar", "publicação", "publicacao", "deploy", "preview", "rascunho", "aprovar", "colocar no ar"],
           "risk": "Crítico",
-          "response": "Arquivo:\nREADME.md\n\nO que editar:\nNão coloque dados de DNS, senhas ou chaves no repositório. Documente apenas passos gerais.\n\nSugestão:\nQuando o domínio estiver pronto, ajuste canonical, og:url, sitemap e configurações da hospedagem. O e-mail profissional continua como contato@vidanoaltaroficial.com.br.\n\nMotivo:\nDNS e domínio impactam publicação, SEO, e-mail e confiança institucional.",
-          "suggestedFiles": ["README.md", "sitemap.xml", "content/site-content.json"]
+          "response": "O fluxo ideal do Studio será: editar como rascunho, revisar risco, abrir preview, aprovar e publicar. Publicação deve ser uma ação crítica, com registro de versão e possibilidade de restauração. Na Fase 0, o Studio só demonstra o fluxo; publicar de verdade ainda depende da etapa técnica de hospedagem e automação futura.",
+          "quickReplies": ["Como revisar antes de publicar?", "O que ainda é protótipo?"]
+        },
+        {
+          "id": "cloudflare_pages",
+          "keywords": ["cloudflare pages", "github pages", "pages", "hospedagem", "domínio", "dominio"],
+          "risk": "Crítico",
+          "response": "O caminho futuro é manter o site e o Studio em hospedagem estática, com Cloudflare Pages como direção principal. A camada visual do Studio deve conversar com uma API própria em fase futura para salvar dados, publicar versões e organizar mídia. Domínio, DNS e publicação continuam sendo mudanças críticas e não devem ser tratados como edição comum.",
+          "quickReplies": ["Existe segurança real no Studio?", "Como funciona publicação?"]
         }
       ]
     }

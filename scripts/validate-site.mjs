@@ -235,6 +235,14 @@ async function validateHtml() {
   check(files['index.html'].includes('<html lang="pt-BR">'), 'index.html precisa declarar pt-BR.');
   check(files['index.html'].includes('data-vna-intelligence="public"'), 'Site público precisa preservar o Assistente Público.');
   check(files['index.html'].includes('public/images/matheus-sobre-vna.png'), 'Site público precisa preservar a imagem do Sobre.');
+  check(files['index.html'].includes('type="application/ld+json"'), 'Site público precisa manter dados estruturados JSON-LD.');
+  check(files['index.html'].includes('"@type": "Organization"'), 'JSON-LD precisa identificar o Vida no Altar como organização.');
+  check(files['index.html'].includes('"url": "https://vidanoaltaroficial.com.br/"'), 'JSON-LD precisa preservar a URL oficial.');
+  check(files['index.html'].includes('"logo": "https://vidanoaltaroficial.com.br/public/images/logo-vida-no-altar.svg"'), 'JSON-LD precisa apontar para a logo oficial.');
+  check(files['index.html'].includes('"https://www.youtube.com/@vidanoaltar.oficial"'), 'JSON-LD precisa preservar o YouTube oficial.');
+  check(files['index.html'].includes('"https://www.instagram.com/vidanoaltar.oficial"'), 'JSON-LD precisa preservar o Instagram oficial.');
+  check(files['index.html'].includes('"https://www.tiktok.com/@vidanoaltar.oficial"'), 'JSON-LD precisa preservar o TikTok oficial.');
+  check(files['index.html'].includes('"email": "contato@vidanoaltaroficial.com.br"'), 'JSON-LD precisa preservar o e-mail oficial.');
 
   check(files['admin/index.html'].includes('O Admin agora é VnA Studio'), '/admin/ precisa avisar migração.');
   check(files['admin/index.html'].includes('../studio/'), '/admin/ precisa apontar para /studio/.');

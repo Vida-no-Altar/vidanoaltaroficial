@@ -1,6 +1,6 @@
 # Vida no Altar - Landing Page
 
-Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, com conteúdo editável, VnA Studio em Fase 0.2, assistentes próprios por regras e o VnA Intelligence Core.
+Site estático oficial do projeto cristão Vida no Altar. A base continua leve, responsiva e simples de publicar, com conteúdo editável, VnA Studio em Fase 0.4, assistentes próprios por regras e o VnA Intelligence Core.
 
 ## Como rodar localmente
 
@@ -52,7 +52,7 @@ Descrição:
 O painel visual para criar, editar e publicar o ecossistema Vida no Altar.
 ~~~
 
-Rotas da Fase 0.2:
+Rotas da Fase 0.4:
 
 ~~~text
 /studio/              Dashboard
@@ -67,7 +67,18 @@ Rotas da Fase 0.2:
 /studio/config/       Configurações
 ~~~
 
-A Fase 0.2 é estática e navegável. Não há login real novo, banco de dados, API própria, upload real ou persistência real.
+A Fase 0.4 é estática, navegável e interativa em protótipo. Não há login real novo, banco de dados, API própria, upload real, publicação real ou persistência real.
+
+As primeiras experiências visuais simuladas ficam em:
+
+~~~text
+/studio/editor/       formulário visual da Home com preview, rascunho local e revisão
+/studio/conteudos/    cadastro simulado de conteúdo com preview, alertas e revisão
+/studio/midia/        editor visual simulado de imagem com revisão local
+/studio/historico/    histórico local do protótipo
+~~~
+
+Tudo nessas telas é rascunho local de teste. Alterar campos muda o preview, permite salvar neste navegador, comparar antes/depois e simular publicação, mas não altera o site publicado.
 
 No uso normal, o Studio deve ser entendido como painel visual. O Auditor VnA orienta caminhos dentro do Studio, como `Studio > Páginas > Home`, `Studio > Editor`, `Studio > Conteúdos`, `Studio > Produtos` e `Studio > Mídia`. Ele não deve orientar usuários leigos a editar arquivos do projeto.
 
@@ -100,7 +111,7 @@ Também é possível abrir o Auditor com contexto de um módulo:
 /studio/auditor/?context=produtos
 ~~~
 
-Na Fase 0.2, as telas do Studio carregam um widget contextual do Auditor. Cada tela informa o contexto com `data-studio-context`, e as sugestões rápidas mudam conforme o módulo atual.
+Na Fase 0.4, as telas do Studio carregam um widget contextual do Auditor. Cada tela informa o contexto com `data-studio-context`, e os campos principais usam `data-studio-field`, `data-studio-section` e textos de ajuda para o Auditor responder pelo campo ativo.
 
 A base de contexto fica em:
 
@@ -115,6 +126,37 @@ content/admin-auditor.json
 ~~~
 
 O Auditor não altera, salva nem publica o site sozinho. Ele orienta caminhos, explica riscos simples e lembra quando uma ação ainda é protótipo.
+
+## Formulários simulados, rascunho local e revisão
+
+`/studio/editor/` simula a edição da Home por blocos:
+
+- Hero;
+- Sobre;
+- Projetos;
+- Conteúdos em destaque;
+- Contato.
+
+`/studio/conteudos/` simula um cadastro editorial com título, projeto, tipo, descrição, link, capa, temas, versículos, duração e status.
+
+`/studio/midia/` simula configuração de imagem com caminho, alt text, opacidade, posição, tamanho, arredondamento e uso planejado.
+
+Os previews, rascunhos locais, revisões antes/depois, descartes, simulações de publicação e registros locais são controlados pelo script:
+
+~~~text
+assets/vna-studio-prototype.js
+~~~
+
+Esse script usa `localStorage` apenas para teste no navegador. Isso não é persistência real, não publica conteúdo, não faz upload e não substitui auditoria real.
+
+Na Fase 0.4, o fluxo visual é:
+
+1. Alterar campos simulados.
+2. Ver o badge de alterações não salvas.
+3. Salvar rascunho local.
+4. Revisar antes/depois.
+5. Descartar alterações ou simular publicação.
+6. Ver o registro local em `/studio/historico/`.
 
 ## Admin legado
 
@@ -272,13 +314,13 @@ npm test
 - Não há publicação real pelo Studio.
 - Não há loja, carrinho ou checkout.
 - O recomendador de Bíblias ainda não lista produtos reais.
-- O histórico do auditor é local e pode ser apagado ou alterado pelo navegador.
+- O histórico do auditor e o histórico de rascunhos são locais e podem ser apagados ou alterados pelo navegador.
 - Segurança real depende de autenticação e infraestrutura futura.
 
 ## Próximos passos recomendados
 
-1. Criar formulários visuais simulados no Studio.
-2. Evoluir a Home para edição por blocos sem abrir arquivos manualmente.
-3. Criar preview de rascunho para conteúdos e mídia.
-4. Evoluir para persistência real com API, banco e permissões.
+1. Criar Fase 0.5 com expansão de rascunhos para Produtos e Páginas.
+2. Preparar exportação/importação controlada de rascunhos para migração futura.
+3. Preparar Fase 1 com persistência real, autenticação e permissões.
+4. Implementar upload real de mídia em infraestrutura própria futura.
 5. Substituir o editor técnico legado por editor visual próprio.

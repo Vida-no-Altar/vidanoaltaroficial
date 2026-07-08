@@ -1,29 +1,29 @@
 {
-  "version": "0.2.0",
+  "version": "0.4.0",
   "name": "VnA Studio",
-  "phase": "Fase 0.2",
-  "updatedAt": "2026-07-06",
+  "phase": "Fase 0.4",
+  "updatedAt": "2026-07-07",
   "description": "O painel visual para criar, editar e publicar o ecossistema Vida no Altar.",
   "officialRoute": "/studio/",
   "legacyRoute": "/admin/",
-  "status": "protótipo estático navegável com Auditor contextual",
+  "status": "protótipo estático navegável com formulários simulados, preview local, rascunhos locais, revisão antes/depois e histórico local",
   "contextSource": "content/studio-context.json",
   "principles": [
     "O VnA Studio evolui o Admin existente; não é um painel concorrente.",
     "Tudo que for editável no site público deve caminhar para edição visual no Studio.",
-    "A Fase 0.2 não implementa autenticação, persistência real, banco de dados ou API própria.",
+    "A Fase 0.4 não implementa autenticação, persistência real, banco de dados ou API própria.",
     "O Auditor VnA deve orientar pelo contexto da tela atual, não por edição manual de arquivos.",
     "Nenhuma senha, token ou segredo deve ser armazenado no front-end ou no repositório."
   ],
   "routes": [
     { "path": "/studio/", "name": "Dashboard", "status": "Protótipo visual", "purpose": "Visão geral do ecossistema, atalhos e estado da migração." },
     { "path": "/studio/paginas/", "name": "Páginas", "status": "Protótipo visual", "purpose": "Planejar edição visual de seções e páginas públicas." },
-    { "path": "/studio/editor/", "name": "Editor visual", "status": "Protótipo visual", "purpose": "Fundação para edição visual futura por blocos." },
-    { "path": "/studio/conteudos/", "name": "Conteúdos", "status": "Protótipo visual", "purpose": "Organizar catálogo editorial, projetos, temas, formatos e links." },
+    { "path": "/studio/editor/", "name": "Editor visual", "status": "Funcional parcial", "purpose": "Simular edição visual da Home com campos, preview local, rascunho e revisão antes/depois." },
+    { "path": "/studio/conteudos/", "name": "Conteúdos", "status": "Funcional parcial", "purpose": "Simular cadastro editorial com preview de card, rascunho local e revisão." },
     { "path": "/studio/produtos/", "name": "Produtos e indicações", "status": "Protótipo visual", "purpose": "Preparar cadastro ético de Bíblias, livros, materiais e links afiliados." },
-    { "path": "/studio/midia/", "name": "Mídia", "status": "Protótipo visual", "purpose": "Organizar imagens, logos, thumbnails, uploads e arquivos futuros." },
+    { "path": "/studio/midia/", "name": "Mídia", "status": "Funcional parcial", "purpose": "Simular configuração visual de imagem, alt text, opacidade, posição, tamanho e revisão local." },
     { "path": "/studio/usuarios/", "name": "Usuários e permissões", "status": "Planejado", "purpose": "Documentar funções futuras sem simular autenticação." },
-    { "path": "/studio/historico/", "name": "Histórico e versões", "status": "Planejado", "purpose": "Preparar auditoria, restauração e trilha de alterações futuras." },
+    { "path": "/studio/historico/", "name": "Histórico e versões", "status": "Funcional parcial", "purpose": "Listar registros locais do protótipo e comparar antes/depois." },
     { "path": "/studio/auditor/", "name": "Auditor VnA", "status": "Funcional parcial", "purpose": "Orientar o uso do Studio por contexto, revisar riscos e proteger decisões antes de publicar alterações." },
     { "path": "/studio/config/", "name": "Configurações", "status": "Planejado", "purpose": "Documentar domínio, SEO, publicação, integrações futuras e limites atuais." }
   ],
@@ -55,6 +55,24 @@
     "Widget contextual do Auditor em telas do Studio.",
     "Badges de status: Protótipo visual, Funcional parcial, Futuro, Planejado e Legado.",
     "Linguagem mais humana para risco e limitação de protótipo."
+  ],
+  "phase03Scope": [
+    "Formulário visual simulado da Home em /studio/editor/.",
+    "Preview local da Home atualizando conforme os campos.",
+    "Cadastro simulado de conteúdo em /studio/conteudos/.",
+    "Preview de card editorial com status, projeto, tipo e botão.",
+    "Editor visual simulado de mídia em /studio/midia/.",
+    "Teste visual de opacidade, posição, tamanho e arredondamento de imagem.",
+    "Auditor VnA com contexto de campo ativo via data-studio-field."
+  ],
+  "phase04Scope": [
+    "Detecção visual de alterações não salvas.",
+    "Salvar rascunho local apenas neste navegador.",
+    "Revisão antes/depois com campo, seção, tipo, risco e observação.",
+    "Descartar alterações e voltar ao estado original do protótipo.",
+    "Simular publicação sem alterar o site público real.",
+    "Histórico local do protótipo em /studio/historico/.",
+    "Auditor VnA orientando rascunho local, revisão, histórico e limites."
   ],
   "nonGoals": [
     "login real",

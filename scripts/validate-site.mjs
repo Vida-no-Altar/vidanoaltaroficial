@@ -39,7 +39,7 @@ function cleanPath(ref) {
 }
 
 function hasNoIndexNoFollow(text) {
-  return /<meta\s+name="robots"\s+content="noindex,\s*nofollow"\s*\/>/i.test(text);
+  return /<meta\s+name="robots"\s+content="noindex,\s*nofollow"\s*\/?\s*>/i.test(text);
 }
 
 function hasLocalAbsolutePath(text) {
@@ -89,6 +89,7 @@ const requiredFiles = [
   'assets/vna-intelligence.css',
   'assets/vna-intelligence.js',
   'assets/vna-studio.css',
+  'assets/vna-studio-prototype.js',
   'content/site-content.json',
   'content/vna-core.json',
   'content/studio-core.json',
@@ -102,6 +103,7 @@ const requiredFiles = [
   'docs/vna-studio.md',
   'docs/vna-studio-roadmap.md',
   'docs/vna-studio-architecture.md',
+  'docs/vna-studio-drafts.md',
   'docs/studio-migration-plan.md',
   'docs/vna-intelligence-core.md',
   'docs/public-assistant.md',
@@ -135,8 +137,8 @@ async function validateJson() {
   check(Array.isArray(core.projects) && core.projects.length >= 6, 'Projetos institucionais insuficientes.');
 
   check(studio.name === 'VnA Studio', 'studio-core.json precisa nomear o VnA Studio.');
-  check(studio.version === '0.2.0', 'studio-core.json precisa registrar versão 0.2.0.');
-  check(studio.phase === 'Fase 0.2', 'studio-core.json precisa registrar Fase 0.2.');
+  check(studio.version === '0.4.0', 'studio-core.json precisa registrar versão 0.4.0.');
+  check(studio.phase === 'Fase 0.4', 'studio-core.json precisa registrar Fase 0.4.');
   check(studio.contextSource === 'content/studio-context.json', 'Studio precisa apontar para content/studio-context.json.');
   check(studio.officialRoute === '/studio/', 'A rota oficial do Studio precisa ser /studio/.');
   check(Array.isArray(studio.routes) && studio.routes.length === 10, 'Studio precisa registrar as 10 rotas planejadas.');
@@ -149,9 +151,11 @@ async function validateJson() {
   check(studio.plannedUsers?.some((user) => user.name === 'Everaldo'), 'Everaldo precisa estar planejado.');
   check(studio.plannedUsers?.some((user) => user.name === 'Eliana'), 'Eliana precisa estar planejada.');
   check(studio.nonGoals?.includes('senha no JavaScript'), 'Studio precisa registrar que senha no JavaScript está fora do escopo.');
+  check(Array.isArray(studio.phase03Scope) && studio.phase03Scope.length >= 6, 'studio-core.json precisa documentar escopo da Fase 0.3.');
+  check(Array.isArray(studio.phase04Scope) && studio.phase04Scope.length >= 6, 'studio-core.json precisa documentar escopo da Fase 0.4.');
 
-  check(studioContext.version === '0.2.0', 'studio-context.json precisa registrar versão 0.2.0.');
-  check(studioContext.phase === 'Fase 0.2', 'studio-context.json precisa registrar Fase 0.2.');
+  check(studioContext.version === '0.4.0', 'studio-context.json precisa registrar versão 0.4.0.');
+  check(studioContext.phase === 'Fase 0.4', 'studio-context.json precisa registrar Fase 0.4.');
   const expectedContexts = ['dashboard', 'paginas', 'editor', 'conteudos', 'produtos', 'midia', 'usuarios', 'historico', 'auditor', 'config'];
   for (const key of expectedContexts) {
     const context = studioContext.contexts?.[key];
@@ -165,6 +169,13 @@ async function validateJson() {
   check(editorImageTask?.response?.includes('Você está no Editor visual'), 'Resposta contextual de imagem no Editor precisa citar Editor visual.');
   check(mediaImageTask?.response?.includes('Você está na Mídia'), 'Resposta contextual de imagem em Mídia precisa citar Mídia.');
   check(editorImageTask?.response !== mediaImageTask?.response, 'Mesma pergunta precisa ter respostas diferentes entre Editor e Mídia.');
+  check(studioContext.contexts?.editor?.status === 'Funcional parcial', 'Editor precisa estar como Funcional parcial na Fase 0.4.');
+  check(studioContext.contexts?.conteudos?.status === 'Funcional parcial', 'Conteúdos precisa estar como Funcional parcial na Fase 0.4.');
+  check(studioContext.contexts?.midia?.status === 'Funcional parcial', 'Mídia precisa estar como Funcional parcial na Fase 0.4.');
+  check(studioContext.contexts?.historico?.status === 'Funcional parcial', 'Histórico precisa estar como Funcional parcial na Fase 0.4.');
+  check(studioContext.contexts?.editor?.quickReplies?.includes('Como salvo rascunho local?'), 'Editor precisa ter sugestão rápida de rascunho local.');
+  check(studioContext.contexts?.conteudos?.quickReplies?.includes('Como reviso o conteúdo?'), 'Conteúdos precisa ter sugestão rápida de revisão.');
+  check(studioContext.contexts?.midia?.quickReplies?.includes('Como reviso a mídia?'), 'Mídia precisa ter sugestão rápida de revisão de mídia.');
   check(studioContext.contexts?.produtos?.quickReplies?.includes('Como adicionar link afiliado?'), 'Produtos precisa ter sugestão rápida de afiliado.');
   check(studioContext.contexts?.usuarios?.quickReplies?.includes('Quando pedir aprovação ao Matheus?'), 'Usuários precisa ter sugestão rápida de aprovação.');
 
@@ -247,7 +258,7 @@ async function validateHtml() {
   check(files['admin/index.html'].includes('O Admin agora é VnA Studio'), '/admin/ precisa avisar migração.');
   check(files['admin/index.html'].includes('../studio/'), '/admin/ precisa apontar para /studio/.');
   check(files['admin/auditor.html'].includes('../studio/auditor/'), '/admin/auditor.html precisa apontar para /studio/auditor/.');
-  check(files['admin/assistente.html'].includes('Assistente Admin legado'), '/admin/assistente.html precisa ser legado.');
+  check(files['admin/assistente.html'].includes('Assistente legado'), '/admin/assistente.html precisa ser legado.');
   check(files['admin/legacy.html'].includes('Editor técnico legado'), '/admin/legacy.html precisa preservar editor legado.');
   check(files['admin/legacy.html'].includes('decap-cms'), '/admin/legacy.html precisa manter Decap CMS temporariamente.');
 
@@ -256,10 +267,11 @@ async function validateHtml() {
   }
 
   check(files['studio/index.html'].includes('VnA Studio'), '/studio/ precisa abrir dashboard.');
-  check(files['studio/index.html'].includes('Fase 0.2'), '/studio/ precisa indicar Fase 0.2.');
+  check(files['studio/index.html'].includes('Fase 0.4'), '/studio/ precisa indicar Fase 0.4.');
   check(files['studio/auditor/index.html'].includes('data-vna-intelligence="auditor"'), '/studio/auditor/ precisa carregar o Auditor.');
   check(files['studio/auditor/index.html'].includes('<base href="../../"'), '/studio/auditor/ precisa ter base compatível com GitHub Pages.');
-  check(!files['studio/auditor/index.html'].includes('Auditor Admin VnA'), '/studio/auditor/ não deve mostrar Auditor Admin VnA.');
+  const oldAuditorName = ['Auditor', 'Admin', 'VnA'].join(' ');
+  check(!files['studio/auditor/index.html'].includes(oldAuditorName), '/studio/auditor/ não deve mostrar o nome antigo do módulo.');
   check(files['studio/auditor/index.html'].includes('Registros salvos apenas neste navegador para apoiar testes do protótipo. Isso ainda não é auditoria real multiusuário.'), 'Histórico local do Auditor precisa usar o texto correto.');
 
   const studioContextByFile = {
@@ -281,6 +293,23 @@ async function validateHtml() {
   for (const path of Object.keys(studioContextByFile).filter((item) => item !== 'studio/auditor/index.html')) {
     check(files[path].includes('data-vna-intelligence="studio-auditor"'), `${path} precisa carregar o widget contextual do Auditor.`);
     check(files[path].includes('data-vna-root='), `${path} precisa informar raiz para carregar JSONs.`);
+  }
+  check(files['studio/editor/index.html'].includes('data-studio-prototype="home-editor"'), '/studio/editor/ precisa ter protótipo de edição da Home.');
+  check(files['studio/editor/index.html'].includes('data-studio-field="hero-title"'), '/studio/editor/ precisa ter campo de título do Hero.');
+  check(files['studio/editor/index.html'].includes('Salvar rascunho local'), '/studio/editor/ precisa permitir salvar rascunho local.');
+  check(files['studio/editor/index.html'].includes('Revisar alterações'), '/studio/editor/ precisa permitir revisar alterações.');
+  check(files['studio/editor/index.html'].includes('Simular publicação'), '/studio/editor/ precisa permitir simular publicação.');
+  check(files['studio/conteudos/index.html'].includes('data-studio-prototype="content-editor"'), '/studio/conteudos/ precisa ter formulário simulado de conteúdo.');
+  check(files['studio/conteudos/index.html'].includes('data-studio-field="content-status"'), '/studio/conteudos/ precisa ter campo de status.');
+  check(files['studio/conteudos/index.html'].includes('Este cadastro ainda é simulado'), '/studio/conteudos/ precisa avisar que cadastro é simulado.');
+  check(files['studio/conteudos/index.html'].includes('Revisar conteúdo'), '/studio/conteudos/ precisa permitir revisar conteúdo.');
+  check(files['studio/midia/index.html'].includes('data-studio-prototype="media-editor"'), '/studio/midia/ precisa ter editor visual simulado de mídia.');
+  check(files['studio/midia/index.html'].includes('data-studio-field="image-opacity"'), '/studio/midia/ precisa ter controle de opacidade.');
+  check(files['studio/midia/index.html'].includes('Upload real será implementado'), '/studio/midia/ precisa avisar que upload real é futuro.');
+  check(files['studio/midia/index.html'].includes('Revisar alterações'), '/studio/midia/ precisa permitir revisar alterações.');
+  check(files['studio/historico/index.html'].includes('data-studio-history'), '/studio/historico/ precisa listar histórico local.');
+  for (const path of ['studio/editor/index.html', 'studio/conteudos/index.html', 'studio/midia/index.html']) {
+    check(files[path].includes('assets/vna-studio-prototype.js') || files[path].includes('../../assets/vna-studio-prototype.js'), `${path} precisa carregar assets/vna-studio-prototype.js.`);
   }
 
   const ids = findAll(files['index.html'], /\sid="([^"]+)"/g);
@@ -308,16 +337,23 @@ async function validateDocsSafetyAndConfig() {
   const readme = await readText('README.md');
   const config = await readText('admin/config.yml');
   const intelligence = await readText('assets/vna-intelligence.js');
+  const studioPrototype = await readText('assets/vna-studio-prototype.js');
 
   check(robots.includes('Disallow: /admin/'), 'robots.txt precisa bloquear /admin/.');
   check(robots.includes('Disallow: /studio/'), 'robots.txt precisa bloquear /studio/.');
   check(readme.includes('VnA Studio'), 'README precisa documentar VnA Studio.');
-  check(readme.includes('Fase 0.2'), 'README precisa documentar Fase 0.2.');
+  check(readme.includes('Fase 0.4'), 'README precisa documentar Fase 0.4.');
   check(readme.includes('/studio/auditor/'), 'README precisa documentar /studio/auditor/.');
   check(readme.includes('content/studio-context.json'), 'README precisa documentar content/studio-context.json.');
+  check(readme.includes('assets/vna-studio-prototype.js'), 'README precisa documentar o script de preview local.');
+  check(readme.includes('/studio/historico/'), 'README precisa documentar o histórico local do Studio.');
   check(readme.includes('Ele não deve orientar usuários leigos a editar arquivos do projeto.'), 'README precisa explicar o papel correto do Auditor VnA.');
   check(intelligence.includes('studioContext'), 'Motor precisa carregar contexto do Studio.');
   check(intelligence.includes('data-vna-intelligence') && intelligence.includes('studio-auditor'), 'Motor precisa suportar widget contextual do Studio.');
+  check(intelligence.includes('data-studio-field') && intelligence.includes('fieldSpecificResponse'), 'Auditor precisa reconhecer contexto de campos do Studio.');
+  check(studioPrototype.includes('data-preview-text') && studioPrototype.includes('data-preview-opacity'), 'Script de protótipo precisa atualizar textos e opacidade.');
+  check(studioPrototype.includes('saveLocalDraft') && studioPrototype.includes('renderReview'), 'Script de protótipo precisa controlar rascunho local e revisão.');
+  check(studioPrototype.includes('registerLocalHistory') && studioPrototype.includes('simulatePublish'), 'Script de protótipo precisa registrar histórico local e simular publicação.');
   check(!intelligence.includes('Risco estimado:'), 'Auditor não deve montar respostas começando com Risco estimado.');
   check(!intelligence.includes('Não coloque segredos no repositório'), 'Auditor não deve despejar aviso técnico de repositório em perguntas comuns.');
   check(config.includes('repo: Vida-no-Altar/vidanoaltaroficial'), 'admin/config.yml precisa apontar para o repositório oficial.');
@@ -355,7 +391,7 @@ async function validateServerRoutes() {
 
     const routes = [
       ['/', 'VIDA NO ALTAR'],
-      ['/studio/', 'Fase 0.2'],
+      ['/studio/', 'Fase 0.4'],
       ['/studio/paginas/', 'data-studio-context="paginas"'],
       ['/studio/editor/', 'data-studio-context="editor"'],
       ['/studio/conteudos/', 'data-studio-context="conteudos"'],
@@ -367,14 +403,15 @@ async function validateServerRoutes() {
       ['/studio/config/', 'data-studio-context="config"'],
       ['/admin/', 'O Admin agora é VnA Studio'],
       ['/admin/auditor.html', 'Auditor agora está no VnA Studio'],
-      ['/admin/assistente.html', 'Assistente Admin legado'],
+      ['/admin/assistente.html', 'Assistente legado'],
       ['/admin/legacy.html', 'Editor técnico legado'],
       ['/assets/vna-intelligence.js', 'startBibleFlow'],
       ['/assets/vna-intelligence.js', 'studioContext'],
       ['/assets/vna-intelligence.css', '.vna-intel-fab'],
       ['/assets/vna-studio.css', '.studio-shell'],
+      ['/assets/vna-studio-prototype.js', 'saveLocalDraft'],
       ['/content/vna-core.json', 'VnA Intelligence Core'],
-      ['/content/studio-core.json', 'Fase 0.2'],
+      ['/content/studio-core.json', 'Fase 0.4'],
       ['/content/studio-context.json', 'Editor visual'],
       ['/content/content-catalog.json', 'Lei da Semeadura'],
       ['/content/product-catalog.json', 'Bíblia para começar'],

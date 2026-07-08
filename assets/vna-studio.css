@@ -651,7 +651,8 @@
   display: grid;
   gap: 12px;
   margin-top: 14px;
-}\n
+}
+
 .studio-preview-panel {
   position: sticky;
   top: 18px;

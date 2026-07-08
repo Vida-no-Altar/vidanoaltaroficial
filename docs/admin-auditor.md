@@ -4,7 +4,7 @@
 
 O Auditor VnA é um módulo interno do VnA Studio para orientar o uso do painel, revisar riscos simples e proteger decisões antes de publicar alterações.
 
-Na Fase 0.2, ele deixa de ser apenas uma lista de respostas gerais e passa a funcionar como guia contextual.
+Na Fase 0.4, ele deixa de ser apenas uma lista de respostas gerais e passa a funcionar como guia contextual por tela, por campo ativo e pelo fluxo de rascunho/revisão.
 
 Ele ajuda a:
 
@@ -12,6 +12,9 @@ Ele ajuda a:
 - responder conforme a tela atual;
 - explicar riscos em linguagem simples;
 - sugerir o que revisar antes de publicar;
+- explicar rascunho local e alterações não salvas;
+- orientar revisão antes/depois;
+- explicar limites do histórico local;
 - explicar o que ainda é protótipo;
 - apoiar testes com histórico local no navegador.
 
@@ -61,6 +64,19 @@ O contexto define:
 - sugestões rápidas;
 - respostas de tarefas daquele módulo.
 
+## Contexto por campo
+
+Na Fase 0.4, os formulários simulados do Editor, Conteúdos e Mídia usam atributos como:
+
+```text
+data-studio-field
+data-studio-section
+data-studio-field-label
+data-studio-field-help
+```
+
+Quando um campo está em foco e a pessoa pergunta "O que coloco aqui?", o Auditor prioriza a ajuda daquele campo. Isso permite explicar, por exemplo, título do Hero, opacidade de imagem, alt text, link de conteúdo e status sem mandar a pessoa editar nada manualmente.
+
 ## Como deve responder
 
 O Auditor deve soar como guia do painel, não como relatório técnico.
@@ -109,7 +125,7 @@ Mudança sensível que deve exigir aprovação clara em fase futura.
 
 ## Histórico local
 
-A Fase 0.2 usa `localStorage` para manter um histórico local das perguntas feitas ao Auditor.
+A Fase 0.4 usa `localStorage` para manter histórico local das perguntas feitas ao Auditor e dos fluxos simulados de rascunho/revisão.
 
 Texto oficial do histórico:
 
@@ -119,11 +135,20 @@ Registros salvos apenas neste navegador para apoiar testes do protótipo. Isso a
 
 Esse histórico pode ser apagado, alterado ou perdido. Ele não substitui auditoria real com usuário, data, ação, antes/depois e versão publicada.
 
+Perguntas novas que o Auditor deve responder:
+
+- O que é rascunho local?
+- Como reviso antes de publicar?
+- O que significa alteração não salva?
+- Posso confiar nesse histórico?
+- Isso já publica no site?
+- Como descarto uma alteração?
+
 ## Segurança real
 
 O Auditor não cria login real, permissões reais, proteção de rota ou auditoria multiusuário.
 
-Como a Fase 0.2 é estática, o Studio deve ser tratado como protótipo público do ponto de vista técnico. `noindex` e `robots.txt` ajudam a evitar indexação, mas não são segurança.
+Como a Fase 0.4 é estática, o Studio deve ser tratado como protótipo público do ponto de vista técnico. `noindex` e `robots.txt` ajudam a evitar indexação, mas não são segurança.
 
 Segurança real deve vir em fase futura com autenticação, permissões por função, segunda etapa obrigatória, reautenticação em ações críticas e backend próprio.
 

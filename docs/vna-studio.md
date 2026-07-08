@@ -16,7 +16,7 @@ Descrição oficial:
 O painel visual para criar, editar e publicar o ecossistema Vida no Altar.
 ```
 
-A Fase 0.2 mantém o Studio estático, mas adiciona contexto por tela e melhora a experiência do Auditor VnA. Ainda não há login real, banco de dados, API própria, upload real, edição persistente nem editor visual completo.
+A Fase 0.4 mantém o Studio estático, mas adiciona rascunhos locais, revisão antes/depois, descarte, simulação de publicação e histórico local do protótipo. Ainda não há login real, banco de dados, API própria, upload real, edição persistente nem publicação real.
 
 ## Rotas
 
@@ -35,7 +35,7 @@ A Fase 0.2 mantém o Studio estático, mas adiciona contexto por tela e melhora 
 
 ## Status das telas
 
-A Fase 0.2 usa badges para evitar confusão:
+A Fase 0.4 usa badges para evitar confusão:
 
 - Protótipo visual: fluxo desenhado, sem salvar de verdade.
 - Funcional parcial: algo já funciona no navegador, mas sem backend real.
@@ -47,7 +47,7 @@ A Fase 0.2 usa badges para evitar confusão:
 
 O Auditor VnA é um módulo interno do VnA Studio. Ele ensina o uso do Studio, ajuda a entender riscos, orienta revisão de mudanças e explica limites da fase atual.
 
-Na Fase 0.2, ele usa o contexto da tela. A mesma pergunta pode receber resposta diferente em módulos diferentes.
+Na Fase 0.4, ele usa o contexto da tela, o campo ativo e o fluxo de rascunho/revisão. A mesma pergunta pode receber resposta diferente em módulos diferentes ou conforme o campo selecionado.
 
 Exemplo:
 
@@ -67,6 +67,30 @@ content/studio-context.json
 ```
 
 O Auditor VnA não deve orientar usuários leigos a editar JSON, HTML, CSS, JavaScript, GitHub ou arquivos do projeto. A camada técnica ainda existe por baixo, mas o objetivo do Studio é esconder isso da rotina.
+
+## Formulários simulados da Fase 0.4
+
+`/studio/editor/` cria a experiência visual de edição da Home. Ele tem abas para Hero, Sobre, Projetos, Conteúdos em destaque e Contato. Cada campo atualiza um preview local da Home, detecta alterações não salvas e permite salvar rascunho local.
+
+`/studio/conteudos/` simula cadastro de conteúdo com título, projeto, tipo, descrições, link, botão, capa, tema, versículos, duração e status. O preview mostra um card editorial, e a revisão aponta campos importantes vazios ou status publicado em protótipo.
+
+`/studio/midia/` simula a configuração de imagem com URL/caminho, alt text, opacidade, posição, tamanho, arredondamento e uso planejado. A revisão mostra valores alterados e alerta quando alt text está vazio, opacidade está baixa demais ou a imagem fica pequena. Upload real continua fora desta fase.
+
+Todos esses fluxos são apenas protótipos no navegador. O rascunho local usa `localStorage`, mas não é persistência real, não publica e não altera o site real.
+
+## Revisão e histórico local
+
+A Fase 0.4 adiciona:
+
+- badge de alterações não salvas;
+- botão Salvar rascunho local;
+- botão Revisar alterações;
+- botão Descartar alterações;
+- botão Simular publicação;
+- comparação antes/depois;
+- registro em `/studio/historico/`.
+
+O histórico local mostra data, módulo, seção, tipo de alteração, status, usuário simulado Matheus, risco estimado e detalhes antes/depois. Isso ainda não é auditoria real multiusuário.
 
 ## Relação com o Admin antigo
 
@@ -92,7 +116,7 @@ Planejamento técnico:
 - Permissões por função.
 - Reautenticação em ações críticas.
 
-Nada disso foi implementado na Fase 0.2.
+Nada disso foi implementado na Fase 0.4.
 
 ## Segurança
 
@@ -114,7 +138,7 @@ Os e-mails futuros ficam documentados em `content/studio-core.json`. Não há ca
 
 ## Fontes técnicas atuais de dados
 
-Na Fase 0.2, o Studio ainda é estático. Por baixo da interface, estes arquivos sustentam o protótipo:
+Na Fase 0.4, o Studio ainda é estático. Por baixo da interface, estes arquivos sustentam o protótipo:
 
 - Site público: `content/site-content.json`
 - Conteúdos: `content/content-catalog.json`
@@ -122,13 +146,14 @@ Na Fase 0.2, o Studio ainda é estático. Por baixo da interface, estes arquivos
 - Auditor: `content/admin-auditor.json`
 - Contexto do Studio: `content/studio-context.json`
 - Base do Studio: `content/studio-core.json`
+- Preview, rascunho e revisão do Studio: `assets/vna-studio-prototype.js`
 
 Essas fontes são documentação e manutenção técnica. Para o usuário do Studio, a experiência deve ser pensada por módulos visuais, não por arquivos.
 
 ## Próximas fases
 
-1. Transformar os protótipos em telas com formulários reais.
-2. Criar edição simulada de páginas, conteúdos e mídia.
+1. Criar Fase 0.5 expandindo rascunhos para Produtos e Páginas.
+2. Preparar exportação/importação controlada de rascunhos.
 3. Evoluir para persistência real.
 4. Implementar autenticação real e permissões.
 5. Substituir o editor técnico legado por editor visual próprio.

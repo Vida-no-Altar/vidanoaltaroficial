@@ -1,5 +1,158 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Mídia | VnA Studio</title><link rel="stylesheet" href="../../assets/vna-studio.css" /><link rel="stylesheet" href="../../assets/vna-intelligence.css" /></head>
-  <body class="studio-body" data-studio-context="midia"><div class="studio-shell"><aside class="studio-sidebar"><a class="studio-brand" href="../"><img src="../../Logo Vida no Altar.png" alt="" /><span><strong>VnA Studio</strong><span>Mídia</span></span></a><nav class="studio-nav" aria-label="Navegação do VnA Studio"><a href="../">Dashboard</a><a href="../paginas/">Páginas</a><a href="../editor/">Editor visual</a><a href="../conteudos/">Conteúdos</a><a href="../produtos/">Produtos</a><a href="./" aria-current="page">Mídia</a><a href="../usuarios/">Usuários</a><a href="../historico/">Histórico</a><a href="../auditor/?context=midia">Auditor VnA</a><a href="../config/">Configurações</a></nav><p class="studio-sidebar-note">Biblioteca de mídia em protótipo. Não há upload real nesta fase.</p></aside><main class="studio-main"><div class="studio-topbar"><div><p class="studio-eyebrow">Biblioteca visual</p><h1>Mídia</h1><p>Organização futura de imagens, logos, thumbnails, capas e arquivos de conteúdo do VnA.</p><div class="studio-status-row"><span class="studio-status">Protótipo visual</span><span class="studio-status">Inventário de mídia</span><span class="studio-status">Upload futuro</span></div></div><a class="studio-button studio-button-secondary" href="../auditor/?context=midia">Consultar Auditor</a></div><section class="studio-section studio-grid"><article class="studio-card"><h3>Logo oficial</h3><p>Logo usada no header, no footer e em pontos de identificação do Studio.</p><a href="../auditor/?context=midia">Como sei onde a imagem será usada?</a></article><article class="studio-card"><h3>Hero</h3><p>Imagem devocional principal do site público, com peso visual alto.</p><a href="../auditor/?context=midia">Como troco uma imagem?</a></article><article class="studio-card"><h3>Sobre</h3><p>Imagem do Matheus na seção Sobre, usada para humanizar a marca sem tomar o lugar do VnA.</p><a href="../auditor/?context=midia">Como escrevo alt text?</a></article></section><section class="studio-section studio-grid studio-grid-two"><div class="studio-note"><h2>Ações simuladas</h2><ul class="studio-list"><li>Enviar imagem.</li><li>Colar imagem.</li><li>Revisar peso e formato.</li><li>Escrever alt text.</li><li>Ver onde a imagem será usada.</li></ul></div><div class="studio-note"><h2>Disponível depois</h2><p>Upload, corte, compressão automática e aplicação direta em páginas serão parte de uma fase futura com armazenamento real.</p><div class="studio-status-row"><span class="studio-status">Upload: futuro</span><span class="studio-status">Aplicar em página: futuro</span></div></div></section></main></div><script src="../../assets/vna-intelligence.js" defer data-vna-intelligence="studio-auditor" data-vna-root="../../"></script></body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Mídia | VnA Studio</title>
+    <link rel="stylesheet" href="../../assets/vna-studio.css" />
+    <link rel="stylesheet" href="../../assets/vna-intelligence.css" />
+  </head>
+  <body class="studio-body" data-studio-context="midia">
+    <div class="studio-shell">
+      <aside class="studio-sidebar">
+        <a class="studio-brand" href="../">
+          <img src="../../Logo Vida no Altar.png" alt="" />
+          <span><strong>VnA Studio</strong><span>Mídia</span></span>
+        </a>
+        <nav class="studio-nav" aria-label="Navegação do VnA Studio">
+          <a href="../">Dashboard</a>
+          <a href="../paginas/">Páginas</a>
+          <a href="../editor/">Editor visual</a>
+          <a href="../conteudos/">Conteúdos</a>
+          <a href="../produtos/">Produtos</a>
+          <a href="./" aria-current="page">Mídia</a>
+          <a href="../usuarios/">Usuários</a>
+          <a href="../historico/">Histórico</a>
+          <a href="../auditor/?context=midia">Auditor VnA</a>
+          <a href="../config/">Configurações</a>
+        </nav>
+        <p class="studio-sidebar-note">Fase 0.4: revisão visual de mídia com rascunho local. Não há upload real.</p>
+      </aside>
+
+      <main class="studio-main">
+        <div class="studio-topbar">
+          <div>
+            <p class="studio-eyebrow">Biblioteca visual</p>
+            <h1>Mídia</h1>
+            <p>Simule como uma imagem será organizada, descrita e pré-visualizada antes de ser aplicada em páginas ou conteúdos.</p>
+            <div class="studio-status-row">
+              <span class="studio-status">Fase 0.4</span>
+              <span class="studio-status">Editor visual simulado</span>
+              <span class="studio-status">Revisão local</span>
+            </div>
+          </div>
+          <a class="studio-button studio-button-secondary" href="../auditor/?context=midia">Consultar Auditor</a>
+        </div>
+
+        <p class="studio-prototype-alert">Upload real será implementado em fase futura. Agora você pode salvar e revisar apenas a configuração visual local desta mídia. Ao editar, o Studio mostra “Alterações não salvas”, permite Salvar rascunho local, Revisar alterações, Descartar alterações, Simular publicação e registrar no Histórico local do protótipo.</p>
+
+        <section class="studio-section studio-workspace" data-studio-prototype="media-editor">
+          <form class="studio-form" aria-label="Editor visual simulado de imagem">
+            <fieldset class="studio-fieldset">
+              <legend>Imagem</legend>
+
+              <div class="studio-field">
+                <label for="media-source">URL/caminho da imagem <span class="studio-muted">Campo obrigatório</span></label>
+                <input id="media-source" value="../../public/images/matheus-sobre-vna.webp" data-studio-section="Mídia" data-studio-field="media-source" data-studio-field-label="URL ou caminho da imagem" data-studio-field-help="Informe uma imagem já disponível ou um endereço de teste. Nesta fase, o Studio não envia mídia de verdade." data-preview-src="#preview-media-image" data-preview-fallback="../../public/images/matheus-sobre-vna.webp" />
+                <small>Exemplo para teste: ../../public/images/matheus-sobre-vna.webp</small>
+              </div>
+
+              <div class="studio-field">
+                <label for="media-alt">Alt text</label>
+                <input id="media-alt" value="Matheus, criador do Vida no Altar, segurando uma Bíblia" data-studio-section="Mídia" data-studio-field="alt-text" data-studio-field-label="Texto alternativo da imagem" data-studio-field-help="Descreva a imagem de forma objetiva. Alt text ajuda acessibilidade e evita imagens sem contexto." data-preview-alt="#preview-media-image" data-preview-text="#preview-media-alt" />
+              </div>
+
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="media-opacity">Opacidade: <span id="preview-media-opacity-value">100%</span></label>
+                  <input id="media-opacity" type="range" min="20" max="100" value="100" data-studio-section="Mídia" data-studio-field="image-opacity" data-studio-field-label="Opacidade da imagem" data-studio-field-help="A opacidade controla o quanto a imagem aparece. Para fundo visual, valores entre 40% e 70% costumam funcionar bem. Para imagem principal de pessoa ou produto, evite deixar transparente demais." data-preview-opacity="#preview-media-image" data-preview-output="#preview-media-opacity-value" />
+                </div>
+                <div class="studio-field">
+                  <label for="media-position">Posição</label>
+                  <select id="media-position" data-studio-section="Mídia" data-studio-field="image-position" data-studio-field-label="Posição da imagem" data-studio-field-help="Use a posição para testar como a imagem se encaixa no espaço sem cortar o que importa." data-preview-position="#preview-media-frame">
+                    <option value="esquerda">esquerda</option>
+                    <option value="centro" selected>centro</option>
+                    <option value="direita">direita</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="media-size">Tamanho</label>
+                  <select id="media-size" data-studio-section="Mídia" data-studio-field="image-size" data-studio-field-label="Tamanho da imagem" data-studio-field-help="Teste pequeno, médio ou grande para entender presença visual sem dominar a página." data-preview-size="#preview-media-frame">
+                    <option value="pequeno">pequeno</option>
+                    <option value="medio">médio</option>
+                    <option value="grande" selected>grande</option>
+                  </select>
+                </div>
+                <label class="studio-checkbox" for="media-rounded">
+                  <input id="media-rounded" type="checkbox" checked data-studio-section="Mídia" data-studio-field="image-rounded" data-studio-field-label="Arredondamento" data-studio-field-help="Use arredondamento discreto quando a imagem estiver em card ou thumbnail. Evite molduras pesadas." data-preview-rounded="#preview-media-frame" />
+                  <span>Arredondamento discreto <small>Recomendado para cards e thumbnails.</small></span>
+                </label>
+              </div>
+
+              <div class="studio-field">
+                <label for="media-usage">Onde a imagem poderia ser usada</label>
+                <select id="media-usage" data-studio-section="Mídia" data-studio-field="media-usage" data-studio-field-label="Uso planejado da imagem" data-studio-field-help="Registrar onde a imagem será usada evita trocar uma imagem sem perceber que ela aparece em área importante." data-preview-text="#preview-media-usage">
+                  <option>Seção Sobre</option>
+                  <option>Hero da Home</option>
+                  <option>Card de conteúdo</option>
+                  <option>Thumbnail de vídeo</option>
+                  <option>Produto ou indicação</option>
+                </select>
+              </div>
+
+              <div class="studio-actions">
+                <button class="studio-button studio-disabled-button" type="button" disabled title="Upload real será implementado em fase futura">Enviar imagem</button>
+                <button class="studio-button studio-button-secondary studio-disabled-button" type="button" disabled title="Disponível em fase futura">Usar em uma página</button>
+              </div>
+            </fieldset>
+            <div class="studio-actions studio-draft-actions" data-studio-draft-actions>
+              <span class="studio-draft-state" data-draft-status>Sem alterações</span>
+              <button class="studio-button" type="button" data-draft-save disabled>Salvar rascunho local</button>
+              <button class="studio-button studio-button-secondary" type="button" data-draft-review-button disabled>Revisar alterações</button>
+              <button class="studio-button studio-button-secondary" type="button" data-draft-discard disabled>Descartar alterações</button>
+              <button class="studio-button studio-button-secondary" type="button" data-draft-publish disabled>Simular publicação</button>
+            </div>
+          </form>
+
+          <aside class="studio-preview-panel" aria-label="Preview local da imagem">
+            <div class="studio-preview-header">
+              <div>
+                <h2>Preview da imagem</h2>
+                <p>Visualização local. Não envia, salva nem publica mídia real.</p>
+              </div>
+              <span class="studio-preview-badge">Preview local</span>
+            </div>
+
+            <div class="studio-media-preview-frame" id="preview-media-frame" data-position="centro" data-size="grande" data-rounded="sim">
+              <img id="preview-media-image" src="../../public/images/matheus-sobre-vna.webp" alt="Matheus, criador do Vida no Altar, segurando uma Bíblia" />
+            </div>
+
+            <div class="studio-note">
+              <h3>Resumo da mídia</h3>
+              <p><strong>Alt text:</strong> <span id="preview-media-alt">Matheus, criador do Vida no Altar, segurando uma Bíblia</span></p>
+              <p><strong>Uso planejado:</strong> <span id="preview-media-usage">Seção Sobre</span></p>
+              <div class="studio-usage-list" aria-label="Usos possíveis da imagem">
+                <span>Hero</span>
+                <span>Sobre</span>
+                <span>Conteúdos</span>
+                <span>Produtos</span>
+                <span>Thumbnails</span>
+              </div>
+            </div>
+          </aside>
+          <section class="studio-review-panel" data-draft-review hidden>
+            <h2>Revisão da mídia</h2>
+            <p>Confira antes/depois dos ajustes visuais. Nesta fase, nenhuma imagem é enviada, salva em servidor ou publicada.</p>
+            <div data-review-list></div>
+          </section>
+        </section>
+      </main>
+    </div>
+    <script src="../../assets/vna-intelligence.js" defer data-vna-intelligence="studio-auditor" data-vna-root="../../"></script>
+    <script src="../../assets/vna-studio-prototype.js" defer></script>
+  </body>
 </html>

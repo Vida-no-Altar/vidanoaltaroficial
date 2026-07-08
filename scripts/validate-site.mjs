@@ -298,17 +298,29 @@ async function validateHtml() {
   check(files['studio/editor/index.html'].includes('data-studio-field="hero-title"'), '/studio/editor/ precisa ter campo de título do Hero.');
   check(files['studio/editor/index.html'].includes('Salvar rascunho local'), '/studio/editor/ precisa permitir salvar rascunho local.');
   check(files['studio/editor/index.html'].includes('Revisar alterações'), '/studio/editor/ precisa permitir revisar alterações.');
+  check(files['studio/editor/index.html'].includes('Descartar alterações'), '/studio/editor/ precisa permitir descartar alterações.');
   check(files['studio/editor/index.html'].includes('Simular publicação'), '/studio/editor/ precisa permitir simular publicação.');
   check(files['studio/conteudos/index.html'].includes('data-studio-prototype="content-editor"'), '/studio/conteudos/ precisa ter formulário simulado de conteúdo.');
+  check(files['studio/conteudos/index.html'].includes('data-studio-field'), '/studio/conteudos/ precisa usar data-studio-field nos campos.');
   check(files['studio/conteudos/index.html'].includes('data-studio-field="content-status"'), '/studio/conteudos/ precisa ter campo de status.');
   check(files['studio/conteudos/index.html'].includes('Este cadastro ainda é simulado'), '/studio/conteudos/ precisa avisar que cadastro é simulado.');
+  check(files['studio/conteudos/index.html'].includes('Salvar rascunho local'), '/studio/conteudos/ precisa permitir salvar rascunho local.');
   check(files['studio/conteudos/index.html'].includes('Revisar conteúdo'), '/studio/conteudos/ precisa permitir revisar conteúdo.');
+  check(files['studio/conteudos/index.html'].includes('Simular publicação'), '/studio/conteudos/ precisa permitir simular publicação.');
+  check(files['studio/conteudos/index.html'].includes('preview-content-card') || files['studio/conteudos/index.html'].includes('Preview do card'), '/studio/conteudos/ precisa ter preview de card.');
   check(files['studio/midia/index.html'].includes('data-studio-prototype="media-editor"'), '/studio/midia/ precisa ter editor visual simulado de mídia.');
+  check(files['studio/midia/index.html'].includes('data-studio-field'), '/studio/midia/ precisa usar data-studio-field nos campos.');
   check(files['studio/midia/index.html'].includes('data-studio-field="image-opacity"'), '/studio/midia/ precisa ter controle de opacidade.');
+  check(files['studio/midia/index.html'].includes('data-studio-field="alt-text"') || files['studio/midia/index.html'].includes('Alt text'), '/studio/midia/ precisa ter campo de alt text.');
   check(files['studio/midia/index.html'].includes('Upload real será implementado'), '/studio/midia/ precisa avisar que upload real é futuro.');
+  check(files['studio/midia/index.html'].includes('Salvar rascunho local'), '/studio/midia/ precisa permitir salvar rascunho local.');
   check(files['studio/midia/index.html'].includes('Revisar alterações'), '/studio/midia/ precisa permitir revisar alterações.');
+  check(files['studio/midia/index.html'].includes('Simular publicação'), '/studio/midia/ precisa permitir simular publicação.');
   check(files['studio/historico/index.html'].includes('data-studio-history'), '/studio/historico/ precisa listar histórico local.');
-  for (const path of ['studio/editor/index.html', 'studio/conteudos/index.html', 'studio/midia/index.html']) {
+  check(!files['studio/historico/index.html'].includes('Comparação: futuro'), '/studio/historico/ não pode manter texto antigo de comparação futura.');
+  check(!files['studio/historico/index.html'].includes('Restaurar: futuro'), '/studio/historico/ não pode manter texto antigo de restauração futura.');
+  check(!files['studio/historico/index.html'].includes('Histórico local parcial'), '/studio/historico/ não pode manter texto antigo de histórico parcial.');
+  for (const path of ['studio/editor/index.html', 'studio/conteudos/index.html', 'studio/midia/index.html', 'studio/historico/index.html']) {
     check(files[path].includes('assets/vna-studio-prototype.js') || files[path].includes('../../assets/vna-studio-prototype.js'), `${path} precisa carregar assets/vna-studio-prototype.js.`);
   }
 

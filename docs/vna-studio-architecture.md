@@ -2,9 +2,9 @@
 
 ## Visão geral
 
-O VnA Studio continua sendo estático na Fase 0.2. Ele roda com HTML, CSS, JavaScript e JSON públicos.
+O VnA Studio continua sendo estático na Fase 0.4. Ele roda com HTML, CSS, JavaScript e JSON públicos.
 
-A evolução desta fase é o contexto local do Auditor VnA. O Studio informa ao JavaScript qual tela está aberta e o Auditor usa isso para orientar o usuário pelo módulo correto.
+A evolução desta fase é o fluxo de rascunho local e revisão antes/depois. O Studio informa ao JavaScript qual tela está aberta, quais campos estão ativos e o Auditor usa isso para orientar o usuário pelo módulo, pelo campo e pelo impacto da mudança.
 
 ## Camadas atuais
 
@@ -19,6 +19,7 @@ Studio:
 
 - `studio/`
 - `assets/vna-studio.css`
+- `assets/vna-studio-prototype.js`
 - `content/studio-core.json`
 - `content/studio-context.json`
 
@@ -57,6 +58,19 @@ O arquivo `content/studio-context.json` define:
 - sugestões rápidas;
 - respostas de tarefas comuns.
 
+## Contexto por campo
+
+As telas `/studio/editor/`, `/studio/conteudos/` e `/studio/midia/` usam atributos em campos do formulário:
+
+```html
+data-studio-field
+data-studio-section
+data-studio-field-label
+data-studio-field-help
+```
+
+Quando o usuário foca um campo e pergunta algo como "O que coloco aqui?", o Auditor usa esses atributos para responder de forma específica.
+
 ## Como o Auditor responde
 
 1. Carrega a base institucional e os dados do Intelligence Core.
@@ -67,11 +81,28 @@ O arquivo `content/studio-context.json` define:
 6. Se não encontrar, usa as intenções gerais do Auditor.
 7. Monta a resposta com linguagem simples, risco em frase humana e nota de protótipo somente quando faz sentido.
 
-## Limites técnicos da Fase 0.2
+## Motor de rascunhos locais
+
+`assets/vna-studio-prototype.js` controla:
+
+- estado original dos campos;
+- estado atual;
+- detecção de alterações não salvas;
+- salvamento local de rascunho;
+- carregamento de rascunho local;
+- descarte;
+- revisão antes/depois;
+- registro local no histórico;
+- simulação de publicação.
+
+Os dados ficam em `localStorage` apenas para teste no navegador. Isso não é banco de dados, não é segurança real, não é publicação real e não substitui auditoria multiusuário.
+
+## Limites técnicos da Fase 0.4
 
 - O Studio não salva alterações reais.
+- Os formulários atualizam previews locais e podem salvar rascunhos apenas neste navegador.
 - O widget do Auditor orienta, mas não executa mudanças.
-- O histórico do Auditor usa apenas armazenamento local do navegador.
+- O histórico do Auditor e o histórico de rascunhos usam apenas armazenamento local do navegador.
 - Não existe autenticação real.
 - `noindex` e `robots.txt` ajudam organização, mas não protegem acesso.
 
@@ -84,4 +115,4 @@ O arquivo `content/studio-context.json` define:
 - Autenticação real com permissões por função.
 - Histórico real com antes/depois, autor e versão publicada.
 
-Nada disso é implementado na Fase 0.2.
+Nada disso é implementado na Fase 0.4.

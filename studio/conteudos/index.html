@@ -1,5 +1,197 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Conteúdos | VnA Studio</title><link rel="stylesheet" href="../../assets/vna-studio.css" /><link rel="stylesheet" href="../../assets/vna-intelligence.css" /></head>
-  <body class="studio-body" data-studio-context="conteudos"><div class="studio-shell"><aside class="studio-sidebar"><a class="studio-brand" href="../"><img src="../../Logo Vida no Altar.png" alt="" /><span><strong>VnA Studio</strong><span>Conteúdos</span></span></a><nav class="studio-nav" aria-label="Navegação do VnA Studio"><a href="../">Dashboard</a><a href="../paginas/">Páginas</a><a href="../editor/">Editor visual</a><a href="./" aria-current="page">Conteúdos</a><a href="../produtos/">Produtos</a><a href="../midia/">Mídia</a><a href="../usuarios/">Usuários</a><a href="../historico/">Histórico</a><a href="../auditor/?context=conteudos">Auditor VnA</a><a href="../config/">Configurações</a></nav><p class="studio-sidebar-note">Catálogo editorial em protótipo. Cadastro real virá com persistência.</p></aside><main class="studio-main"><div class="studio-topbar"><div><p class="studio-eyebrow">CMS editorial</p><h1>Conteúdos</h1><p>Central futura para criar, classificar e organizar devocionais, séries, estudos, temas e links.</p><div class="studio-status-row"><span class="studio-status">Protótipo visual</span><span class="studio-status">Catálogo planejado</span><span class="studio-status">Sem cadastro real</span></div></div><a class="studio-button studio-button-secondary" href="../auditor/?context=conteudos">Consultar Auditor</a></div><section class="studio-section"><h2>Campos planejados</h2><table class="studio-table"><tr><th>Campo</th><th>Uso</th></tr><tr><td>Título e projeto</td><td>Identifica se o conteúdo pertence ao Café no Altar, Evangelhos, Biblioteca V.A ou outro projeto.</td></tr><tr><td>Temas e versículos</td><td>Permite busca por assunto, texto bíblico e momento recomendado.</td></tr><tr><td>Formato e duração</td><td>Ajuda a pessoa encontrar conteúdo rápido, vídeo, devocional ou estudo.</td></tr><tr><td>Link e thumbnail</td><td>Conecta o catálogo aos canais oficiais sem inventar URLs.</td></tr><tr><td>Status</td><td>Separa rascunho, em revisão, publicado e arquivado.</td></tr></table></section><section class="studio-section studio-grid studio-grid-two"><div class="studio-note"><h2>Ações simuladas</h2><ul class="studio-list"><li>Novo conteúdo.</li><li>Organizar por projeto.</li><li>Adicionar versículos.</li><li>Definir status.</li><li>Revisar link e capa.</li></ul></div><div class="studio-note"><h2>Disponível depois</h2><p>O botão Novo conteúdo será funcional quando o Studio tiver salvamento real. Por enquanto, use esta tela para entender o fluxo.</p><div class="studio-status-row"><span class="studio-status">Novo conteúdo: futuro</span><span class="studio-status">Publicar: futuro</span></div></div></section></main></div><script src="../../assets/vna-intelligence.js" defer data-vna-intelligence="studio-auditor" data-vna-root="../../"></script></body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Conteúdos | VnA Studio</title>
+    <link rel="stylesheet" href="../../assets/vna-studio.css" />
+    <link rel="stylesheet" href="../../assets/vna-intelligence.css" />
+  </head>
+  <body class="studio-body" data-studio-context="conteudos">
+    <div class="studio-shell">
+      <aside class="studio-sidebar">
+        <a class="studio-brand" href="../">
+          <img src="../../Logo Vida no Altar.png" alt="" />
+          <span><strong>VnA Studio</strong><span>Conteúdos</span></span>
+        </a>
+        <nav class="studio-nav" aria-label="Navegação do VnA Studio">
+          <a href="../">Dashboard</a>
+          <a href="../paginas/">Páginas</a>
+          <a href="../editor/">Editor visual</a>
+          <a href="./" aria-current="page">Conteúdos</a>
+          <a href="../produtos/">Produtos</a>
+          <a href="../midia/">Mídia</a>
+          <a href="../usuarios/">Usuários</a>
+          <a href="../historico/">Histórico</a>
+          <a href="../auditor/?context=conteudos">Auditor VnA</a>
+          <a href="../config/">Configurações</a>
+        </nav>
+        <p class="studio-sidebar-note">Fase 0.4: cadastro simulado com rascunho local, revisão e histórico de protótipo.</p>
+      </aside>
+
+      <main class="studio-main">
+        <div class="studio-topbar">
+          <div>
+            <p class="studio-eyebrow">CMS editorial</p>
+            <h1>Conteúdos</h1>
+            <p>Simule o cadastro de vídeos, devocionais, estudos e séries para validar a experiência editorial do Studio.</p>
+            <div class="studio-status-row">
+              <span class="studio-status">Fase 0.4</span>
+              <span class="studio-status">Cadastro simulado</span>
+              <span class="studio-status">Revisão local</span>
+            </div>
+          </div>
+          <a class="studio-button studio-button-secondary" href="../auditor/?context=conteudos">Consultar Auditor</a>
+        </div>
+
+        <p class="studio-prototype-alert">Este cadastro ainda é simulado. O rascunho local fica apenas neste navegador e não publica nada no site real. Ao editar, o Studio mostra “Alterações não salvas”, permite Salvar rascunho local, Revisar alterações, Descartar alterações, Simular publicação e registrar no Histórico local do protótipo.</p>
+
+        <section class="studio-section studio-workspace" data-studio-prototype="content-editor">
+          <form class="studio-form" aria-label="Formulário simulado de novo conteúdo">
+            <fieldset class="studio-fieldset">
+              <legend>Novo conteúdo</legend>
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="content-title">Título <span class="studio-muted">Campo obrigatório</span></label>
+                  <input id="content-title" value="O que Deus espera de você" data-studio-section="Conteúdos" data-studio-field="content-title" data-studio-field-label="Título do conteúdo" data-studio-field-help="Use um título claro, fiel ao conteúdo e fácil de encontrar depois." data-preview-text="#preview-content-title" />
+                </div>
+                <div class="studio-field">
+                  <label for="content-project">Projeto</label>
+                  <select id="content-project" data-studio-section="Conteúdos" data-studio-field="content-project" data-studio-field-label="Projeto do conteúdo" data-studio-field-help="Escolha o projeto principal para ajudar o visitante e o Assistente Público a encontrarem o conteúdo." data-preview-text="#preview-content-project">
+                    <option>Café no Altar</option>
+                    <option>Conhecendo os Evangelhos</option>
+                    <option>Biblioteca V.A</option>
+                    <option>Vida no Altar Covers</option>
+                    <option>Conexão Gospel</option>
+                    <option>Fé e Trabalho</option>
+                    <option>V.A Kids</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="content-type">Tipo</label>
+                  <select id="content-type" data-studio-section="Conteúdos" data-studio-field="content-type" data-studio-field-label="Tipo de conteúdo" data-studio-field-help="Marque o formato principal para organizar busca, filtros e cards." data-preview-text="#preview-content-type">
+                    <option>devocional</option>
+                    <option>estudo</option>
+                    <option>vídeo</option>
+                    <option>review</option>
+                    <option>louvor</option>
+                    <option>podcast</option>
+                    <option>série</option>
+                    <option>short/reel</option>
+                  </select>
+                </div>
+                <div class="studio-field">
+                  <label for="content-status">Status</label>
+                  <select id="content-status" data-studio-section="Conteúdos" data-studio-field="content-status" data-studio-field-label="Status do conteúdo" data-studio-field-help="Use rascunho enquanto faltar link, capa ou revisão. Publicado só deve aparecer quando tudo estiver conferido." data-preview-text="#preview-content-status" data-preview-status="#preview-content-card">
+                    <option>rascunho</option>
+                    <option>publicado</option>
+                    <option>arquivado</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="studio-field">
+                <label for="content-short">Descrição curta</label>
+                <textarea id="content-short" data-studio-section="Conteúdos" data-studio-field="short-description" data-studio-field-label="Descrição curta" data-studio-field-help="Escreva a frase que aparece no card. Ela precisa ser clara e pequena." data-preview-text="#preview-content-description">Uma reflexão curta sobre entrega, obediência e vida com propósito.</textarea>
+              </div>
+
+              <div class="studio-field">
+                <label for="content-long">Descrição longa</label>
+                <textarea id="content-long" data-studio-section="Conteúdos" data-studio-field="long-description" data-studio-field-label="Descrição longa" data-studio-field-help="Use este campo para resumo interno e contexto editorial. Na Fase 0.4, ele entra na revisão do rascunho local.">Rascunho de resumo interno para orientar revisão, tema e aplicação prática do conteúdo.</textarea>
+              </div>
+
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="content-link">Link do conteúdo</label>
+                  <input id="content-link" value="#" data-studio-section="Conteúdos" data-studio-field="content-link" data-studio-field-label="Link do conteúdo" data-studio-field-help="Use link real apenas quando o conteúdo estiver pronto. Se ainda não tiver destino, mantenha como rascunho." data-preview-href="#preview-content-button" />
+                </div>
+                <div class="studio-field">
+                  <label for="content-button">Texto do botão</label>
+                  <input id="content-button" value="Ver conteúdo" data-studio-section="Conteúdos" data-studio-field="button-text" data-studio-field-label="Texto do botão" data-studio-field-help="Use uma ação simples: Ver conteúdo, Assistir ou Ler." data-preview-text="#preview-content-button" />
+                </div>
+              </div>
+
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="content-cover">Capa/imagem</label>
+                  <input id="content-cover" value="../../public/images/hero-devocional.webp" data-studio-section="Conteúdos" data-studio-field="content-cover" data-studio-field-label="Capa do conteúdo" data-studio-field-help="Escolha uma imagem coerente com o conteúdo, leve e sem cara de banco artificial." data-preview-src="#preview-content-cover" data-preview-fallback="../../public/images/hero-devocional.webp" />
+                </div>
+                <div class="studio-field">
+                  <label for="content-duration">Duração</label>
+                  <input id="content-duration" value="5 min" data-studio-section="Conteúdos" data-studio-field="duration" data-studio-field-label="Duração do conteúdo" data-studio-field-help="Ajuda a pessoa entender se é conteúdo rápido, médio ou mais profundo." data-preview-text="#preview-content-duration" />
+                </div>
+              </div>
+
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="content-main-theme">Tema principal</label>
+                  <input id="content-main-theme" value="propósito" data-studio-section="Conteúdos" data-studio-field="primary-theme" data-studio-field-label="Tema principal" data-studio-field-help="Use um tema central simples para busca e organização editorial." data-preview-text="#preview-content-theme" />
+                </div>
+                <div class="studio-field">
+                  <label for="content-secondary-themes">Temas secundários</label>
+                  <input id="content-secondary-themes" value="obediência, entrega, rotina com Deus" data-studio-section="Conteúdos" data-studio-field="secondary-themes" data-studio-field-label="Temas secundários" data-studio-field-help="Separe temas por vírgula para apoiar filtros e recomendações futuras." />
+                </div>
+              </div>
+
+              <div class="studio-field-grid">
+                <div class="studio-field">
+                  <label for="content-verses">Versículos relacionados</label>
+                  <input id="content-verses" value="2 Timóteo 1:7" data-studio-section="Conteúdos" data-studio-field="verses" data-studio-field-label="Versículos relacionados" data-studio-field-help="Use referências claras, sem colocar explicações longas nesse campo." data-preview-text="#preview-content-verses" />
+                </div>
+                <div class="studio-field">
+                  <label for="content-audience">Público recomendado</label>
+                  <input id="content-audience" value="jovens, adolescentes e igreja" data-studio-section="Conteúdos" data-studio-field="audience" data-studio-field-label="Público recomendado" data-studio-field-help="Diga para quem o conteúdo foi pensado sem excluir quem também pode ser edificado." />
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="studio-actions studio-draft-actions" data-studio-draft-actions>
+              <span class="studio-draft-state" data-draft-status>Sem alterações</span>
+              <button class="studio-button" type="button" data-draft-save disabled>Salvar rascunho local</button>
+              <button class="studio-button studio-button-secondary" type="button" data-draft-review-button disabled>Revisar conteúdo</button>
+              <button class="studio-button studio-button-secondary" type="button" data-draft-clear>Limpar formulário</button>
+              <button class="studio-button studio-button-secondary" type="button" data-draft-discard disabled>Descartar alterações</button>
+              <button class="studio-button studio-button-secondary" type="button" data-draft-publish disabled>Simular publicação</button>
+            </div>
+          </form>
+
+          <aside class="studio-preview-panel" aria-label="Preview local do conteúdo">
+            <div class="studio-preview-header">
+              <div>
+                <h2>Preview do card</h2>
+                <p>O card muda conforme os campos. Nada é salvo de verdade ainda.</p>
+              </div>
+              <span class="studio-preview-badge">Não publicado</span>
+            </div>
+
+            <article class="studio-content-preview" id="preview-content-card" data-status="rascunho">
+              <div class="studio-content-cover"><img id="preview-content-cover" src="../../public/images/hero-devocional.webp" alt="" /></div>
+              <div class="studio-status-row">
+                <span class="studio-preview-category" id="preview-content-project">Café no Altar</span>
+                <span class="studio-preview-status" id="preview-content-type">devocional</span>
+                <span class="studio-preview-status" id="preview-content-status">rascunho</span>
+              </div>
+              <h3 id="preview-content-title">O que Deus espera de você</h3>
+              <p id="preview-content-description">Uma reflexão curta sobre entrega, obediência e vida com propósito.</p>
+              <p><strong>Tema:</strong> <span id="preview-content-theme">propósito</span></p>
+              <p><strong>Versículos:</strong> <span id="preview-content-verses">2 Timóteo 1:7</span></p>
+              <p><strong>Duração:</strong> <span id="preview-content-duration">5 min</span></p>
+              <div class="studio-preview-actions"><a id="preview-content-button" href="#">Ver conteúdo</a></div>
+            </article>
+          </aside>
+          <section class="studio-review-panel" data-draft-review hidden>
+            <h2>Revisão do conteúdo</h2>
+            <p>Esta revisão mostra campos importantes, alertas e mudanças antes de qualquer publicação real existir.</p>
+            <div data-review-list></div>
+          </section>
+        </section>
+      </main>
+    </div>
+    <script src="../../assets/vna-intelligence.js" defer data-vna-intelligence="studio-auditor" data-vna-root="../../"></script>
+    <script src="../../assets/vna-studio-prototype.js" defer></script>
+  </body>
 </html>

@@ -2,7 +2,7 @@
   "name": "Auditor VnA",
   "type": "studio-auditor",
   "description": "Módulo interno do VnA Studio para revisar, orientar e proteger alterações feitas dentro do Studio.",
-  "initialMessage": "Olá! Eu sou o Auditor VnA. Posso te ajudar a usar o VnA Studio, entender riscos, revisar mudanças e encontrar o lugar certo para editar páginas, conteúdos, produtos, imagens e configurações. Nesta fase, o Studio ainda é um protótipo estático, então algumas ações ainda não salvam de verdade.",
+  "initialMessage": "Olá! Eu sou o Auditor VnA. Posso te ajudar a usar o VnA Studio, entender rascunhos locais, revisar mudanças antes/depois, avaliar riscos e lembrar o que ainda não publica de verdade. Nesta fase, o Studio continua sendo um protótipo estático: alguns dados ficam apenas neste navegador para teste.",
   "fallback": "Não tenho uma resposta pronta para isso ainda. Tente procurar pelo módulo mais próximo no VnA Studio: Páginas, Editor, Conteúdos, Produtos, Mídia, Usuários, Histórico, Auditor ou Configurações.",
   "quickReplies": [
     "Onde edito textos no Studio?",
@@ -11,7 +11,11 @@
     "Como cadastrar uma Bíblia ou livro?",
     "Como trocar uma imagem?",
     "Como revisar antes de publicar?",
-    "O que ainda é protótipo?"
+    "O que ainda é protótipo?",
+    "O que é rascunho local?",
+    "Isso já publica no site?",
+    "Posso confiar nesse histórico?",
+    "Como descarto uma alteração?"
   ],
   "riskMatrix": [
     {
@@ -96,7 +100,7 @@
           "id": "change_image",
           "keywords": ["trocar imagem", "imagem", "logo", "capa", "thumbnail", "foto", "mídia", "midia"],
           "risk": "Médio",
-          "response": "Para trocar uma imagem no fluxo do Studio, vá em Studio > Mídia para organizar o arquivo e depois em Studio > Páginas > Home ou Studio > Editor para escolher o bloco que usa essa imagem. Imagens principais, como Hero, logo e Sobre, exigem revisão mais cuidadosa porque afetam a identidade visual. Nesta Fase 0, a tela de mídia ainda é inventário visual; upload e salvamento real ficam para fase futura.",
+          "response": "Para trocar uma imagem no fluxo do Studio, vá em Studio > Mídia para organizar a mídia e depois em Studio > Páginas > Home ou Studio > Editor para escolher o bloco que usa essa imagem. Imagens principais, como Hero, logo e Sobre, exigem revisão mais cuidadosa porque afetam a identidade visual. Nesta Fase 0, a tela de mídia ainda é inventário visual; upload e salvamento real ficam para fase futura.",
           "quickReplies": ["Como revisar antes de publicar?", "O que ainda é protótipo?"]
         }
       ]
@@ -199,8 +203,50 @@
       "id": "publicacao",
       "label": "Publicação",
       "description": "Fluxo planejado de rascunho, revisão, preview, aprovação e publicação pelo Studio.",
-      "quickReplies": ["Como revisar antes de publicar?", "Como será o preview?", "Como funciona publicação?", "O que ainda é protótipo?"],
+      "quickReplies": ["O que é rascunho local?", "Como revisar antes de publicar?", "Isso já publica no site?", "Posso confiar nesse histórico?"],
       "intents": [
+        {
+          "id": "local_draft",
+          "keywords": ["rascunho local", "salvar rascunho", "rascunho", "salvo no navegador", "local"],
+          "risk": "Baixo",
+          "response": "Rascunho local é uma cópia de teste salva apenas neste navegador. Ele ajuda você a sair da tela, voltar e continuar revisando a simulação, mas ainda não altera o site publicado e não é banco de dados real. Use como apoio para validar a experiência do Studio.",
+          "quickReplies": ["Como reviso antes de publicar?", "Isso já publica no site?", "Posso confiar nesse histórico?"]
+        },
+        {
+          "id": "unsaved_changes",
+          "keywords": ["alteração não salva", "alteracoes nao salvas", "alterações não salvas", "não salva", "nao salva", "mudança pendente", "mudanca pendente"],
+          "risk": "Baixo",
+          "response": "Alterações não salvas significam que você mudou algum campo no Studio, mas ainda não registrou esse rascunho local. O preview já pode mostrar a mudança, mas ela ainda está só na tela. Para testar o fluxo, use Salvar rascunho local ou Revisar alterações.",
+          "quickReplies": ["O que é rascunho local?", "Como descarto uma alteração?", "Como revisar antes de publicar?"]
+        },
+        {
+          "id": "discard_changes",
+          "keywords": ["descartar", "desfazer", "limpar", "voltar original", "cancelar alteração", "cancelar alteracao"],
+          "risk": "Baixo",
+          "response": "Para descartar uma alteração no protótipo, use o botão Descartar alterações na tela em que você está. Isso volta os campos para o estado original daquela simulação e registra um descarte no histórico local. O site público não é alterado.",
+          "quickReplies": ["O que é rascunho local?", "Posso confiar nesse histórico?"]
+        },
+        {
+          "id": "local_history_trust",
+          "keywords": ["confiar nesse histórico", "confiar nesse historico", "histórico é real", "historico e real", "auditoria real", "histórico local", "historico local"],
+          "risk": "Alto",
+          "response": "Esse histórico ainda não é auditoria real. Ele fica apenas neste navegador e serve para testar o fluxo do Studio. Auditoria real precisa de login, banco de dados, permissões e registro seguro de quem mudou o quê. Use o histórico local como apoio de protótipo, não como prova oficial.",
+          "quickReplies": ["Isso já publica no site?", "O que ainda é protótipo?"]
+        },
+        {
+          "id": "does_it_publish",
+          "keywords": ["isso já publica", "isso ja publica", "publica no site", "vai para o site", "altera o site público", "altera o site publico", "publicação real", "publicacao real"],
+          "risk": "Crítico",
+          "response": "Ainda não. Nesta fase, o Studio está simulando o fluxo de edição. Quando você salva um rascunho local, ele fica apenas neste navegador para teste. A publicação real virá em uma fase futura, quando o Studio tiver login, banco de dados e integração com a estrutura de publicação.",
+          "quickReplies": ["Como revisar antes de publicar?", "O que é rascunho local?"]
+        },
+        {
+          "id": "why_review",
+          "keywords": ["por que revisar", "preciso revisar", "revisão antes", "revisao antes", "antes e depois", "comparar"],
+          "risk": "Médio",
+          "response": "A revisão antes/depois ajuda a enxergar exatamente o que mudou: texto, link, imagem, aparência e risco. Isso evita publicar por impulso, trocar uma mensagem importante sem perceber ou deixar um link errado. Na Fase 0.4, essa revisão é local e serve para validar o futuro fluxo de publicação.",
+          "quickReplies": ["Isso já publica no site?", "Como funciona publicação?"]
+        },
         {
           "id": "review_before_publish",
           "keywords": ["revisar", "validar", "antes de publicar", "checklist", "conferir", "erro"],

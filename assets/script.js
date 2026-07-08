@@ -107,8 +107,12 @@ function updateDocumentMeta(meta = {}) {
 function setHeroImage(image) {
   const value = asText(image);
   if (!value) return;
-  const safeValue = value.replace(/["\\\n\r]/g, "");
+  const safeValue = sanitizeAssetPath(value);
   document.documentElement.style.setProperty("--hero-image", `url("${safeValue}")`);
+}
+
+function sanitizeAssetPath(value) {
+  return asText(value).trim().replace(/["\\\n\r]/g, "");
 }
 
 function normalizeEmail(value) {
@@ -258,6 +262,28 @@ function renderAboutClosing(closing) {
   node.textContent = text;
 }
 
+function renderAboutImage(about = {}) {
+  const image = sanitizeAssetPath(about.image);
+  const alt = asText(about.imageAlt).trim();
+  const picture = document.querySelector(".about-portrait-picture");
+  const img = picture?.querySelector(".about-portrait");
+  if (!img) return;
+
+  if (image) {
+    const webpSource = picture.querySelector('source[type="image/webp"]');
+    if (webpSource) {
+      if (/\.webp(?:[?#].*)?$/i.test(image)) {
+        webpSource.setAttribute("srcset", image);
+      } else {
+        webpSource.removeAttribute("srcset");
+      }
+    }
+    img.setAttribute("src", image);
+  }
+
+  if (alt) img.setAttribute("alt", alt);
+}
+
 function applyEditableContent(data) {
   if (!data || typeof data !== "object") return;
 
@@ -290,6 +316,7 @@ function applyEditableContent(data) {
   setTextByKey("about.text", data.about?.text);
   renderPresence(data.about?.presenceLines);
   renderAboutClosing(data.about?.closing);
+  renderAboutImage(data.about);
 
   setTextByKey("featuredContent.eyebrow", data.featuredContent?.eyebrow);
   setTextByKey("featuredContent.title", data.featuredContent?.title);

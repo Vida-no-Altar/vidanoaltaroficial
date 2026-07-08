@@ -1,9 +1,9 @@
 {
-  "version": "0.2.0",
-  "phase": "Fase 0.2",
+  "version": "0.4.0",
+  "phase": "Fase 0.4",
   "description": "Contexto local para o Auditor VnA orientar o usuário conforme a tela atual do Studio.",
   "defaultContext": "auditor",
-  "globalPrototypeNote": "Nesta fase, o Studio ainda é um protótipo. Algumas ações mostram o caminho, mas ainda não salvam de verdade.",
+  "globalPrototypeNote": "Nesta fase, o Studio ainda é um protótipo. Rascunhos, revisões e histórico ficam apenas neste navegador e não alteram o site publicado.",
   "statuses": {
     "prototype": "Protótipo visual",
     "partial": "Funcional parcial",
@@ -74,12 +74,12 @@
     "editor": {
       "route": "/studio/editor/",
       "module": "Editor visual",
-      "description": "Construtor visual por blocos para editar páginas sem abrir código.",
-      "status": "Protótipo visual",
-      "actions": ["adicionar bloco", "editar texto", "trocar imagem", "ajustar opacidade", "reorganizar seções", "revisar preview"],
-      "editableItems": ["blocos", "textos", "links", "imagens", "ordem", "visibilidade", "opacidade"],
+      "description": "Construtor visual por blocos com formulário simulado, preview local, rascunho local e revisão antes/depois da Home.",
+      "status": "Funcional parcial",
+      "actions": ["preencher campos simulados", "editar texto", "trocar imagem", "ajustar opacidade", "salvar rascunho local", "revisar antes/depois", "descartar alterações", "simular publicação"],
+      "editableItems": ["Hero", "Sobre", "Projetos", "Conteúdos em destaque", "Contato", "textos", "links", "imagens", "opacidade"],
       "commonRisks": ["remover bloco importante", "mudar a aparência da Home", "alterar link principal", "prejudicar leitura no celular"],
-      "quickReplies": ["Como edito um bloco?", "Como troco uma imagem?", "Como ajusto transparência?", "Como reordeno seções?", "O que devo revisar antes de publicar?"],
+      "quickReplies": ["O que coloco neste campo?", "Como salvo rascunho local?", "Como reviso antes/depois?", "Como descarto alterações?", "Isso já publica no site?"],
       "tasks": [
         {
           "id": "edit_block",
@@ -87,6 +87,20 @@
           "risk": "Médio",
           "response": "Você está no Editor visual. Para editar um bloco, selecione o bloco na prévia da página e use o painel lateral para ajustar título, texto, link, imagem e visibilidade. Nesta fase, isso ainda é simulado; o fluxo real virá quando o Studio tiver salvamento.",
           "quickReplies": ["Como troco uma imagem?", "Como reordeno seções?"]
+        },
+        {
+          "id": "local_preview",
+          "keywords": ["preview", "rascunho", "muda com os campos", "local", "simulado", "salva"],
+          "risk": "Baixo",
+          "response": "Você está no Editor visual. O preview da Home muda enquanto você preenche os campos, mas isso fica só no navegador. Ele serve para validar texto, imagem, botão e leitura antes de existir salvamento real.",
+          "quickReplies": ["O que coloco neste campo?", "O que devo revisar antes de publicar?"]
+        },
+        {
+          "id": "local_draft",
+          "keywords": ["rascunho local", "salvar rascunho", "alterações não salvas", "alteracoes nao salvas", "descartar", "antes e depois", "simular publicação", "simular publicacao"],
+          "risk": "Baixo",
+          "response": "Você está no Editor visual. Quando muda um campo, o Studio mostra alterações não salvas. Use Salvar rascunho local para guardar a simulação neste navegador, Revisar alterações para comparar antes/depois, Descartar alterações para voltar ao estado original ou Simular publicação para testar o fluxo sem alterar o site público.",
+          "quickReplies": ["Isso já publica no site?", "Como reviso antes/depois?"]
         },
         {
           "id": "change_image",
@@ -114,12 +128,12 @@
     "conteudos": {
       "route": "/studio/conteudos/",
       "module": "Conteúdos",
-      "description": "Gerenciador editorial para vídeos, devocionais, estudos, séries e temas do VnA.",
-      "status": "Protótipo visual",
-      "actions": ["cadastrar conteúdo", "organizar por projeto", "adicionar versículos", "definir status", "revisar link e capa"],
+      "description": "Gerenciador editorial com formulário simulado, preview de card, rascunho local e revisão de campos importantes.",
+      "status": "Funcional parcial",
+      "actions": ["preencher conteúdo simulado", "organizar por projeto", "adicionar versículos", "definir status", "salvar rascunho local", "revisar conteúdo", "limpar formulário"],
       "editableItems": ["título", "projeto", "tipo", "tema", "versículos", "descrição", "link", "thumbnail", "status"],
       "commonRisks": ["link errado", "conteúdo sem projeto", "status público antes da hora", "descrição confusa"],
-      "quickReplies": ["Como cadastrar um conteúdo?", "Como organizar por projeto?", "Como adicionar versículos?", "Como definir status?", "O que revisar antes de publicar?"],
+      "quickReplies": ["O que coloco neste campo?", "Como salvo rascunho local?", "Como reviso o conteúdo?", "Quais campos estão faltando?", "Isso já publica no site?"],
       "tasks": [
         {
           "id": "content_catalog",
@@ -127,6 +141,20 @@
           "risk": "Médio",
           "response": "Você está em Conteúdos. Para cadastrar um conteúdo no fluxo futuro, clique em Novo conteúdo, preencha título, projeto, tipo, descrição curta, tema principal, link, capa e status. Antes de publicar, confira se o link está certo e se o conteúdo pertence ao projeto correto.",
           "quickReplies": ["Como organizar por projeto?", "Como definir status?"]
+        },
+        {
+          "id": "content_preview",
+          "keywords": ["preview", "card", "rascunho", "simulado", "salvar", "publicar"],
+          "risk": "Baixo",
+          "response": "Você está em Conteúdos. O preview mostra como o card pode aparecer com título, projeto, tipo, descrição, status e botão. Nesta fase, ele não cadastra nem publica de verdade; serve para validar a experiência.",
+          "quickReplies": ["Como cadastrar um conteúdo?", "Como definir status?"]
+        },
+        {
+          "id": "content_draft_review",
+          "keywords": ["rascunho", "revisar conteúdo", "revisar conteudo", "campos faltando", "limpar formulário", "limpar formulario", "alterações não salvas", "alteracoes nao salvas"],
+          "risk": "Médio",
+          "response": "Você está em Conteúdos. O rascunho local guarda a simulação neste navegador. A revisão mostra título, projeto, tipo, descrição, link, temas, versículos, status e alertas simples quando algo importante falta. Se marcar como publicado, lembre que ainda é só protótipo e nada vai para o site real.",
+          "quickReplies": ["Isso já publica no site?", "Como definir status?"]
         },
         {
           "id": "organize_project",
@@ -201,12 +229,12 @@
     "midia": {
       "route": "/studio/midia/",
       "module": "Mídia",
-      "description": "Biblioteca futura para imagens, capas, thumbnails, logos e arquivos do VnA.",
-      "status": "Protótipo visual",
-      "actions": ["enviar imagem", "colar imagem", "organizar biblioteca", "escrever alt text", "ver onde a imagem será usada"],
+      "description": "Biblioteca de mídia com editor visual simulado, rascunho local e revisão visual de imagem.",
+      "status": "Funcional parcial",
+      "actions": ["informar caminho de imagem", "testar opacidade", "testar posição", "ajustar tamanho", "escrever alt text", "salvar rascunho local", "revisar mídia"],
       "editableItems": ["logo", "hero", "imagem Sobre", "thumbnails", "capas", "alt text", "opacidade"],
       "commonRisks": ["imagem pesada", "alt text ausente", "usar imagem no lugar errado", "quebrar identidade visual"],
-      "quickReplies": ["Como envio uma imagem?", "Como colo uma imagem?", "Como ajusto opacidade?", "Como escrevo alt text?", "Como sei onde a imagem será usada?"],
+      "quickReplies": ["O que coloco neste campo?", "Como reviso a mídia?", "Como ajusto opacidade?", "Como escrevo alt text?", "O upload já funciona?"],
       "tasks": [
         {
           "id": "change_image",
@@ -214,6 +242,20 @@
           "risk": "Médio",
           "response": "Você está na Mídia. Aqui você vai organizar imagens, capas e arquivos do VnA. Para trocar uma imagem usada em uma página, primeiro escolha ou envie a imagem na biblioteca. Depois, no futuro, você poderá clicar em Usar em uma página e escolher o bloco onde ela será aplicada.",
           "quickReplies": ["Como escrevo alt text?", "Como sei onde a imagem será usada?"]
+        },
+        {
+          "id": "media_preview",
+          "keywords": ["preview", "opacidade", "posição", "posicao", "tamanho", "arredondamento", "visual"],
+          "risk": "Baixo",
+          "response": "Você está na Mídia. Use o preview para testar opacidade, posição, tamanho e arredondamento da imagem. Isso ajuda a perceber se a imagem funciona no visual antes de aplicar em uma página no futuro.",
+          "quickReplies": ["Como escrevo alt text?", "Como sei onde a imagem será usada?"]
+        },
+        {
+          "id": "media_draft_review",
+          "keywords": ["revisar mídia", "revisar midia", "rascunho", "antes e depois", "opacidade baixa", "imagem pequena", "alt vazio", "alterações não salvas", "alteracoes nao salvas"],
+          "risk": "Médio",
+          "response": "Você está na Mídia. A revisão mostra o que mudou na imagem, como opacidade, posição, tamanho, arredondamento e alt text. Se o alt text estiver vazio, a opacidade estiver baixa demais ou a imagem ficar pequena demais, o Studio mostra alerta para você revisar antes de simular publicação.",
+          "quickReplies": ["O upload já funciona?", "Como escrevo alt text?"]
         },
         {
           "id": "upload_image",
@@ -288,33 +330,33 @@
     "historico": {
       "route": "/studio/historico/",
       "module": "Histórico e versões",
-      "description": "Planejamento para registrar alterações, comparar versões e restaurar mudanças futuras.",
-      "status": "Planejado",
-      "actions": ["ver registros", "comparar antes e depois", "restaurar versão", "revisar risco"],
+      "description": "Visualização do histórico local do protótipo com rascunhos, revisões, descartes e simulações de publicação.",
+      "status": "Funcional parcial",
+      "actions": ["ver registros locais", "visualizar detalhes", "comparar antes e depois", "entender limites do protótipo"],
       "editableItems": ["rascunhos", "versões", "autor", "data", "resumo", "risco"],
       "commonRisks": ["confundir histórico local com auditoria real", "restaurar versão errada", "perder contexto da mudança"],
-      "quickReplies": ["O que será registrado?", "Como comparar antes e depois?", "Como restaurar versão?", "O que ainda é protótipo?"],
+      "quickReplies": ["O que fica no histórico local?", "Posso confiar nesse histórico?", "Como comparar antes e depois?", "Isso é auditoria real?"],
       "tasks": [
         {
           "id": "history_records",
           "keywords": ["registrado", "registro", "histórico", "historico", "auditoria"],
           "risk": "Alto",
-          "response": "Você está em Histórico. No fluxo futuro, cada mudança importante deve registrar quem alterou, quando alterou, o que mudou, qual era o valor anterior, qual é o novo valor, risco e status de publicação. Hoje isso ainda é planejamento.",
-          "quickReplies": ["Como comparar antes e depois?", "O que ainda é protótipo?"]
+          "response": "Você está em Histórico. Agora a Fase 0.4 lista registros locais deste navegador: rascunho local, revisão feita, simulação de publicação e descarte. Isso ajuda a testar o fluxo, mas ainda não é auditoria real multiusuário.",
+          "quickReplies": ["Posso confiar nesse histórico?", "Como comparar antes e depois?"]
         },
         {
           "id": "compare_versions",
           "keywords": ["comparar", "antes e depois", "diferença", "diferenca", "versões", "versoes"],
           "risk": "Médio",
-          "response": "Você está em Histórico. Comparar antes e depois deve mostrar o texto antigo ao lado do novo, a imagem anterior ao lado da nova e o impacto da mudança. Isso ajuda a revisar sem depender de memória.",
-          "quickReplies": ["Como restaurar versão?", "O que será registrado?"]
+          "response": "Você está em Histórico. A comparação mostra campo alterado, valor anterior, valor novo, tipo da mudança, risco e observação. Isso ajuda a revisar sem depender de memória, mas os dados ficam apenas neste navegador.",
+          "quickReplies": ["Posso confiar nesse histórico?", "Isso é auditoria real?"]
         },
         {
           "id": "restore_version",
           "keywords": ["restaurar", "voltar versão", "voltar versao", "desfazer", "recuperar"],
           "risk": "Crítico",
-          "response": "Você está em Histórico. Restaurar versão deve ser uma ação cuidadosa: escolha a versão, veja a comparação, confirme o impacto e só então restaure. Na Fase 0.2, isso ainda não funciona de verdade; é apenas o desenho do fluxo futuro.",
-          "quickReplies": ["Como comparar antes e depois?", "O que ainda é protótipo?"]
+          "response": "Você está em Histórico. Restaurar versão ainda não funciona de verdade. Na Fase 0.4, o histórico serve para visualizar detalhes e aprender o fluxo. Restauração real virá depois, com login, banco de dados, permissões e versões publicadas.",
+          "quickReplies": ["Como comparar antes e depois?", "Posso confiar nesse histórico?"]
         }
       ]
     },
@@ -326,7 +368,7 @@
       "actions": ["orientar caminho visual", "responder por contexto", "classificar risco simples", "registrar histórico local"],
       "editableItems": ["perguntas", "modos", "sugestões rápidas", "histórico local"],
       "commonRisks": ["achar que o Auditor altera o site sozinho", "confundir protótipo com salvamento real"],
-      "quickReplies": ["Como você pode me ajudar?", "Você altera o site sozinho?", "O que ainda é protótipo?", "Como revisar uma mudança?"],
+      "quickReplies": ["Como você pode me ajudar?", "O que é rascunho local?", "Isso já publica no site?", "Posso confiar nesse histórico?"],
       "tasks": [
         {
           "id": "auditor_help",

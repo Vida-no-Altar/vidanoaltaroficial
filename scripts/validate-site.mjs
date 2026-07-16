@@ -364,7 +364,6 @@ async function validateDocsSafetyAndConfig() {
   check(readme.includes('Ele não deve orientar usuários leigos a editar arquivos do projeto.'), 'README precisa explicar o papel correto do Auditor VnA.');
   check(intelligence.includes('studioContext'), 'Motor precisa carregar contexto do Studio.');
   check(intelligence.includes('data-vna-intelligence') && intelligence.includes('studio-auditor'), 'Motor precisa suportar widget contextual do Studio.');
-  check(intelligence.includes('data-studio-field') && intelligence.includes('fieldSpecificResponse'), 'Auditor precisa reconhecer contexto de campos do Studio.');
   check(studioPrototype.includes('data-preview-text') && studioPrototype.includes('data-preview-opacity'), 'Script de protótipo precisa atualizar textos e opacidade.');
   check(studioPrototype.includes('saveLocalDraft') && studioPrototype.includes('renderReview'), 'Script de protótipo precisa controlar rascunho local e revisão.');
   check(studioPrototype.includes('registerLocalHistory') && studioPrototype.includes('simulatePublish'), 'Script de protótipo precisa registrar histórico local e simular publicação.');
@@ -472,4 +471,6 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+
+
 

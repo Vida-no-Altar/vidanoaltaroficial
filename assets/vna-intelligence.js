@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const script = document.currentScript;
   const agentType = script?.getAttribute('data-vna-intelligence') || script?.dataset.vnaIntelligence || document.body.dataset.vnaIntelligence || 'public';
   const isAuditorPage = agentType === 'auditor';
@@ -18,7 +18,6 @@
     mode: isAuditor ? 'conteudo' : 'descobrir',
     initialized: false,
     bibleFlow: null,
-    activeField: null,
   };
 
   const routes = {
@@ -210,78 +209,9 @@
     return contexts[state.contextKey] || contexts[state.studioContext?.defaultContext] || null;
   }
 
-  function fieldFromElement(element) {
-    const fieldElement = element?.closest?.('[data-studio-field]');
-    if (!fieldElement) return null;
-    const label = fieldElement.dataset.studioFieldLabel || fieldElement.getAttribute('aria-label') || fieldElement.id || fieldElement.name || 'Campo selecionado';
-    const section = fieldElement.dataset.studioSection || fieldElement.closest('[data-studio-section]')?.dataset.studioSection || currentStudioContext()?.module || 'Studio';
-    const help = fieldElement.dataset.studioFieldHelp || 'Use este campo para simular a edição visual no Studio.';
-    const field = fieldElement.dataset.studioField || '';
-    const action = fieldElement.dataset.studioAction || '';
-    const risk = fieldElement.dataset.studioRisk || (/link|status|image|imagem|opacity|opacidade|source|publicar/i.test(`${field} ${label}`) ? 'Médio' : 'Baixo');
-
-    return { label, section, help, field, action, risk };
-  }
-
-  function trackStudioFieldContext() {
-    if (!isAuditor) return;
-    document.addEventListener('focusin', (event) => {
-      const field = fieldFromElement(event.target);
-      if (field) state.activeField = field;
-    });
-    document.addEventListener('pointerdown', (event) => {
-      const field = fieldFromElement(event.target);
-      if (field) state.activeField = field;
-    });
-  }
-
-  function isFieldHelpQuestion(question) {
-    const normalized = normalizeText(question);
-    return /(o que coloco aqui|o que escrever aqui|como preencher|esse campo|este campo|campo atual|me ajuda nesse campo|me ajuda neste campo|isso aqui)/i.test(normalized);
-  }
-
-  function fieldSpecificResponse(field) {
-    const normalized = normalizeText(`${field.field} ${field.label} ${field.section}`);
-    if (/hero.*titulo|titulo.*hero|hero-title/.test(normalized)) {
-      return 'Esse campo é o título principal da primeira dobra do site. Use uma frase curta, forte e clara. Para o VnA, o ideal é manter algo direto como "Vida no Altar" ou uma chamada institucional muito simples.';
-    }
-    if (/opacidade|opacity/.test(normalized)) {
-      return 'A opacidade controla o quanto a imagem aparece. Para fundo visual, valores entre 40% e 70% costumam funcionar bem. Para imagem principal de pessoa ou produto, evite deixar transparente demais.';
-    }
-    if (/afiliado|amazon|shopee/.test(normalized)) {
-      return 'Esse campo deve receber o link da Amazon ou Shopee. Como pode ser afiliado, mantenha o aviso de transparência visível para o visitante e nunca recomende só por comissão.';
-    }
-    if (/alt|texto alternativo/.test(normalized)) {
-      return 'Esse campo descreve a imagem para acessibilidade. Escreva de forma objetiva quem ou o que aparece e por que a imagem importa naquele bloco.';
-    }
-    if (/status/.test(normalized)) {
-      return 'Esse campo define se algo está em rascunho, publicado, arquivado, ativo, em desenvolvimento ou futuro. Se ainda falta revisão, link real ou imagem boa, mantenha como rascunho ou em desenvolvimento.';
-    }
-    if (/link/.test(normalized)) {
-      return 'Esse campo recebe o destino do botão ou conteúdo. Use um link oficial, revise se ele abre o lugar certo e mantenha como rascunho quando ainda não existir destino real.';
-    }
-    return field.help;
-  }
-
-  function findFieldContext(question) {
-    if (state.activeField && isFieldHelpQuestion(question)) return state.activeField;
-
-    const fields = [...document.querySelectorAll('[data-studio-field]')].map(fieldFromElement).filter(Boolean);
-    let best = null;
-    let bestScore = 0;
-    for (const field of fields) {
-      const score = scoreKeywords(question, [field.field, field.label, field.section, field.help, field.action].filter(Boolean));
-      if (score > bestScore) {
-        best = field;
-        bestScore = score;
-      }
-    }
-    return bestScore >= 4 ? best : null;
-  }
-
   function findContextTask(question) {
     const context = currentStudioContext();
-    const tasks = [...(state.studioContext?.sharedTasks || []), ...(context?.tasks || [])];
+    const tasks = context?.tasks || [];
     let best = null;
     let bestScore = 0;
 
@@ -542,18 +472,15 @@
 
   function answerAuditor(question) {
     const context = currentStudioContext();
-    const fieldContext = findFieldContext(question);
     const task = findContextTask(question);
     const intent = findBestIntent(question);
-    const risk = classifyRisk(question, fieldContext?.risk || task?.risk || intent?.risk);
-    const sourceText = fieldContext
-      ? `Você está no campo ${fieldContext.label}, na área ${fieldContext.section}. ${fieldSpecificResponse(fieldContext)}`
-      : task?.response || intent?.response || state.assistant?.fallback;
+    const risk = classifyRisk(question, task?.risk || intent?.risk);
+    const sourceText = task?.response || intent?.response || state.assistant?.fallback;
     const parts = [];
     const nudge = modeNudge(intent, task);
 
     if (nudge) parts.push(nudge);
-    if (!fieldContext && !task && context && state.contextKey !== 'auditor' && !/^Você está/i.test(sourceText)) {
+    if (!task && context && state.contextKey !== 'auditor' && !/^Você está/i.test(sourceText)) {
       parts.push(`Você está em ${context.module}. ${sourceText}`);
     } else {
       parts.push(sourceText);
@@ -565,16 +492,16 @@
       parts.push(state.studioContext?.globalPrototypeNote || 'Nesta fase, algumas ações ainda não salvam de verdade.');
     }
 
-    if (!fieldContext && !task && !intent && context) {
+    if (!task && !intent && context) {
       parts.push(`Para eu te guiar melhor, diga qual área você quer mexer em ${context.module}: ${[...(context.editableItems || [])].slice(0, 4).join(', ')}.`);
     }
 
-    saveHistory({ question, mode: currentMode()?.label || state.mode, risk, context: fieldContext ? `${context?.module || 'Studio'} · ${fieldContext.label}` : context?.module || 'Studio' });
+    saveHistory({ question, mode: currentMode()?.label || state.mode, risk, context: context?.module || 'Studio' });
 
     return {
       text: parts.filter(Boolean).join('\n\n'),
       links: [],
-      quickReplies: fieldContext ? ['Como revisar este campo?', 'O que devo evitar?', 'Isso altera o site publicado?'] : task?.quickReplies || intent?.quickReplies || contextQuickReplies(),
+      quickReplies: task?.quickReplies || intent?.quickReplies || contextQuickReplies(),
     };
   }
 
@@ -817,7 +744,6 @@
   async function init() {
     try {
       await loadIntelligence();
-      trackStudioFieldContext();
       if (isAuditorPage) initAuditorPage();
       else if (isStudioAuditorWidget) initStudioAuditorWidget();
       else initPublicWidget();
@@ -828,3 +754,4 @@
 
   init();
 })();
+

@@ -58,8 +58,14 @@
             "Onde acompanho o VnA?"
           ],
           "links": [
-            { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
-            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
+            {
+              "label": "Instagram",
+              "url": "https://www.instagram.com/vidanoaltar.oficial"
+            },
+            {
+              "label": "YouTube",
+              "url": "https://www.youtube.com/@vidanoaltar.oficial"
+            }
           ]
         },
         {
@@ -81,7 +87,10 @@
             "Como entro em contato?"
           ],
           "links": [
-            { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" }
+            {
+              "label": "Instagram",
+              "url": "https://www.instagram.com/vidanoaltar.oficial"
+            }
           ]
         }
       ]
@@ -110,7 +119,10 @@
           ],
           "response": "Os conteúdos em vídeo do Vida no Altar ficam no canal oficial do YouTube. Use o canal para acompanhar séries, estudos e vídeos publicados pelo VnA.",
           "links": [
-            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
+            {
+              "label": "YouTube",
+              "url": "https://www.youtube.com/@vidanoaltar.oficial"
+            }
           ],
           "quickReplies": [
             "Quero entender os Evangelhos",
@@ -130,9 +142,18 @@
           ],
           "response": "Você pode acompanhar o VnA no YouTube, Instagram e TikTok em @vidanoaltar.oficial.",
           "links": [
-            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" },
-            { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
-            { "label": "TikTok", "url": "https://www.tiktok.com/@vidanoaltar.oficial" }
+            {
+              "label": "YouTube",
+              "url": "https://www.youtube.com/@vidanoaltar.oficial"
+            },
+            {
+              "label": "Instagram",
+              "url": "https://www.instagram.com/vidanoaltar.oficial"
+            },
+            {
+              "label": "TikTok",
+              "url": "https://www.tiktok.com/@vidanoaltar.oficial"
+            }
           ],
           "quickReplies": [
             "Não sei por onde começar",
@@ -207,7 +228,10 @@
           ],
           "response": "Conhecendo os Evangelhos é uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé. É um bom caminho para quem quer compreender melhor a vida, a mensagem e a chegada de Jesus.",
           "links": [
-            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
+            {
+              "label": "YouTube",
+              "url": "https://www.youtube.com/@vidanoaltar.oficial"
+            }
           ],
           "quickReplies": [
             "Onde assistir?",
@@ -235,33 +259,6 @@
           ]
         },
         {
-          "id": "not_public_now",
-          "keywords": [
-            "biblioteca",
-            "biblioteca v.a",
-            "biblioteca va",
-            "v.a kids",
-            "va kids",
-            "kids",
-            "produtos",
-            "produto",
-            "indicações",
-            "indicacoes",
-            "bíblia",
-            "biblia",
-            "comprar"
-          ],
-          "response": "Nesta versão pública, o site mostra apenas o que já está ativo e disponível. Por isso, essa área ainda não aparece aqui. Para acompanhar novidades reais do VnA, use os canais oficiais.",
-          "links": [
-            { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
-            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
-          ],
-          "quickReplies": [
-            "Quais projetos existem hoje?",
-            "Onde acompanho o VnA?"
-          ]
-        },
-        {
           "id": "contact",
           "keywords": [
             "contato",
@@ -276,7 +273,10 @@
           ],
           "response": "Para convites, sugestões, parcerias ou contato geral, use contato@vidanoaltaroficial.com.br.",
           "links": [
-            { "label": "E-mail", "url": "mailto:contato@vidanoaltaroficial.com.br" }
+            {
+              "label": "E-mail",
+              "url": "mailto:contato@vidanoaltaroficial.com.br"
+            }
           ],
           "quickReplies": [
             "Onde acompanho o VnA?",

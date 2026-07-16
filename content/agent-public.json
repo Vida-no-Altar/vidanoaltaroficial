@@ -44,8 +44,14 @@
         "Onde acompanho o VnA?"
       ],
       "links": [
-        { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" },
-        { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" }
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@vidanoaltar.oficial"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/vidanoaltar.oficial"
+        }
       ]
     },
     {
@@ -114,7 +120,10 @@
         "Como entro em contato?"
       ],
       "links": [
-        { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" }
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/vidanoaltar.oficial"
+        }
       ]
     },
     {
@@ -141,7 +150,10 @@
         "Onde acompanho o VnA?"
       ],
       "links": [
-        { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@vidanoaltar.oficial"
+        }
       ]
     },
     {
@@ -166,39 +178,6 @@
       ]
     },
     {
-      "id": "not_public_now",
-      "title": "Áreas não públicas nesta versão",
-      "keywords": [
-        "biblioteca va",
-        "biblioteca v.a",
-        "biblioteca",
-        "livros",
-        "resenha",
-        "va kids",
-        "v.a kids",
-        "kids",
-        "crianças",
-        "criancas",
-        "infantil",
-        "produtos",
-        "produto",
-        "indicações",
-        "indicacoes",
-        "bíblia",
-        "biblia",
-        "comprar"
-      ],
-      "response": "Nesta versão pública, o site mostra apenas o que já está ativo e disponível. Por isso, essa área ainda não aparece aqui. Para acompanhar novidades reais do VnA, use os canais oficiais.",
-      "quickReplies": [
-        "Quais projetos existem hoje?",
-        "Onde acompanho o VnA?"
-      ],
-      "links": [
-        { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
-        { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
-      ]
-    },
-    {
       "id": "social_links",
       "title": "Redes sociais",
       "keywords": [
@@ -219,9 +198,18 @@
         "Como entro em contato?"
       ],
       "links": [
-        { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" },
-        { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
-        { "label": "TikTok", "url": "https://www.tiktok.com/@vidanoaltar.oficial" }
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@vidanoaltar.oficial"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/vidanoaltar.oficial"
+        },
+        {
+          "label": "TikTok",
+          "url": "https://www.tiktok.com/@vidanoaltar.oficial"
+        }
       ]
     },
     {
@@ -244,7 +232,10 @@
         "Quais projetos existem hoje?"
       ],
       "links": [
-        { "label": "Enviar e-mail", "url": "mailto:contato@vidanoaltaroficial.com.br" }
+        {
+          "label": "Enviar e-mail",
+          "url": "mailto:contato@vidanoaltaroficial.com.br"
+        }
       ]
     }
   ]

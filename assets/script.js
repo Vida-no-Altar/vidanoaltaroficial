@@ -7,7 +7,6 @@ const sectionToNav = {
   comece: "#inicio",
   projetos: "#projetos",
   sobre: "#sobre",
-  conteudos: "#projetos",
   links: "#links",
   contato: "#contato",
 };
@@ -65,6 +64,7 @@ const iconPaths = {
   devotional: '<path d="M7 5h10v14H7z"/><path d="M9.5 7.8h5M9.5 11h5M9.5 14.2h3.5"/>',
   gospels: '<path d="M4 7.5c2.4-1.4 5.1-1.4 8 0 2.9-1.4 5.6-1.4 8 0v10.2c-2.4-1.2-5.1-1.2-8 .2-2.9-1.4-5.6-1.4-8-.2z"/><path d="M12 7.5v10.4"/>',
   library: '<path d="M6 4h9.5A2.5 2.5 0 0 1 18 6.5V20H8.5A2.5 2.5 0 0 1 6 17.5z"/><path d="M9 8h5M9 11h6M9 14h4"/>',
+  links: '<path d="M9.5 14.5l5-5"/><path d="M10.5 7.5 12 6a4 4 0 0 1 5.7 5.7l-1.2 1.2"/><path d="M13.5 16.5 12 18a4 4 0 0 1-5.7-5.7l1.2-1.2"/>',
   default: '<path d="M12 5v14M5 12h14"/>',
 };
 
@@ -104,15 +104,37 @@ function updateDocumentMeta(meta = {}) {
   if (canonical && typeof meta.url === "string") canonical.setAttribute("href", meta.url);
 }
 
+let activeHeroImage = "";
+
+function normalizeHeroImagePath(image) {
+  const value = asText(image).trim();
+  if (!value) return "";
+
+  const safeValue = value.replace(/["\\\n\r]/g, "");
+  const withoutOrigin = safeValue.replace(/^https?:\/\/[^/]+\//i, "");
+  const normalized = withoutOrigin.replace(/^\/+/, "");
+
+  if (
+    normalized === "hero-devocional.webp" ||
+    normalized === "images/hero-devocional.webp" ||
+    normalized === "public/hero-devocional.webp" ||
+    normalized.endsWith("/hero-devocional.webp")
+  ) {
+    return "public/images/hero-devocional.webp";
+  }
+
+  return safeValue;
+}
+
 function setHeroImage(image) {
   const value = asText(image);
   if (!value) return;
-  const safeValue = sanitizeAssetPath(value);
-  document.documentElement.style.setProperty("--hero-image", `url("${safeValue}")`);
-}
 
-function sanitizeAssetPath(value) {
-  return asText(value).trim().replace(/["\\\n\r]/g, "");
+  const safeValue = normalizeHeroImagePath(value);
+  if (!safeValue || safeValue === activeHeroImage) return;
+
+  activeHeroImage = safeValue;
+  document.documentElement.style.setProperty("--hero-image", `url("${safeValue}")`);
 }
 
 function normalizeEmail(value) {
@@ -262,28 +284,6 @@ function renderAboutClosing(closing) {
   node.textContent = text;
 }
 
-function renderAboutImage(about = {}) {
-  const image = sanitizeAssetPath(about.image);
-  const alt = asText(about.imageAlt).trim();
-  const picture = document.querySelector(".about-portrait-picture");
-  const img = picture?.querySelector(".about-portrait");
-  if (!img) return;
-
-  if (image) {
-    const webpSource = picture.querySelector('source[type="image/webp"]');
-    if (webpSource) {
-      if (/\.webp(?:[?#].*)?$/i.test(image)) {
-        webpSource.setAttribute("srcset", image);
-      } else {
-        webpSource.removeAttribute("srcset");
-      }
-    }
-    img.setAttribute("src", image);
-  }
-
-  if (alt) img.setAttribute("alt", alt);
-}
-
 function applyEditableContent(data) {
   if (!data || typeof data !== "object") return;
 
@@ -316,7 +316,6 @@ function applyEditableContent(data) {
   setTextByKey("about.text", data.about?.text);
   renderPresence(data.about?.presenceLines);
   renderAboutClosing(data.about?.closing);
-  renderAboutImage(data.about);
 
   setTextByKey("featuredContent.eyebrow", data.featuredContent?.eyebrow);
   setTextByKey("featuredContent.title", data.featuredContent?.title);

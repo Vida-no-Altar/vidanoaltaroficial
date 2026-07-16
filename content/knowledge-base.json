@@ -27,28 +27,10 @@
       "description": "Uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé."
     },
     {
-      "name": "Biblioteca V.A",
-      "type": "Livros cristãos comentados",
-      "status": "ativo",
-      "description": "Livros cristãos comentados para fortalecer a fé, a mente e a vida prática."
-    },
-    {
       "name": "Vida no Altar Covers",
       "type": "Louvor e música",
       "status": "ativo",
       "description": "Canções cristãs no teclado e momentos de adoração com identidade simples e verdadeira."
-    },
-    {
-      "name": "Conexão Gospel",
-      "type": "Eventos, reviews e bastidores",
-      "status": "em desenvolvimento",
-      "description": "Coberturas, conversas e conteúdos sobre o universo cristão com olhar jovem e relevante."
-    },
-    {
-      "name": "V.A Kids",
-      "type": "Conteúdo infantil cristão",
-      "status": "projeto futuro/em desenvolvimento",
-      "description": "Histórias bíblicas e conteúdos educativos para crianças, com linguagem simples e visual criativo."
     }
   ],
   "contact": {

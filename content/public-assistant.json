@@ -1,16 +1,15 @@
 {
   "name": "Assistente VnA",
   "type": "public-intelligence",
-  "initialMessage": "Oi! Que bom ter você por aqui. Posso te ajudar a conhecer o Vida no Altar, encontrar um conteúdo ou descobrir por onde começar.",
+  "initialMessage": "Oi! Que bom ter você por aqui. Posso te ajudar a conhecer o Vida no Altar, encontrar os canais oficiais e descobrir por onde começar.",
   "quickReplies": [
     "Não sei por onde começar",
     "Quero um devocional rápido",
     "Quero entender os Evangelhos",
-    "Estou procurando um conteúdo por tema",
-    "Quero conhecer os projetos",
-    "Quero ajuda para escolher uma Bíblia"
+    "Onde acompanho o VnA?",
+    "Como entro em contato?"
   ],
-  "fallback": "Não tenho uma resposta segura para isso ainda. Posso te ajudar com os projetos do VnA, conteúdos disponíveis, redes sociais ou contato.",
+  "fallback": "Não tenho uma resposta segura para isso ainda. Posso te ajudar com os projetos ativos do VnA, canais oficiais ou contato.",
   "safety": {
     "keywords": [
       "aconselhamento",
@@ -27,7 +26,7 @@
       "oração individual",
       "mentoria espiritual"
     ],
-    "response": "Posso caminhar com você em informações sobre o Vida no Altar e princípios bíblicos gerais, mas não substituo uma liderança pastoral madura, acompanhamento profissional ou apoio de pessoas próximas. Para algo pessoal e profundo, procure uma liderança cristã de confiança na sua igreja local e ajuda adequada."
+    "response": "Posso ajudar com informações sobre o Vida no Altar e princípios bíblicos gerais, mas não substituo uma liderança pastoral madura, acompanhamento profissional ou apoio de pessoas próximas. Para algo pessoal e profundo, procure uma liderança cristã de confiança na sua igreja local e ajuda adequada."
   },
   "modes": [
     {
@@ -52,11 +51,11 @@
             "cheguei agora",
             "começar"
           ],
-          "response": "Comece pelo caminho mais simples: Café no Altar para devocionais curtos e práticos. Depois, siga para Conhecendo os Evangelhos se você quer estudar com mais contexto. Se quiser fortalecer a mente e a fé pela leitura, vá para Biblioteca V.A.",
+          "response": "Comece pelo caminho mais simples: acompanhe o Café no Altar pelo Instagram para devocionais curtos e práticos. Depois, vá para o YouTube para assistir conteúdos em vídeo, incluindo Conhecendo os Evangelhos.",
           "quickReplies": [
             "Quero um devocional rápido",
             "Quero entender os Evangelhos",
-            "Quero conhecer os projetos"
+            "Onde acompanho o VnA?"
           ],
           "links": [
             { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
@@ -75,10 +74,10 @@
             "começar o dia",
             "começar meu dia"
           ],
-          "response": "Para um devocional rápido, procure o Café no Altar. Ele foi pensado para começar o dia com Deus de forma simples, bíblica e prática, sem complicar a fé.",
+          "response": "Para um devocional rápido, procure o Café no Altar no Instagram oficial. A proposta é começar o dia com Deus de forma simples, bíblica e prática.",
           "quickReplies": [
-            "Estou procurando um conteúdo por tema",
             "Onde acompanho o VnA?",
+            "Quero entender os Evangelhos",
             "Como entro em contato?"
           ],
           "links": [
@@ -90,42 +89,13 @@
     {
       "id": "encontrar",
       "label": "Encontrar",
-      "description": "Para procurar conteúdo por tema, projeto, versículo ou formato.",
+      "description": "Para encontrar canais e conteúdos disponíveis.",
       "quickReplies": [
-        "Estou procurando um conteúdo por tema",
-        "Tem conteúdo sobre ansiedade?",
-        "Tem conteúdo sobre recomeço?",
-        "Quero conteúdo em vídeo"
+        "Onde acompanho o VnA?",
+        "Quero conteúdo em vídeo",
+        "Quero ver devocionais"
       ],
       "intents": [
-        {
-          "id": "search_content",
-          "keywords": [
-            "procurando conteúdo",
-            "procurando conteudo",
-            "conteúdo por tema",
-            "conteudo por tema",
-            "tema",
-            "versículo",
-            "versiculo",
-            "vídeo",
-            "video",
-            "devocional",
-            "ansiedade",
-            "recomeço",
-            "semeadura",
-            "trabalho",
-            "coragem"
-          ],
-          "response": "Posso procurar no catálogo inicial do VnA por tema, projeto, versículo ou formato. Me diga uma palavra como ansiedade, recomeço, semeadura, Evangelhos, coragem ou Bíblia.",
-          "useCatalogSearch": true,
-          "quickReplies": [
-            "Ansiedade",
-            "Recomeço",
-            "Evangelhos",
-            "Escolher Bíblia"
-          ]
-        },
         {
           "id": "youtube_content",
           "keywords": [
@@ -134,15 +104,39 @@
             "vídeo",
             "video",
             "canal",
-            "onde assistir"
+            "onde assistir",
+            "conteúdo em vídeo",
+            "conteudo em video"
           ],
-          "response": "Os conteúdos em vídeo do Vida no Altar ficam no canal oficial do YouTube. Quando o catálogo tiver links diretos por episódio, eu também vou conseguir apontar conteúdos específicos.",
+          "response": "Os conteúdos em vídeo do Vida no Altar ficam no canal oficial do YouTube. Use o canal para acompanhar séries, estudos e vídeos publicados pelo VnA.",
           "links": [
             { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
           ],
           "quickReplies": [
             "Quero entender os Evangelhos",
-            "Estou procurando um conteúdo por tema"
+            "Onde acompanho o VnA?"
+          ]
+        },
+        {
+          "id": "social_links",
+          "keywords": [
+            "onde acompanho",
+            "redes sociais",
+            "instagram",
+            "tiktok",
+            "youtube",
+            "seguir",
+            "canais oficiais"
+          ],
+          "response": "Você pode acompanhar o VnA no YouTube, Instagram e TikTok em @vidanoaltar.oficial.",
+          "links": [
+            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" },
+            { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
+            { "label": "TikTok", "url": "https://www.tiktok.com/@vidanoaltar.oficial" }
+          ],
+          "quickReplies": [
+            "Não sei por onde começar",
+            "Como entro em contato?"
           ]
         }
       ]
@@ -150,12 +144,12 @@
     {
       "id": "entender",
       "label": "Entender",
-      "description": "Para entender a marca e os projetos do VnA.",
+      "description": "Para entender a marca e os projetos ativos do VnA.",
       "quickReplies": [
         "O que é o Vida no Altar?",
-        "Quero conhecer os projetos",
+        "Quais projetos existem hoje?",
         "O que é Café no Altar?",
-        "O que é Biblioteca V.A?"
+        "Quero conhecer os Evangelhos"
       ],
       "intents": [
         {
@@ -172,7 +166,7 @@
           ],
           "response": "O Vida no Altar é um projeto cristão com conteúdo simples, profundo e real para jovens, adolescentes e toda a igreja. O slogan é: Presença que transforma gerações. A missão é apontar pessoas para uma vida com Deus no centro, conectando a Palavra com a rotina.",
           "quickReplies": [
-            "Quero conhecer os projetos",
+            "Quais projetos existem hoje?",
             "Quem está por trás do VnA?",
             "Onde acompanho o VnA?"
           ]
@@ -182,20 +176,19 @@
           "keywords": [
             "projetos",
             "conhecer os projetos",
+            "quais projetos existem hoje",
             "iniciativas",
             "quadros",
             "cafe no altar",
             "evangelhos",
-            "biblioteca",
             "covers",
-            "conexao gospel",
-            "kids"
+            "louvor"
           ],
-          "response": "Os projetos principais do VnA são Café no Altar, Conhecendo os Evangelhos e Biblioteca V.A. Também existem Vida no Altar Covers, Conexão Gospel e V.A Kids, sendo V.A Kids um projeto futuro ou em desenvolvimento.",
+          "response": "Hoje, o site público destaca os projetos que já fazem parte real da caminhada do VnA: Café no Altar, Conhecendo os Evangelhos e Vida no Altar Covers.",
           "quickReplies": [
             "O que é Café no Altar?",
             "Quero entender os Evangelhos",
-            "O que é Biblioteca V.A?"
+            "Onde acompanho o VnA?"
           ]
         },
         {
@@ -217,107 +210,77 @@
             { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
           ],
           "quickReplies": [
-            "Os 400 anos de silêncio",
-            "Estou procurando um conteúdo por tema"
+            "Onde assistir?",
+            "Onde acompanho o VnA?"
           ]
         },
         {
-          "id": "biblioteca",
+          "id": "covers",
+          "keywords": [
+            "covers",
+            "vida no altar covers",
+            "louvor",
+            "música",
+            "musica",
+            "teclado",
+            "adoração",
+            "adoracao",
+            "canções",
+            "cancoes"
+          ],
+          "response": "Vida no Altar Covers é a frente de louvor e música do VnA, com canções cristãs no teclado e momentos de adoração com identidade simples e verdadeira.",
+          "quickReplies": [
+            "Onde acompanho o VnA?",
+            "Quais projetos existem hoje?"
+          ]
+        },
+        {
+          "id": "not_public_now",
           "keywords": [
             "biblioteca",
             "biblioteca v.a",
             "biblioteca va",
-            "livros",
-            "livro cristão",
-            "livro cristao",
-            "leitura"
+            "v.a kids",
+            "va kids",
+            "kids",
+            "produtos",
+            "produto",
+            "indicações",
+            "indicacoes",
+            "bíblia",
+            "biblia",
+            "comprar"
           ],
-          "response": "Biblioteca V.A é o espaço de livros cristãos comentados para fortalecer a fé, a mente e a vida prática. A ideia é ajudar na leitura cristã sem linguagem pesada ou distante.",
+          "response": "Nesta versão pública, o site mostra apenas o que já está ativo e disponível. Por isso, essa área ainda não aparece aqui. Para acompanhar novidades reais do VnA, use os canais oficiais.",
+          "links": [
+            { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
+            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
+          ],
           "quickReplies": [
-            "Quero ajuda para escolher uma Bíblia",
-            "Estou procurando um conteúdo por tema"
+            "Quais projetos existem hoje?",
+            "Onde acompanho o VnA?"
           ]
         },
         {
-          "id": "social_contact",
+          "id": "contact",
           "keywords": [
-            "onde acompanho",
-            "redes sociais",
-            "instagram",
-            "tiktok",
             "contato",
             "email",
+            "e-mail",
+            "falar com",
             "parceria",
-            "convite"
+            "convite",
+            "sugestão",
+            "sugestao",
+            "como entro em contato"
           ],
-          "response": "Você pode acompanhar o VnA no YouTube, Instagram e TikTok em @vidanoaltar.oficial. Para convites, sugestões, parcerias ou contato geral, use contato@vidanoaltaroficial.com.br.",
+          "response": "Para convites, sugestões, parcerias ou contato geral, use contato@vidanoaltaroficial.com.br.",
           "links": [
-            { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" },
-            { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
-            { "label": "TikTok", "url": "https://www.tiktok.com/@vidanoaltar.oficial" },
             { "label": "E-mail", "url": "mailto:contato@vidanoaltaroficial.com.br" }
           ],
           "quickReplies": [
-            "Quero conhecer os projetos",
+            "Onde acompanho o VnA?",
             "Não sei por onde começar"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "escolher",
-      "label": "Escolher",
-      "description": "Para recomendação futura de Bíblias e livros.",
-      "quickReplies": [
-        "Quero ajuda para escolher uma Bíblia",
-        "A Bíblia é para presentear",
-        "Minha igreja usa ARC",
-        "Quero uma linguagem simples"
-      ],
-      "intents": [
-        {
-          "id": "bible_diagnosis",
-          "keywords": [
-            "escolher bíblia",
-            "escolher biblia",
-            "comprar bíblia",
-            "comprar biblia",
-            "qual bíblia",
-            "qual biblia",
-            "bíblia de estudo",
-            "biblia de estudo",
-            "arc",
-            "ara",
-            "naa",
-            "ntlh",
-            "tradução",
-            "traducao",
-            "presentear"
-          ],
-          "response": "Posso te guiar por etapas para pensar em uma Bíblia adequada ao perfil, uso, tradução da igreja, facilidade de leitura e orçamento. Não vou afirmar que uma tradução é espiritualmente superior a outra.",
-          "startBibleFlow": true,
-          "quickReplies": [
-            "Começar diagnóstico de Bíblia",
-            "Minha igreja usa ARC",
-            "Quero linguagem simples"
-          ]
-        },
-        {
-          "id": "affiliate_ethics",
-          "keywords": [
-            "afiliado",
-            "amazon",
-            "shopee",
-            "comissão",
-            "comissao",
-            "produto",
-            "recomendação",
-            "recomendacao"
-          ],
-          "response": "Alguns links poderão ser afiliados no futuro, com transparência. Mas a recomendação do VnA deve seguir o perfil da pessoa, necessidade real, compatibilidade com a igreja, compreensão da tradução, objetivo de uso, orçamento e disponibilidade. Comissão nunca deve ser critério principal.",
-          "quickReplies": [
-            "Quero ajuda para escolher uma Bíblia",
-            "Como funciona o aviso de afiliado?"
           ]
         }
       ]

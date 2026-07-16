@@ -1,7 +1,7 @@
 {
   "name": "Assistente VnA",
   "type": "public",
-  "initialMessage": "Oi! Eu sou o assistente do Vida no Altar. Posso te ajudar a conhecer os projetos, encontrar conteúdos e descobrir por onde começar.",
+  "initialMessage": "Oi! Eu sou o assistente do Vida no Altar. Posso te ajudar a conhecer os projetos ativos, encontrar canais oficiais e descobrir por onde começar.",
   "quickReplies": [
     "Por onde começo?",
     "O que é Café no Altar?",
@@ -9,7 +9,7 @@
     "Onde acompanho o VnA?",
     "Como entro em contato?"
   ],
-  "fallback": "Não encontrei uma resposta exata para isso ainda. Posso te ajudar com os projetos do VnA, conteúdos, redes sociais ou contato.",
+  "fallback": "Não encontrei uma resposta exata para isso ainda. Posso te ajudar com os projetos ativos do VnA, canais oficiais ou contato.",
   "safety": {
     "blockedTopics": [
       "aconselhamento pastoral profundo",
@@ -20,7 +20,7 @@
       "debates denominacionais polêmicos",
       "suporte espiritual individual"
     ],
-    "response": "Posso te ajudar com informações sobre o Vida no Altar, projetos, conteúdos, redes sociais e contato. Para assuntos pessoais profundos, procure uma liderança cristã de confiança e apoio adequado."
+    "response": "Posso te ajudar com informações sobre o Vida no Altar, projetos ativos, canais oficiais e contato. Para assuntos pessoais profundos, procure uma liderança cristã de confiança e apoio adequado."
   },
   "intents": [
     {
@@ -28,14 +28,16 @@
       "title": "Por onde começar",
       "keywords": [
         "por onde começo",
+        "por onde comeco",
         "começar",
+        "comecar",
         "primeiro passo",
         "inicio",
         "iniciar",
         "conhecer o vna",
         "novo aqui"
       ],
-      "response": "Se você está chegando agora, comece pelo Café no Altar para devocionais simples e práticos. Depois, acompanhe Conhecendo os Evangelhos para estudar com mais contexto e visite a Biblioteca V.A para conteúdos de leitura cristã.",
+      "response": "Se você está chegando agora, comece pelo Café no Altar no Instagram para devocionais simples e práticos. Depois, acompanhe o YouTube para conteúdos em vídeo, incluindo Conhecendo os Evangelhos.",
       "quickReplies": [
         "O que é Café no Altar?",
         "Quero conhecer os Evangelhos",
@@ -51,11 +53,13 @@
       "title": "Sobre o Vida no Altar",
       "keywords": [
         "o que é vida no altar",
+        "o que e vida no altar",
         "vida no altar",
         "sobre",
         "quem são",
-        "quem e",
+        "quem sao",
         "proposito",
+        "propósito",
         "marca",
         "vna",
         "slogan"
@@ -63,27 +67,29 @@
       "response": "O Vida no Altar é um projeto cristão com conteúdo simples, profundo e real para jovens, adolescentes e toda a igreja. O slogan é: Presença que transforma gerações. A ideia é conectar a Palavra de Deus com a rotina, as decisões e a vida cristã prática.",
       "quickReplies": [
         "Por onde começo?",
-        "Quais são os projetos?",
+        "Quais projetos existem hoje?",
         "Como entro em contato?"
       ]
     },
     {
       "id": "projects_overview",
-      "title": "Projetos do VnA",
+      "title": "Projetos ativos do VnA",
       "keywords": [
         "projetos",
         "iniciativas",
         "quadros",
         "series",
+        "séries",
         "conteudos",
+        "conteúdos",
         "o que tem",
         "todos os projetos"
       ],
-      "response": "Os principais projetos do VnA são: Café no Altar, Conhecendo os Evangelhos e Biblioteca V.A. Também existem Vida no Altar Covers, Conexão Gospel e V.A Kids, este último como projeto futuro ou em desenvolvimento.",
+      "response": "Hoje, o site público destaca os projetos reais do VnA: Café no Altar, Conhecendo os Evangelhos e Vida no Altar Covers.",
       "quickReplies": [
         "O que é Café no Altar?",
         "Quero conhecer os Evangelhos",
-        "O que é Biblioteca V.A?"
+        "Onde acompanho o VnA?"
       ]
     },
     {
@@ -95,9 +101,11 @@
         "devocional",
         "devocionais",
         "manha",
+        "manhã",
         "matinal",
         "segunda a sexta",
-        "começar o dia"
+        "começar o dia",
+        "comecar o dia"
       ],
       "response": "Café no Altar é o projeto de devocionais matinais do VnA. A proposta é começar o dia com Deus de forma simples, bíblica e prática, com reflexões curtas de segunda a sexta.",
       "quickReplies": [
@@ -123,36 +131,17 @@
         "marcos",
         "lucas",
         "joao",
+        "joão",
         "jesus"
       ],
       "response": "Conhecendo os Evangelhos é uma série para entender os Evangelhos com contexto, clareza e profundidade, sem complicar a fé. É um bom caminho para quem quer estudar melhor a vida e a mensagem de Jesus.",
       "quickReplies": [
         "Onde assistir?",
-        "O que é Biblioteca V.A?",
-        "Por onde começo?"
+        "Por onde começo?",
+        "Onde acompanho o VnA?"
       ],
       "links": [
         { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
-      ]
-    },
-    {
-      "id": "biblioteca",
-      "title": "Biblioteca V.A",
-      "keywords": [
-        "biblioteca va",
-        "biblioteca v.a",
-        "biblioteca",
-        "livros",
-        "livros cristãos",
-        "leitura",
-        "comentados",
-        "resenha"
-      ],
-      "response": "Biblioteca V.A reúne livros cristãos comentados para fortalecer a fé, a mente e a vida prática. É uma área pensada para amadurecimento espiritual e intelectual com linguagem acessível.",
-      "quickReplies": [
-        "Onde acompanho o VnA?",
-        "Quais são os projetos?",
-        "Como entro em contato?"
       ]
     },
     {
@@ -166,50 +155,47 @@
         "música",
         "teclado",
         "adoração",
+        "adoracao",
         "cancoes",
         "canções"
       ],
       "response": "Vida no Altar Covers é a frente de louvor e música do VnA, com canções cristãs no teclado e momentos de adoração com identidade simples e verdadeira.",
       "quickReplies": [
         "Onde acompanho o VnA?",
-        "Quais são os projetos?"
+        "Quais projetos existem hoje?"
       ]
     },
     {
-      "id": "conexao_gospel",
-      "title": "Conexão Gospel",
+      "id": "not_public_now",
+      "title": "Áreas não públicas nesta versão",
       "keywords": [
-        "conexao gospel",
-        "conexão gospel",
-        "eventos",
-        "reviews",
-        "bastidores",
-        "coberturas",
-        "conversas"
-      ],
-      "response": "Conexão Gospel é uma iniciativa em desenvolvimento para coberturas, conversas e conteúdos sobre o universo cristão com olhar jovem e relevante.",
-      "quickReplies": [
-        "Quais são os projetos?",
-        "Onde acompanho o VnA?"
-      ]
-    },
-    {
-      "id": "kids",
-      "title": "V.A Kids",
-      "keywords": [
+        "biblioteca va",
+        "biblioteca v.a",
+        "biblioteca",
+        "livros",
+        "resenha",
         "va kids",
         "v.a kids",
         "kids",
         "crianças",
         "criancas",
         "infantil",
-        "histórias bíblicas",
-        "historias biblicas"
+        "produtos",
+        "produto",
+        "indicações",
+        "indicacoes",
+        "bíblia",
+        "biblia",
+        "comprar"
       ],
-      "response": "V.A Kids é um projeto futuro ou em desenvolvimento do VnA, pensado para histórias bíblicas e conteúdos educativos para crianças, com linguagem simples e visual criativo.",
+      "response": "Nesta versão pública, o site mostra apenas o que já está ativo e disponível. Por isso, essa área ainda não aparece aqui. Para acompanhar novidades reais do VnA, use os canais oficiais.",
       "quickReplies": [
-        "Quais são os projetos?",
+        "Quais projetos existem hoje?",
         "Onde acompanho o VnA?"
+      ],
+      "links": [
+        { "label": "Instagram", "url": "https://www.instagram.com/vidanoaltar.oficial" },
+        { "label": "YouTube", "url": "https://www.youtube.com/@vidanoaltar.oficial" }
       ]
     },
     {
@@ -224,6 +210,7 @@
         "onde acompanho",
         "onde assistir",
         "assistir conteudos",
+        "assistir conteúdos",
         "seguir"
       ],
       "response": "Você pode acompanhar o Vida no Altar pelos canais oficiais: YouTube, Instagram e TikTok, todos com o usuário @vidanoaltar.oficial.",
@@ -243,6 +230,7 @@
       "keywords": [
         "contato",
         "email",
+        "e-mail",
         "falar com",
         "parceria",
         "convite",
@@ -250,37 +238,13 @@
         "sugestao",
         "como entro em contato"
       ],
-      "response": "Para convites, sugestões, parcerias ou contato geral, use o canal oficial planejado: contato@vidanoaltaroficial.com.br.",
+      "response": "Para convites, sugestões, parcerias ou contato geral, use contato@vidanoaltaroficial.com.br.",
       "quickReplies": [
         "Onde acompanho o VnA?",
-        "Quais são os projetos?"
+        "Quais projetos existem hoje?"
       ],
       "links": [
         { "label": "Enviar e-mail", "url": "mailto:contato@vidanoaltaroficial.com.br" }
-      ]
-    },
-    {
-      "id": "safe_boundary",
-      "title": "Limites seguros",
-      "keywords": [
-        "aconselhamento",
-        "conselho pessoal",
-        "me ajuda espiritualmente",
-        "problema psicológico",
-        "problema juridico",
-        "problema jurídico",
-        "dinheiro",
-        "finanças",
-        "saúde",
-        "saude",
-        "oração individual",
-        "oracao individual",
-        "mentoria"
-      ],
-      "response": "Eu consigo ajudar com informações sobre o Vida no Altar, projetos, conteúdos, redes sociais e contato. Para assuntos pessoais profundos, procure uma liderança cristã de confiança e apoio adequado.",
-      "quickReplies": [
-        "Por onde começo?",
-        "Como entro em contato?"
       ]
     }
   ]

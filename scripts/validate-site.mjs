@@ -1,4 +1,4 @@
-import { access, readFile } from 'node:fs/promises';
+﻿import { access, readFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { dirname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -84,6 +84,7 @@ const requiredFiles = [
   'README.md',
   'robots.txt',
   'sitemap.xml',
+  'hero-devocional.webp',
   'assets/styles.css',
   'assets/about-section.css',
   'assets/vna-intelligence.css',
@@ -134,7 +135,7 @@ async function validateJson() {
 
   check(core.name === 'VnA Intelligence Core', 'VnA Intelligence Core não identificado.');
   check(core.brand?.name === 'Vida no Altar', 'Marca institucional incorreta.');
-  check(Array.isArray(core.projects) && core.projects.length >= 6, 'Projetos institucionais insuficientes.');
+  check(Array.isArray(core.projects) && core.projects.length >= 3, 'Projetos institucionais ativos insuficientes.');
 
   check(studio.name === 'VnA Studio', 'studio-core.json precisa nomear o VnA Studio.');
   check(studio.version === '0.4.0', 'studio-core.json precisa registrar versão 0.4.0.');
@@ -179,11 +180,12 @@ async function validateJson() {
   check(studioContext.contexts?.produtos?.quickReplies?.includes('Como adicionar link afiliado?'), 'Produtos precisa ter sugestão rápida de afiliado.');
   check(studioContext.contexts?.usuarios?.quickReplies?.includes('Quando pedir aprovação ao Matheus?'), 'Usuários precisa ter sugestão rápida de aprovação.');
 
-  check(Array.isArray(contentCatalog.items) && contentCatalog.items.length >= 6, 'Catálogo de conteúdos insuficiente.');
+  check(Array.isArray(contentCatalog.items), 'Catálogo de conteúdos precisa ter lista items.');
+  check(contentCatalog.note?.includes('link real publicado'), 'Catálogo público precisa deixar claro que só recebe itens com link real.');
   check(Array.isArray(productCatalog.products), 'Catálogo de produtos precisa ter lista products.');
   check(productCatalog.guidedBibleDiagnosis?.questions?.some((item) => item.key === 'churchTranslation'), 'Diagnóstico precisa perguntar tradução usada na igreja.');
   check(publicAssistant.name === 'Assistente VnA', 'Assistente Público incorreto.');
-  check(publicAssistant.modes?.length === 4, 'Assistente Público precisa ter quatro modos.');
+  check(publicAssistant.modes?.length >= 3, 'Assistente Público precisa manter modos públicos úteis.');
 
   check(auditor.name === 'Auditor VnA', 'Auditor precisa se apresentar como Auditor VnA.');
   check(auditor.type === 'studio-auditor', 'Auditor precisa ser módulo do VnA Studio.');
@@ -403,6 +405,10 @@ async function validateServerRoutes() {
 
     const routes = [
       ['/', 'VIDA NO ALTAR'],
+      ['/projetos/', '../#projetos'],
+      ['/links/', '../#links'],
+      ['/sobre/', '../#sobre'],
+      ['/contato/', '../#contato'],
       ['/studio/', 'Fase 0.4'],
       ['/studio/paginas/', 'data-studio-context="paginas"'],
       ['/studio/editor/', 'data-studio-context="editor"'],
@@ -425,7 +431,7 @@ async function validateServerRoutes() {
       ['/content/vna-core.json', 'VnA Intelligence Core'],
       ['/content/studio-core.json', 'Fase 0.4'],
       ['/content/studio-context.json', 'Editor visual'],
-      ['/content/content-catalog.json', 'Lei da Semeadura'],
+      ['/content/content-catalog.json', 'link real publicado'],
       ['/content/product-catalog.json', 'Bíblia para começar'],
       ['/content/public-assistant.json', 'Assistente VnA'],
       ['/content/admin-auditor.json', 'Auditor VnA'],
@@ -466,3 +472,4 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+

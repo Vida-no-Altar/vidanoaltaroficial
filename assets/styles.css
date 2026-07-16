@@ -56,7 +56,7 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
 .menu-toggle[aria-expanded="true"] span:nth-child(4) { transform: translateY(-8px) rotate(-45deg); }
 .hero { position: relative; min-height: 86svh; display: grid; align-items: end; overflow: hidden; isolation: isolate; padding: 132px 0 72px; background: var(--graphite-deep); }
 .hero-background, .hero-overlay { position: absolute; inset: 0; }
-.hero-background { z-index: -3; background-image: var(--hero-image); background-size: cover; background-position: center; opacity: 0.95; transform: scale(1.02); }
+.hero-background { z-index: -3; background-color: var(--graphite-deep); background-image: var(--hero-image); background-size: cover; background-position: center; opacity: 0.95; transform: scale(1.02); }
 .hero-overlay { z-index: -2; background: linear-gradient(90deg, rgba(18, 17, 16, 0.94) 0%, rgba(18, 17, 16, 0.78) 43%, rgba(18, 17, 16, 0.34) 78%, rgba(18, 17, 16, 0.68) 100%), linear-gradient(180deg, rgba(18, 17, 16, 0.1) 0%, rgba(18, 17, 16, 0.68) 100%); }
 .hero::after { content: ""; position: absolute; inset: auto 0 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(217, 183, 82, 0.72), transparent); z-index: -1; }
 .hero-content { max-width: 740px; margin-inline: max(calc((100% - var(--container)) / 2), 20px) auto; }
@@ -64,6 +64,7 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
 .hero h1 { margin-top: 14px; color: var(--white); font-size: 5.7rem; line-height: 0.9; font-weight: 900; }
 .hero-subtitle { margin-top: 22px; color: var(--cream); font-size: 1.65rem; line-height: 1.25; font-weight: 800; }
 .hero-text { max-width: 610px; margin-top: 18px; color: rgba(242, 235, 223, 0.9); font-size: 1.1rem; }
+.gratitude-note { max-width: 650px; margin-top: 18px; padding-left: 16px; border-left: 2px solid rgba(217, 183, 82, 0.72); color: rgba(242, 235, 223, 0.84); font-size: 0.98rem; }
 .hero-actions, .hero-links, .contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-actions { margin-top: 34px; }
 .hero-links { margin-top: 18px; }
@@ -89,6 +90,7 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
 .section-heading p:not(.eyebrow), .contact-section p { margin-top: 18px; color: var(--muted-dark); font-size: 1.05rem; }
 .section-heading-dark p:not(.eyebrow), .contact-section p { color: rgba(242, 235, 223, 0.78); }
 .start-grid, .content-grid, .resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.resource-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .path-card, .content-card, .project-card, .resource-card { border-radius: var(--radius); transition: transform var(--ease), border-color var(--ease), background var(--ease); }
 .path-card { min-height: 315px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 26px; background: rgba(255, 250, 240, 0.58); border: 1px solid var(--border-light); }
 .path-card:hover, .content-card:hover, .project-card:hover, .resource-card:hover { transform: translateY(-4px); }
@@ -104,6 +106,7 @@ h1, h2, h3, .brand-name, .footer-brand { font-family: "Arial Narrow", Oswald, "R
 .project-card-featured { min-height: 275px; background: rgba(242, 235, 223, 0.075); border-color: rgba(217, 183, 82, 0.38); }
 .project-card:hover { background: rgba(242, 235, 223, 0.08); border-color: rgba(217, 183, 82, 0.54); }
 .project-type, .content-category, .resource-type { color: var(--gold); font-weight: 850; font-size: 0.82rem; text-transform: uppercase; }
+.project-type { letter-spacing: 0.08em; color: #d9b752; }
 .project-card p:not(.project-type) { color: rgba(242, 235, 223, 0.76); }
 .about-section { border-top: 1px solid rgba(38, 37, 35, 0.08); }
 .about-layout { display: grid; grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr); gap: 56px; align-items: start; }

@@ -6,7 +6,7 @@ const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
 const sections = Array.from(document.querySelectorAll("main section[id]"));
 const sectionToNav = {
   inicio: "#inicio",
-  comece: "#inicio",
+  comece: "#comece",
   projetos: "#projetos",
   sobre: "#sobre",
   links: "#links",

@@ -130,6 +130,7 @@ async function validateJson() {
   check(site.links?.instagram === 'https://www.instagram.com/vidanoaltar.oficial', 'Instagram oficial incorreto.');
   check(site.links?.tiktok === 'https://www.tiktok.com/@vidanoaltar.oficial', 'TikTok oficial incorreto.');
   check(site.links?.email === 'contato.vidanoaltaroficial@gmail.com', 'E-mail oficial incorreto.');
+  check(site.hero?.title === 'Presença que transforma gerações.', 'Hero precisa usar o slogan como título principal.');
   check(site.startHere?.description === 'Escolha um caminho para conhecer melhor o Vida no Altar.', 'Texto de Comece por aqui precisa seguir a copy aprovada.');
   check(site.projects?.description === 'O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.', 'Texto de Projetos precisa seguir a copy aprovada.');
   check(site.about?.image === 'public/images/matheus-sobre-vna.webp', 'Imagem da seção Sobre incorreta.');
@@ -251,6 +252,11 @@ async function validateHtml() {
   check(files['index.html'].includes('data-theme="dark"'), 'HTML precisa declarar um tema inicial antes da renderização.');
   check(files['index.html'].includes('family=Lato') && files['index.html'].includes('Playfair+Display'), 'Site público precisa carregar Lato e Playfair Display.');
   check(files['index.html'].includes('class="theme-toggle"'), 'Site público precisa manter o toggle acessível de tema.');
+  check(files['index.html'].includes('<h1 id="hero-title" data-content="hero.title">Presença que transforma gerações.</h1>'), 'Hero precisa usar o slogan como H1 visual.');
+  check(files['index.html'].includes('class="button button-primary" href="#comece">Comece por aqui</a>'), 'CTA principal do Hero precisa apontar para #comece.');
+  check(files['index.html'].includes('class="button button-secondary" href="#projetos">Conheça os projetos</a>'), 'CTA secundário do Hero precisa apontar para #projetos.');
+  check(!files['index.html'].includes('gratitude-note'), 'Hero não deve manter mensagem sazonal dos 100 seguidores.');
+  check(files['index.html'].includes('<li><a href="#comece">Começar</a></li>') && files['index.html'].includes('<li><a href="#links">Canais</a></li>'), 'Navegação precisa incluir Começar e Canais.');
   check(files['index.html'].includes('data-vna-intelligence="public"'), 'Site público precisa preservar o Assistente Público.');
   check(files['index.html'].includes('public/images/matheus-sobre-vna.png'), 'Site público precisa preservar a imagem do Sobre.');
   check(files['index.html'].includes('type="application/ld+json"'), 'Site público precisa manter dados estruturados JSON-LD.');

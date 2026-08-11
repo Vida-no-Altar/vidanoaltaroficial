@@ -26,6 +26,7 @@ html[data-theme="dark"] {
   --muted: #c8bdad;
   --border: rgba(242, 235, 223, 0.15);
   --soft-gold: rgba(217, 183, 82, 0.12);
+  --accent-text: #d9b752;
   --shadow: 0 20px 52px rgba(0, 0, 0, 0.2);
   color-scheme: dark;
 }
@@ -42,6 +43,7 @@ html[data-theme="light"] {
   --muted: #625b51;
   --border: rgba(38, 37, 35, 0.15);
   --soft-gold: rgba(217, 183, 82, 0.17);
+  --accent-text: #70571a;
   --shadow: 0 20px 52px rgba(38, 37, 35, 0.1);
   color-scheme: light;
 }
@@ -241,7 +243,7 @@ h3 {
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
   background: var(--soft-gold);
-  color: var(--brand-gold);
+  color: var(--accent-text);
 }
 
 .theme-toggle,
@@ -263,7 +265,7 @@ h3 {
 .menu-toggle:hover {
   border-color: rgba(217, 183, 82, 0.68);
   background: var(--soft-gold);
-  color: var(--brand-gold);
+  color: var(--accent-text);
 }
 
 .theme-icon {
@@ -365,12 +367,18 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .eyebrow {
-  color: var(--brand-gold);
+  color: var(--accent-text);
   font-size: 0.8rem;
   line-height: 1.25;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+.hero .eyebrow,
+.section-dark .eyebrow,
+.contact-section .eyebrow {
+  color: var(--brand-gold);
 }
 
 .hero h1 {
@@ -484,7 +492,7 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .button-small {
-  min-height: 42px;
+  min-height: 44px;
   width: fit-content;
   margin-top: auto;
   border-color: var(--border);
@@ -591,7 +599,7 @@ html[data-theme="light"] .theme-icon-moon {
   border: 1px solid rgba(217, 170, 85, 0.5);
   border-radius: var(--radius);
   background: var(--soft-gold);
-  color: var(--brand-gold-burnt);
+  color: var(--accent-text);
 }
 
 .icon-box svg {
@@ -614,13 +622,13 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .path-card p,
-.content-card p,
-.resource-card p {
+.content-card p:not(.content-category),
+.resource-card p:not(.resource-type) {
   color: var(--muted);
 }
 
 .text-link {
-  min-height: 40px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   margin-top: auto;
@@ -630,7 +638,7 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .text-link:hover {
-  color: var(--brand-gold-burnt);
+  color: var(--accent-text);
 }
 
 .projects-grid {
@@ -657,11 +665,19 @@ html[data-theme="light"] .theme-icon-moon {
 .project-type,
 .content-category,
 .resource-type {
-  color: var(--brand-gold);
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+.project-type {
+  color: var(--brand-gold);
+}
+
+.content-category,
+.resource-type {
+  color: var(--accent-text);
 }
 
 .project-card p:not(.project-type) {
@@ -693,10 +709,6 @@ html[data-theme="light"] .theme-icon-moon {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-}
-
-.resource-type {
-  color: var(--brand-gold-burnt);
 }
 
 .resource-status {

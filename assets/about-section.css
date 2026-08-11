@@ -85,7 +85,7 @@
 
 .about-caption {
   margin-top: 14px;
-  color: var(--brand-gold-burnt);
+  color: var(--accent-text);
   font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0;
@@ -142,7 +142,7 @@
 .button-light-outline:hover {
   border-color: rgba(217, 170, 85, 0.72);
   background: var(--soft-gold);
-  color: var(--brand-gold-burnt);
+  color: var(--accent-text);
 }
 
 @media (max-width: 900px) {

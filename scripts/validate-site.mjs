@@ -400,6 +400,7 @@ async function validateDocsSafetyAndConfig() {
   check(publicScript.includes('window.matchMedia("(max-width: 900px)")'), 'Menu móvel precisa limpar o estado ao voltar ao layout desktop.');
   check(publicStyles.includes('--font-display: "Playfair Display"') && publicStyles.includes('--font-body: "Lato"'), 'Tokens tipográficos precisam seguir o Brand Book.');
   check(publicStyles.includes('html[data-theme="light"]') && publicStyles.includes('html[data-theme="dark"]'), 'CSS precisa preservar os temas claro e escuro.');
+  check(publicStyles.includes('--accent-text: #70571a') && publicStyles.includes('color: var(--accent-text)'), 'Tema claro precisa usar um acento textual com contraste adequado.');
   check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(allText), 'Não deve haver canal provisório ou mensageiro externo proibido.');
   check(!hasLocalAbsolutePath(allText), 'Não deve haver caminho local absoluto em arquivos publicados.');
   check(!['OpenAI', 'ChatGPT', 'Gemini', 'Claude'].some((term) => allText.toLowerCase().includes(term.toLowerCase())), 'Interface e documentação não devem mencionar fornecedores de IA.');

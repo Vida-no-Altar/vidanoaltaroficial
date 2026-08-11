@@ -129,7 +129,7 @@ async function validateJson() {
   check(site.links?.youtube === 'https://www.youtube.com/@vidanoaltar.oficial', 'YouTube oficial incorreto.');
   check(site.links?.instagram === 'https://www.instagram.com/vidanoaltar.oficial', 'Instagram oficial incorreto.');
   check(site.links?.tiktok === 'https://www.tiktok.com/@vidanoaltar.oficial', 'TikTok oficial incorreto.');
-  check(site.links?.email === 'contato@vidanoaltaroficial.com.br', 'E-mail oficial incorreto.');
+  check(site.links?.email === 'contato.vidanoaltaroficial@gmail.com', 'E-mail oficial incorreto.');
   check(site.about?.image === 'public/images/matheus-sobre-vna.webp', 'Imagem da seção Sobre incorreta.');
   check(site.about?.imageAlt === 'Matheus, criador do Vida no Altar, segurando uma Bíblia', 'Alt text da seção Sobre incorreto.');
 
@@ -255,7 +255,7 @@ async function validateHtml() {
   check(files['index.html'].includes('"https://www.youtube.com/@vidanoaltar.oficial"'), 'JSON-LD precisa preservar o YouTube oficial.');
   check(files['index.html'].includes('"https://www.instagram.com/vidanoaltar.oficial"'), 'JSON-LD precisa preservar o Instagram oficial.');
   check(files['index.html'].includes('"https://www.tiktok.com/@vidanoaltar.oficial"'), 'JSON-LD precisa preservar o TikTok oficial.');
-  check(files['index.html'].includes('"email": "contato@vidanoaltaroficial.com.br"'), 'JSON-LD precisa preservar o e-mail oficial.');
+  check(files['index.html'].includes('"email": "contato.vidanoaltaroficial@gmail.com"'), 'JSON-LD precisa preservar o e-mail oficial.');
 
   check(files['admin/index.html'].includes('O Admin agora é VnA Studio'), '/admin/ precisa avisar migração.');
   check(files['admin/index.html'].includes('../studio/'), '/admin/ precisa apontar para /studio/.');

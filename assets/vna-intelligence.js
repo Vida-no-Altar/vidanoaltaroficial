@@ -574,22 +574,25 @@
 
     const button = makeElement('button', 'vna-intel-fab');
     button.type = 'button';
+    button.id = 'vna-assistant-trigger';
     button.dataset.vnaIntelPublic = 'button';
     button.setAttribute('aria-label', 'Conversar com o Assistente VnA');
     button.setAttribute('aria-expanded', 'false');
-    button.innerHTML = '<span class="vna-intel-fab-icon" aria-hidden="true"></span><span>Conversar com o VnA</span>';
+    button.setAttribute('aria-controls', 'vna-assistant-panel');
+    button.innerHTML = '<span class="vna-intel-fab-icon" aria-hidden="true"></span><span class="vna-intel-fab-label">Conversar com o VnA</span>';
 
     const panel = makeElement('section', 'vna-intel-panel');
+    panel.id = 'vna-assistant-panel';
     panel.hidden = true;
     panel.dataset.vnaIntelPublic = 'panel';
-    panel.setAttribute('aria-label', 'Assistente VnA');
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-labelledby', 'vna-assistant-title');
 
     const header = makeElement('div', 'vna-intel-header');
     const headerText = makeElement('div');
-    headerText.append(
-      makeElement('h2', 'vna-intel-title', state.assistant?.name || 'Assistente VnA'),
-      makeElement('p', 'vna-intel-subtitle', 'Guia rápido do ecossistema Vida no Altar.'),
-    );
+    const title = makeElement('h2', 'vna-intel-title', state.assistant?.name || 'Assistente VnA');
+    title.id = 'vna-assistant-title';
+    headerText.append(title, makeElement('p', 'vna-intel-subtitle', 'Guia rápido do ecossistema Vida no Altar.'));
     const close = makeElement('button', 'vna-intel-close', '×');
     close.type = 'button';
     close.setAttribute('aria-label', 'Fechar Assistente VnA');

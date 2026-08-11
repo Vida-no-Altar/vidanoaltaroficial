@@ -970,6 +970,10 @@ html[data-theme="light"] .theme-icon-moon {
     width: fit-content;
   }
 
+  #comece {
+    padding-top: 24px;
+  }
+
   .section {
     padding: 66px 0;
   }
@@ -1012,6 +1016,10 @@ html[data-theme="light"] .theme-icon-moon {
 
   .site-footer nav {
     justify-content: flex-start;
+  }
+
+  .site-footer {
+    padding-bottom: 96px;
   }
 }
 

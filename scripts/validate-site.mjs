@@ -378,6 +378,8 @@ async function validateDocsSafetyAndConfig() {
   check(readme.includes('/studio/historico/'), 'README precisa documentar o histórico local do Studio.');
   check(readme.includes('Ele não deve orientar usuários leigos a editar arquivos do projeto.'), 'README precisa explicar o papel correto do Auditor VnA.');
   check(intelligence.includes('studioContext'), 'Motor precisa carregar contexto do Studio.');
+  check(intelligence.includes("button.setAttribute('aria-controls', 'vna-assistant-panel')"), 'Assistente Público precisa associar o botão ao diálogo.');
+  check(intelligence.includes("panel.setAttribute('role', 'dialog')"), 'Assistente Público precisa expor semântica de diálogo.');
   check(intelligence.includes('data-vna-intelligence') && intelligence.includes('studio-auditor'), 'Motor precisa suportar widget contextual do Studio.');
   check(studioPrototype.includes('data-preview-text') && studioPrototype.includes('data-preview-opacity'), 'Script de protótipo precisa atualizar textos e opacidade.');
   check(studioPrototype.includes('saveLocalDraft') && studioPrototype.includes('renderReview'), 'Script de protótipo precisa controlar rascunho local e revisão.');

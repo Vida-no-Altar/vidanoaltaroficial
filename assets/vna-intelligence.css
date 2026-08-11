@@ -17,6 +17,10 @@
   font-family: Inter, Manrope, "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+[data-vna-intel-public] {
+  font-family: var(--font-body, "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+}
+
 .vna-intel-fab {
   position: fixed;
   right: 22px;
@@ -89,6 +93,25 @@
   border-bottom: 2px solid currentColor;
   transform: rotate(-24deg);
   background: inherit;
+}
+
+[data-vna-intel-public="button"] .vna-intel-fab-icon {
+  width: 22px;
+  height: 18px;
+  border-radius: 6px;
+}
+
+[data-vna-intel-public="button"] .vna-intel-fab-icon::before {
+  top: 6px;
+  left: 4px;
+}
+
+[data-vna-intel-public="button"] .vna-intel-fab-icon::after {
+  left: 2px;
+  bottom: -5px;
+  width: 6px;
+  height: 6px;
+  transform: rotate(-18deg);
 }
 
 .vna-intel-panel {
@@ -515,6 +538,31 @@
 
   .vna-intel-back {
     width: fit-content;
+  }
+}
+
+@media (max-width: 640px) {
+  .vna-intel-fab[data-vna-intel-public="button"] {
+    right: 10px;
+    bottom: 10px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    gap: 0;
+  }
+
+  .vna-intel-fab[data-vna-intel-public="button"] .vna-intel-fab-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
 

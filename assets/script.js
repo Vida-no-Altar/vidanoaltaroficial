@@ -131,10 +131,19 @@ function setHeroImage(image) {
   if (!value) return;
 
   const safeValue = normalizeHeroImagePath(value);
-  if (!safeValue || safeValue === activeHeroImage) return;
+  if (!safeValue) return;
 
-  activeHeroImage = safeValue;
-  document.documentElement.style.setProperty("--hero-image", `url("${safeValue}")`);
+  let resolvedImage;
+  try {
+    resolvedImage = new URL(safeValue, document.baseURI).href;
+  } catch {
+    return;
+  }
+
+  if (resolvedImage === activeHeroImage) return;
+
+  activeHeroImage = resolvedImage;
+  document.documentElement.style.setProperty("--hero-image", `url("${resolvedImage}")`);
 }
 
 function normalizeEmail(value) {

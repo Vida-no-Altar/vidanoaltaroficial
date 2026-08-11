@@ -350,6 +350,7 @@ async function validateDocsSafetyAndConfig() {
   const robots = await readText('robots.txt');
   const readme = await readText('README.md');
   const config = await readText('admin/config.yml');
+  const publicScript = await readText('assets/script.js');
   const intelligence = await readText('assets/vna-intelligence.js');
   const studioPrototype = await readText('assets/vna-studio-prototype.js');
 
@@ -372,6 +373,8 @@ async function validateDocsSafetyAndConfig() {
   check(config.includes('repo: Vida-no-Altar/vidanoaltaroficial'), 'admin/config.yml precisa apontar para o repositório oficial.');
   check(config.includes('file: "content/site-content.json"'), 'admin/config.yml precisa editar content/site-content.json.');
   check(config.includes('media_folder: "public/uploads"'), 'admin/config.yml precisa salvar mídias em public/uploads.');
+  check(publicScript.includes('new URL(safeValue, document.baseURI).href'), 'Hero precisa resolver a imagem do JSON contra a URL da página.');
+  check(!publicScript.includes('`url("${safeValue}")`'), 'Hero não pode aplicar o caminho relativo do JSON diretamente na variável CSS.');
   check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(allText), 'Não deve haver canal provisório ou mensageiro externo proibido.');
   check(!hasLocalAbsolutePath(allText), 'Não deve haver caminho local absoluto em arquivos publicados.');
   check(!['OpenAI', 'ChatGPT', 'Gemini', 'Claude'].some((term) => allText.toLowerCase().includes(term.toLowerCase())), 'Interface e documentação não devem mencionar fornecedores de IA.');

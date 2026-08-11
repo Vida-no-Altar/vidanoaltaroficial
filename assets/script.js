@@ -1,5 +1,7 @@
 const menuButton = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#site-menu");
+const themeButton = document.querySelector(".theme-toggle");
+const themeColor = document.querySelector('meta[name="theme-color"]');
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
 const sections = Array.from(document.querySelectorAll("main section[id]"));
 const sectionToNav = {
@@ -14,9 +16,42 @@ const sectionToNav = {
 function setMenu(open) {
   if (!menuButton || !menu) return;
   menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+  const menuLabel = menuButton.querySelector(".sr-only");
+  if (menuLabel) menuLabel.textContent = open ? "Fechar menu" : "Abrir menu";
   menu.classList.toggle("is-open", open);
   document.body.classList.toggle("menu-open", open);
 }
+
+function setTheme(theme, persist = true) {
+  const nextTheme = theme === "light" ? "light" : "dark";
+  const useDarkTheme = nextTheme === "dark";
+
+  document.documentElement.dataset.theme = nextTheme;
+  document.documentElement.style.colorScheme = nextTheme;
+  if (themeColor) themeColor.setAttribute("content", useDarkTheme ? "#262523" : "#F2EBDF");
+
+  if (themeButton) {
+    const label = useDarkTheme ? "Ativar tema claro" : "Ativar tema escuro";
+    themeButton.setAttribute("aria-label", label);
+    themeButton.setAttribute("title", label);
+    themeButton.setAttribute("aria-pressed", String(!useDarkTheme));
+  }
+
+  if (!persist) return;
+  try {
+    localStorage.setItem("vna-theme", nextTheme);
+  } catch {
+    // O tema continua ativo durante a sessão mesmo sem armazenamento local.
+  }
+}
+
+setTheme(document.documentElement.dataset.theme, false);
+
+themeButton?.addEventListener("click", () => {
+  const currentTheme = document.documentElement.dataset.theme;
+  setTheme(currentTheme === "dark" ? "light" : "dark");
+});
 
 if (menuButton && menu) {
   menuButton.addEventListener("click", () => {

@@ -247,7 +247,10 @@ async function validateHtml() {
   const entries = await Promise.all(htmlFiles.map(async (path) => [path, await readText(path)]));
   const files = Object.fromEntries(entries);
 
-  check(files['index.html'].includes('<html lang="pt-BR">'), 'index.html precisa declarar pt-BR.');
+  check(files['index.html'].includes('<html lang="pt-BR"'), 'index.html precisa declarar pt-BR.');
+  check(files['index.html'].includes('data-theme="dark"'), 'HTML precisa declarar um tema inicial antes da renderização.');
+  check(files['index.html'].includes('family=Lato') && files['index.html'].includes('Playfair+Display'), 'Site público precisa carregar Lato e Playfair Display.');
+  check(files['index.html'].includes('class="theme-toggle"'), 'Site público precisa manter o toggle acessível de tema.');
   check(files['index.html'].includes('data-vna-intelligence="public"'), 'Site público precisa preservar o Assistente Público.');
   check(files['index.html'].includes('public/images/matheus-sobre-vna.png'), 'Site público precisa preservar a imagem do Sobre.');
   check(files['index.html'].includes('type="application/ld+json"'), 'Site público precisa manter dados estruturados JSON-LD.');
@@ -355,6 +358,7 @@ async function validateDocsSafetyAndConfig() {
   const readme = await readText('README.md');
   const config = await readText('admin/config.yml');
   const publicScript = await readText('assets/script.js');
+  const publicStyles = await readText('assets/styles.css');
   const intelligence = await readText('assets/vna-intelligence.js');
   const studioPrototype = await readText('assets/vna-studio-prototype.js');
 
@@ -379,6 +383,9 @@ async function validateDocsSafetyAndConfig() {
   check(config.includes('media_folder: "public/uploads"'), 'admin/config.yml precisa salvar mídias em public/uploads.');
   check(publicScript.includes('new URL(safeValue, document.baseURI).href'), 'Hero precisa resolver a imagem do JSON contra a URL da página.');
   check(!publicScript.includes('`url("${safeValue}")`'), 'Hero não pode aplicar o caminho relativo do JSON diretamente na variável CSS.');
+  check(publicScript.includes('localStorage.setItem("vna-theme"'), 'Preferência de tema precisa ser persistida localmente.');
+  check(publicStyles.includes('--font-display: "Playfair Display"') && publicStyles.includes('--font-body: "Lato"'), 'Tokens tipográficos precisam seguir o Brand Book.');
+  check(publicStyles.includes('html[data-theme="light"]') && publicStyles.includes('html[data-theme="dark"]'), 'CSS precisa preservar os temas claro e escuro.');
   check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(allText), 'Não deve haver canal provisório ou mensageiro externo proibido.');
   check(!hasLocalAbsolutePath(allText), 'Não deve haver caminho local absoluto em arquivos publicados.');
   check(!['OpenAI', 'ChatGPT', 'Gemini', 'Claude'].some((term) => allText.toLowerCase().includes(term.toLowerCase())), 'Interface e documentação não devem mencionar fornecedores de IA.');

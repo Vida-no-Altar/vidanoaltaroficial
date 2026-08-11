@@ -130,6 +130,8 @@ async function validateJson() {
   check(site.links?.instagram === 'https://www.instagram.com/vidanoaltar.oficial', 'Instagram oficial incorreto.');
   check(site.links?.tiktok === 'https://www.tiktok.com/@vidanoaltar.oficial', 'TikTok oficial incorreto.');
   check(site.links?.email === 'contato.vidanoaltaroficial@gmail.com', 'E-mail oficial incorreto.');
+  check(site.startHere?.description === 'Escolha um caminho para conhecer melhor o Vida no Altar.', 'Texto de Comece por aqui precisa seguir a copy aprovada.');
+  check(site.projects?.description === 'O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.', 'Texto de Projetos precisa seguir a copy aprovada.');
   check(site.about?.image === 'public/images/matheus-sobre-vna.webp', 'Imagem da seção Sobre incorreta.');
   check(site.about?.imageAlt === 'Matheus, criador do Vida no Altar, segurando uma Bíblia', 'Alt text da seção Sobre incorreto.');
 
@@ -256,6 +258,8 @@ async function validateHtml() {
   check(files['index.html'].includes('"https://www.instagram.com/vidanoaltar.oficial"'), 'JSON-LD precisa preservar o Instagram oficial.');
   check(files['index.html'].includes('"https://www.tiktok.com/@vidanoaltar.oficial"'), 'JSON-LD precisa preservar o TikTok oficial.');
   check(files['index.html'].includes('"email": "contato.vidanoaltaroficial@gmail.com"'), 'JSON-LD precisa preservar o e-mail oficial.');
+  check(files['index.html'].includes('Escolha um caminho para conhecer melhor o Vida no Altar.'), 'HTML precisa preservar a copy aprovada de Comece por aqui.');
+  check(files['index.html'].includes('O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.'), 'HTML precisa preservar a copy aprovada de Projetos.');
 
   check(files['admin/index.html'].includes('O Admin agora é VnA Studio'), '/admin/ precisa avisar migração.');
   check(files['admin/index.html'].includes('../studio/'), '/admin/ precisa apontar para /studio/.');

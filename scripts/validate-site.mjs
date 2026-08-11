@@ -392,6 +392,8 @@ async function validateDocsSafetyAndConfig() {
   check(publicScript.includes('new URL(safeValue, document.baseURI).href'), 'Hero precisa resolver a imagem do JSON contra a URL da página.');
   check(!publicScript.includes('`url("${safeValue}")`'), 'Hero não pode aplicar o caminho relativo do JSON diretamente na variável CSS.');
   check(publicScript.includes('localStorage.setItem("vna-theme"'), 'Preferência de tema precisa ser persistida localmente.');
+  check(publicScript.includes('menuButton.focus({ preventScroll: true })'), 'Menu móvel precisa devolver o foco ao botão ao fechar.');
+  check(publicScript.includes('window.matchMedia("(max-width: 900px)")'), 'Menu móvel precisa limpar o estado ao voltar ao layout desktop.');
   check(publicStyles.includes('--font-display: "Playfair Display"') && publicStyles.includes('--font-body: "Lato"'), 'Tokens tipográficos precisam seguir o Brand Book.');
   check(publicStyles.includes('html[data-theme="light"]') && publicStyles.includes('html[data-theme="dark"]'), 'CSS precisa preservar os temas claro e escuro.');
   check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(allText), 'Não deve haver canal provisório ou mensageiro externo proibido.');

@@ -60,11 +60,22 @@ if (menuButton && menu) {
   });
 
   navLinks.forEach((link) => {
-    link.addEventListener("click", () => setMenu(false));
+    link.addEventListener("click", () => {
+      const wasOpen = menuButton.getAttribute("aria-expanded") === "true";
+      setMenu(false);
+      if (wasOpen) menuButton.focus({ preventScroll: true });
+    });
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenu(false);
+    if (event.key !== "Escape" || menuButton.getAttribute("aria-expanded") !== "true") return;
+    setMenu(false);
+    menuButton.focus({ preventScroll: true });
+  });
+
+  const mobileMenu = window.matchMedia("(max-width: 900px)");
+  mobileMenu.addEventListener("change", (event) => {
+    if (!event.matches) setMenu(false);
   });
 }
 

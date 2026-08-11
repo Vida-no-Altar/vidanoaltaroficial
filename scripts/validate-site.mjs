@@ -260,6 +260,10 @@ async function validateHtml() {
   check(files['index.html'].includes('data-vna-intelligence="public"'), 'Site público precisa preservar o Assistente Público.');
   check(files['index.html'].includes('public/images/matheus-sobre-vna.png'), 'Site público precisa preservar a imagem do Sobre.');
   check(files['index.html'].includes('type="application/ld+json"'), 'Site público precisa manter dados estruturados JSON-LD.');
+  check(files['index.html'].includes('property="og:locale" content="pt_BR"'), 'Open Graph precisa declarar o locale pt_BR.');
+  check(files['index.html'].includes('property="og:site_name" content="Vida no Altar"'), 'Open Graph precisa declarar o nome da marca.');
+  check(files['index.html'].includes('href="public/images/hero-devocional.webp" as="image" type="image/webp" fetchpriority="high"'), 'Imagem do Hero precisa manter preload prioritário.');
+  check(files['index.html'].includes('width="48" height="48"') && files['index.html'].includes('width="74" height="74"'), 'Logos precisam reservar dimensões para evitar deslocamento de layout.');
   check(files['index.html'].includes('"@type": "Organization"'), 'JSON-LD precisa identificar o Vida no Altar como organização.');
   check(files['index.html'].includes('"url": "https://vidanoaltaroficial.com.br/"'), 'JSON-LD precisa preservar a URL oficial.');
   check(files['index.html'].includes('"logo": "https://vidanoaltaroficial.com.br/public/images/logo-vida-no-altar.svg"'), 'JSON-LD precisa apontar para a logo oficial.');

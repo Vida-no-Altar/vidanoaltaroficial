@@ -793,7 +793,7 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .site-footer a {
-  min-height: 40px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   color: rgba(242, 235, 223, 0.82);

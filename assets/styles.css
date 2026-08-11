@@ -4,6 +4,7 @@
   --brand-gold: #d9b752;
   --brand-cream: #f2e1ac;
   --brand-gold-burnt: #d9aa55;
+  --heading-on-dark: #fffaf0;
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Lato", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --radius: 8px;
@@ -525,6 +526,15 @@ html[data-theme="light"] .theme-icon-moon {
   color: var(--brand-off-white);
 }
 
+.section-dark h1,
+.section-dark h2,
+.section-dark h3,
+.contact-section h1,
+.contact-section h2,
+.contact-section h3 {
+  color: var(--heading-on-dark);
+}
+
 .section-heading {
   max-width: 730px;
   margin-bottom: 38px;
@@ -870,8 +880,13 @@ html[data-theme="light"] .theme-icon-moon {
     top: var(--header-height);
     right: 14px;
     left: 14px;
+    max-height: calc(100svh - var(--header-height) - 14px);
     display: grid;
     gap: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
     border: 1px solid var(--header-border);
     border-radius: var(--radius);
     padding: 12px;

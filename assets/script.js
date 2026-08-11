@@ -59,6 +59,25 @@ if (menuButton && menu) {
     setMenu(!isOpen);
   });
 
+  menuButton.addEventListener("keydown", (event) => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    if (event.key !== "Tab" || event.shiftKey || !isOpen) return;
+    event.preventDefault();
+    navLinks[0]?.focus({ preventScroll: true });
+  });
+
+  menu.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab") return;
+    const currentIndex = navLinks.indexOf(document.activeElement);
+    if (currentIndex < 0) return;
+
+    const nextIndex = event.shiftKey ? currentIndex - 1 : currentIndex + 1;
+    if (nextIndex < 0 || nextIndex >= navLinks.length) return;
+
+    event.preventDefault();
+    navLinks[nextIndex].focus();
+  });
+
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
       const wasOpen = menuButton.getAttribute("aria-expanded") === "true";

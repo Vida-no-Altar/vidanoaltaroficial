@@ -16,7 +16,7 @@
     "youtube": "https://www.youtube.com/@vidanoaltar.oficial",
     "instagram": "https://www.instagram.com/vidanoaltar.oficial",
     "tiktok": "https://www.tiktok.com/@vidanoaltar.oficial",
-    "email": "contato@vidanoaltaroficial.com.br"
+    "email": "contato.vidanoaltaroficial@gmail.com"
   },
   "hero": {
     "eyebrow": "Central oficial do Vida no Altar",
@@ -127,7 +127,7 @@
         "type": "Contato",
         "description": "Para convites, sugestões, parcerias ou contato geral com o Vida no Altar.",
         "cta": "Enviar e-mail",
-        "href": "mailto:contato@vidanoaltaroficial.com.br"
+        "href": "mailto:contato.vidanoaltaroficial@gmail.com"
       }
     ]
   },
@@ -135,6 +135,6 @@
     "eyebrow": "Contato",
     "title": "Quer falar com o Vida no Altar?",
     "text": "Para convites, sugestões, parcerias ou contato geral, use o canal oficial abaixo.",
-    "emailLabel": "contato@vidanoaltaroficial.com.br"
+    "emailLabel": "contato.vidanoaltaroficial@gmail.com"
   }
 }

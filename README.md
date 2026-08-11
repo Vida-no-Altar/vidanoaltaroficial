@@ -223,7 +223,7 @@ Links atuais:
 - YouTube: https://www.youtube.com/@vidanoaltar.oficial
 - Instagram: https://www.instagram.com/vidanoaltar.oficial
 - TikTok: https://www.tiktok.com/@vidanoaltar.oficial
-- E-mail: contato@vidanoaltaroficial.com.br
+- E-mail: contato.vidanoaltaroficial@gmail.com
 
 ## Como editar bases técnicas
 

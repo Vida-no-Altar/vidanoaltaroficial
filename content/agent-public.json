@@ -226,7 +226,7 @@
         "sugestao",
         "como entro em contato"
       ],
-      "response": "Para convites, sugestões, parcerias ou contato geral, use contato@vidanoaltaroficial.com.br.",
+      "response": "Para convites, sugestões, parcerias ou contato geral, use contato.vidanoaltaroficial@gmail.com.",
       "quickReplies": [
         "Onde acompanho o VnA?",
         "Quais projetos existem hoje?"
@@ -234,7 +234,7 @@
       "links": [
         {
           "label": "Enviar e-mail",
-          "url": "mailto:contato@vidanoaltaroficial.com.br"
+          "url": "mailto:contato.vidanoaltaroficial@gmail.com"
         }
       ]
     }

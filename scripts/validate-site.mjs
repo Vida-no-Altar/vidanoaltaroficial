@@ -130,6 +130,9 @@ async function validateJson() {
   check(site.links?.instagram === 'https://www.instagram.com/vidanoaltar.oficial', 'Instagram oficial incorreto.');
   check(site.links?.tiktok === 'https://www.tiktok.com/@vidanoaltar.oficial', 'TikTok oficial incorreto.');
   check(site.links?.email === 'contato.vidanoaltaroficial@gmail.com', 'E-mail oficial incorreto.');
+  check(site.hero?.title === 'Presença que transforma gerações.', 'Hero precisa usar o slogan como título principal.');
+  check(site.startHere?.description === 'Escolha um caminho para conhecer melhor o Vida no Altar.', 'Texto de Comece por aqui precisa seguir a copy aprovada.');
+  check(site.projects?.description === 'O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.', 'Texto de Projetos precisa seguir a copy aprovada.');
   check(site.about?.image === 'public/images/matheus-sobre-vna.webp', 'Imagem da seção Sobre incorreta.');
   check(site.about?.imageAlt === 'Matheus, criador do Vida no Altar, segurando uma Bíblia', 'Alt text da seção Sobre incorreto.');
 
@@ -245,10 +248,22 @@ async function validateHtml() {
   const entries = await Promise.all(htmlFiles.map(async (path) => [path, await readText(path)]));
   const files = Object.fromEntries(entries);
 
-  check(files['index.html'].includes('<html lang="pt-BR">'), 'index.html precisa declarar pt-BR.');
+  check(files['index.html'].includes('<html lang="pt-BR"'), 'index.html precisa declarar pt-BR.');
+  check(files['index.html'].includes('data-theme="dark"'), 'HTML precisa declarar um tema inicial antes da renderização.');
+  check(files['index.html'].includes('family=Lato') && files['index.html'].includes('Playfair+Display'), 'Site público precisa carregar Lato e Playfair Display.');
+  check(files['index.html'].includes('class="theme-toggle"'), 'Site público precisa manter o toggle acessível de tema.');
+  check(files['index.html'].includes('<h1 id="hero-title" data-content="hero.title">Presença que transforma gerações.</h1>'), 'Hero precisa usar o slogan como H1 visual.');
+  check(files['index.html'].includes('class="button button-primary" href="#comece">Comece por aqui</a>'), 'CTA principal do Hero precisa apontar para #comece.');
+  check(files['index.html'].includes('class="button button-secondary" href="#projetos">Conheça os projetos</a>'), 'CTA secundário do Hero precisa apontar para #projetos.');
+  check(!files['index.html'].includes('gratitude-note'), 'Hero não deve manter mensagem sazonal dos 100 seguidores.');
+  check(files['index.html'].includes('<li><a href="#comece">Começar</a></li>') && files['index.html'].includes('<li><a href="#links">Canais</a></li>'), 'Navegação precisa incluir Começar e Canais.');
   check(files['index.html'].includes('data-vna-intelligence="public"'), 'Site público precisa preservar o Assistente Público.');
   check(files['index.html'].includes('public/images/matheus-sobre-vna.png'), 'Site público precisa preservar a imagem do Sobre.');
   check(files['index.html'].includes('type="application/ld+json"'), 'Site público precisa manter dados estruturados JSON-LD.');
+  check(files['index.html'].includes('property="og:locale" content="pt_BR"'), 'Open Graph precisa declarar o locale pt_BR.');
+  check(files['index.html'].includes('property="og:site_name" content="Vida no Altar"'), 'Open Graph precisa declarar o nome da marca.');
+  check(files['index.html'].includes('href="public/images/hero-devocional.webp" as="image" type="image/webp" fetchpriority="high"'), 'Imagem do Hero precisa manter preload prioritário.');
+  check(files['index.html'].includes('width="48" height="48"') && files['index.html'].includes('width="74" height="74"'), 'Logos precisam reservar dimensões para evitar deslocamento de layout.');
   check(files['index.html'].includes('"@type": "Organization"'), 'JSON-LD precisa identificar o Vida no Altar como organização.');
   check(files['index.html'].includes('"url": "https://vidanoaltaroficial.com.br/"'), 'JSON-LD precisa preservar a URL oficial.');
   check(files['index.html'].includes('"logo": "https://vidanoaltaroficial.com.br/public/images/logo-vida-no-altar.svg"'), 'JSON-LD precisa apontar para a logo oficial.');
@@ -256,6 +271,8 @@ async function validateHtml() {
   check(files['index.html'].includes('"https://www.instagram.com/vidanoaltar.oficial"'), 'JSON-LD precisa preservar o Instagram oficial.');
   check(files['index.html'].includes('"https://www.tiktok.com/@vidanoaltar.oficial"'), 'JSON-LD precisa preservar o TikTok oficial.');
   check(files['index.html'].includes('"email": "contato.vidanoaltaroficial@gmail.com"'), 'JSON-LD precisa preservar o e-mail oficial.');
+  check(files['index.html'].includes('Escolha um caminho para conhecer melhor o Vida no Altar.'), 'HTML precisa preservar a copy aprovada de Comece por aqui.');
+  check(files['index.html'].includes('O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.'), 'HTML precisa preservar a copy aprovada de Projetos.');
 
   check(files['admin/index.html'].includes('O Admin agora é VnA Studio'), '/admin/ precisa avisar migração.');
   check(files['admin/index.html'].includes('../studio/'), '/admin/ precisa apontar para /studio/.');
@@ -350,6 +367,8 @@ async function validateDocsSafetyAndConfig() {
   const robots = await readText('robots.txt');
   const readme = await readText('README.md');
   const config = await readText('admin/config.yml');
+  const publicScript = await readText('assets/script.js');
+  const publicStyles = await readText('assets/styles.css');
   const intelligence = await readText('assets/vna-intelligence.js');
   const studioPrototype = await readText('assets/vna-studio-prototype.js');
 
@@ -363,6 +382,8 @@ async function validateDocsSafetyAndConfig() {
   check(readme.includes('/studio/historico/'), 'README precisa documentar o histórico local do Studio.');
   check(readme.includes('Ele não deve orientar usuários leigos a editar arquivos do projeto.'), 'README precisa explicar o papel correto do Auditor VnA.');
   check(intelligence.includes('studioContext'), 'Motor precisa carregar contexto do Studio.');
+  check(intelligence.includes("button.setAttribute('aria-controls', 'vna-assistant-panel')"), 'Assistente Público precisa associar o botão ao diálogo.');
+  check(intelligence.includes("panel.setAttribute('role', 'dialog')"), 'Assistente Público precisa expor semântica de diálogo.');
   check(intelligence.includes('data-vna-intelligence') && intelligence.includes('studio-auditor'), 'Motor precisa suportar widget contextual do Studio.');
   check(studioPrototype.includes('data-preview-text') && studioPrototype.includes('data-preview-opacity'), 'Script de protótipo precisa atualizar textos e opacidade.');
   check(studioPrototype.includes('saveLocalDraft') && studioPrototype.includes('renderReview'), 'Script de protótipo precisa controlar rascunho local e revisão.');
@@ -372,6 +393,14 @@ async function validateDocsSafetyAndConfig() {
   check(config.includes('repo: Vida-no-Altar/vidanoaltaroficial'), 'admin/config.yml precisa apontar para o repositório oficial.');
   check(config.includes('file: "content/site-content.json"'), 'admin/config.yml precisa editar content/site-content.json.');
   check(config.includes('media_folder: "public/uploads"'), 'admin/config.yml precisa salvar mídias em public/uploads.');
+  check(publicScript.includes('new URL(safeValue, document.baseURI).href'), 'Hero precisa resolver a imagem do JSON contra a URL da página.');
+  check(!publicScript.includes('`url("${safeValue}")`'), 'Hero não pode aplicar o caminho relativo do JSON diretamente na variável CSS.');
+  check(publicScript.includes('localStorage.setItem("vna-theme"'), 'Preferência de tema precisa ser persistida localmente.');
+  check(publicScript.includes('menuButton.focus({ preventScroll: true })'), 'Menu móvel precisa devolver o foco ao botão ao fechar.');
+  check(publicScript.includes('window.matchMedia("(max-width: 900px)")'), 'Menu móvel precisa limpar o estado ao voltar ao layout desktop.');
+  check(publicStyles.includes('--font-display: "Playfair Display"') && publicStyles.includes('--font-body: "Lato"'), 'Tokens tipográficos precisam seguir o Brand Book.');
+  check(publicStyles.includes('html[data-theme="light"]') && publicStyles.includes('html[data-theme="dark"]'), 'CSS precisa preservar os temas claro e escuro.');
+  check(publicStyles.includes('--accent-text: #70571a') && publicStyles.includes('color: var(--accent-text)'), 'Tema claro precisa usar um acento textual com contraste adequado.');
   check(!/wa\.me|vidanoaltar\.store@gmail\.com|whatsapp/i.test(allText), 'Não deve haver canal provisório ou mensageiro externo proibido.');
   check(!hasLocalAbsolutePath(allText), 'Não deve haver caminho local absoluto em arquivos publicados.');
   check(!['OpenAI', 'ChatGPT', 'Gemini', 'Claude'].some((term) => allText.toLowerCase().includes(term.toLowerCase())), 'Interface e documentação não devem mencionar fornecedores de IA.');

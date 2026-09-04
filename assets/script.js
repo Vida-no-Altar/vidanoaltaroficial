@@ -1,10 +1,12 @@
 const menuButton = document.querySelector(".menu-toggle");
 const menu = document.querySelector("#site-menu");
+const themeButton = document.querySelector(".theme-toggle");
+const themeColor = document.querySelector('meta[name="theme-color"]');
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
 const sections = Array.from(document.querySelectorAll("main section[id]"));
 const sectionToNav = {
   inicio: "#inicio",
-  comece: "#inicio",
+  comece: "#comece",
   projetos: "#projetos",
   sobre: "#sobre",
   links: "#links",
@@ -14,9 +16,42 @@ const sectionToNav = {
 function setMenu(open) {
   if (!menuButton || !menu) return;
   menuButton.setAttribute("aria-expanded", String(open));
+  menuButton.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+  const menuLabel = menuButton.querySelector(".sr-only");
+  if (menuLabel) menuLabel.textContent = open ? "Fechar menu" : "Abrir menu";
   menu.classList.toggle("is-open", open);
   document.body.classList.toggle("menu-open", open);
 }
+
+function setTheme(theme, persist = true) {
+  const nextTheme = theme === "light" ? "light" : "dark";
+  const useDarkTheme = nextTheme === "dark";
+
+  document.documentElement.dataset.theme = nextTheme;
+  document.documentElement.style.colorScheme = nextTheme;
+  if (themeColor) themeColor.setAttribute("content", useDarkTheme ? "#262523" : "#F2EBDF");
+
+  if (themeButton) {
+    const label = useDarkTheme ? "Ativar tema claro" : "Ativar tema escuro";
+    themeButton.setAttribute("aria-label", label);
+    themeButton.setAttribute("title", label);
+    themeButton.setAttribute("aria-pressed", String(!useDarkTheme));
+  }
+
+  if (!persist) return;
+  try {
+    localStorage.setItem("vna-theme", nextTheme);
+  } catch {
+    // O tema continua ativo durante a sessão mesmo sem armazenamento local.
+  }
+}
+
+setTheme(document.documentElement.dataset.theme, false);
+
+themeButton?.addEventListener("click", () => {
+  const currentTheme = document.documentElement.dataset.theme;
+  setTheme(currentTheme === "dark" ? "light" : "dark");
+});
 
 if (menuButton && menu) {
   menuButton.addEventListener("click", () => {
@@ -24,12 +59,42 @@ if (menuButton && menu) {
     setMenu(!isOpen);
   });
 
+  menuButton.addEventListener("keydown", (event) => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    if (event.key !== "Tab" || event.shiftKey || !isOpen) return;
+    event.preventDefault();
+    navLinks[0]?.focus({ preventScroll: true });
+  });
+
+  menu.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab") return;
+    const currentIndex = navLinks.indexOf(document.activeElement);
+    if (currentIndex < 0) return;
+
+    const nextIndex = event.shiftKey ? currentIndex - 1 : currentIndex + 1;
+    if (nextIndex < 0 || nextIndex >= navLinks.length) return;
+
+    event.preventDefault();
+    navLinks[nextIndex].focus();
+  });
+
   navLinks.forEach((link) => {
-    link.addEventListener("click", () => setMenu(false));
+    link.addEventListener("click", () => {
+      const wasOpen = menuButton.getAttribute("aria-expanded") === "true";
+      setMenu(false);
+      if (wasOpen) menuButton.focus({ preventScroll: true });
+    });
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setMenu(false);
+    if (event.key !== "Escape" || menuButton.getAttribute("aria-expanded") !== "true") return;
+    setMenu(false);
+    menuButton.focus({ preventScroll: true });
+  });
+
+  const mobileMenu = window.matchMedia("(max-width: 900px)");
+  mobileMenu.addEventListener("change", (event) => {
+    if (!event.matches) setMenu(false);
   });
 }
 
@@ -131,10 +196,19 @@ function setHeroImage(image) {
   if (!value) return;
 
   const safeValue = normalizeHeroImagePath(value);
-  if (!safeValue || safeValue === activeHeroImage) return;
+  if (!safeValue) return;
 
-  activeHeroImage = safeValue;
-  document.documentElement.style.setProperty("--hero-image", `url("${safeValue}")`);
+  let resolvedImage;
+  try {
+    resolvedImage = new URL(safeValue, document.baseURI).href;
+  } catch {
+    return;
+  }
+
+  if (resolvedImage === activeHeroImage) return;
+
+  activeHeroImage = resolvedImage;
+  document.documentElement.style.setProperty("--hero-image", `url("${resolvedImage}")`);
 }
 
 function normalizeEmail(value) {

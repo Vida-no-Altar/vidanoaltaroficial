@@ -58,15 +58,24 @@
                 </div>
                 <div class="studio-field">
                   <label for="content-project">Projeto</label>
-                  <select id="content-project" data-studio-section="Conteúdos" data-studio-field="content-project" data-studio-field-label="Projeto do conteúdo" data-studio-field-help="Escolha o projeto principal para ajudar o visitante e o Assistente Público a encontrarem o conteúdo." data-preview-text="#preview-content-project">
-                    <option>Café no Altar</option>
-                    <option>Conhecendo os Evangelhos</option>
-                    <option>Biblioteca V.A</option>
-                    <option>Vida no Altar Covers</option>
-                    <option>Conexão Gospel</option>
-                    <option>Fé e Trabalho</option>
-                    <option>V.A Kids</option>
+                  <select id="content-project" data-studio-section="Conteúdos" data-studio-field="content-project" data-studio-field-label="Projeto do conteúdo" data-studio-field-help="Escolha o projeto ou a frente editorial correta. Projetos planejados não aparecem como ativos no site público." data-preview-text="#preview-content-project">
+                    <optgroup label="Projetos públicos ativos">
+                      <option>Café no Altar</option>
+                      <option>Conhecendo os Evangelhos</option>
+                      <option>Vida no Altar Covers</option>
+                    </optgroup>
+                    <optgroup label="Projetos planejados ou futuros">
+                      <option>Biblioteca V.A</option>
+                      <option>V.A Kids</option>
+                    </optgroup>
+                    <optgroup label="Frente em desenvolvimento">
+                      <option>Conexão Gospel</option>
+                    </optgroup>
+                    <optgroup label="Frente editorial">
+                      <option>Fé e Trabalho</option>
+                    </optgroup>
                   </select>
+                  <small>Projetos ativos aparecem primeiro. As demais opções continuam disponíveis para planejamento editorial, sem indicar lançamento público.</small>
                 </div>
               </div>
 

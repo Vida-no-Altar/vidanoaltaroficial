@@ -57,7 +57,7 @@
   ],
   "contact": {
     "email": "contato.vidanoaltaroficial@gmail.com",
-    "label": "Canal oficial planejado"
+    "label": "Canal oficial atual"
   },
   "social": {
     "youtube": "https://www.youtube.com/@vidanoaltar.oficial",
@@ -65,7 +65,8 @@
     "tiktok": "https://www.tiktok.com/@vidanoaltar.oficial"
   },
   "officialAssets": {
-    "logo": "Logo Vida no Altar.png",
+    "logo": "public/images/logo-vida-no-altar.svg",
+    "studioLogoLegacy": "Logo Vida no Altar.png",
     "aboutImagePng": "public/images/matheus-sobre-vna.png",
     "aboutImageWebp": "public/images/matheus-sobre-vna.webp",
     "heroImage": "public/images/hero-devocional.webp",

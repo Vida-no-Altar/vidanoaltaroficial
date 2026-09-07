@@ -30,6 +30,17 @@ function resolveIndexPath(pathname) {
   return pathname;
 }
 
+async function sendNotFound(response) {
+  try {
+    const data = await readFile(join(root, '404.html'));
+    response.writeHead(404, { 'Content-Type': mimeTypes['.html'] });
+    response.end(data);
+  } catch {
+    response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+    response.end('Not found');
+  }
+}
+
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url || '/', 'http://127.0.0.1:' + port);
@@ -49,8 +60,7 @@ const server = createServer(async (request, response) => {
     });
     response.end(data);
   } catch {
-    response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-    response.end('Not found');
+    await sendNotFound(response);
   }
 });
 

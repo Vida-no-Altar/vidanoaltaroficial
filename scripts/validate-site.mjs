@@ -5,6 +5,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const failures = [];
+const officialEmail = 'contato.vidanoaltaroficial@gmail.com';
+const oldContactEmail = 'contato@vidanoaltaroficial.com.br';
+const activePublicProjects = ['Café no Altar', 'Conhecendo os Evangelhos', 'Vida no Altar Covers'];
 
 function check(condition, message) {
   if (!condition) failures.push(message);
@@ -63,6 +66,7 @@ function refsFor(filePath, text) {
 
 const htmlFiles = [
   'index.html',
+  '404.html',
   'admin/index.html',
   'admin/auditor.html',
   'admin/assistente.html',
@@ -84,7 +88,8 @@ const requiredFiles = [
   'README.md',
   'robots.txt',
   'sitemap.xml',
-  'hero-devocional.webp',
+  'serve.mjs',
+  'public/images/hero-devocional.webp',
   'assets/styles.css',
   'assets/about-section.css',
   'assets/vna-intelligence.css',
@@ -99,6 +104,7 @@ const requiredFiles = [
   'content/product-catalog.json',
   'content/public-assistant.json',
   'content/admin-auditor.json',
+  'content/agent-admin.json',
   'content/affiliate-disclosure.json',
   'admin/config.yml',
   'docs/vna-studio.md',
@@ -109,6 +115,7 @@ const requiredFiles = [
   'docs/vna-intelligence-core.md',
   'docs/public-assistant.md',
   'docs/admin-auditor.md',
+  'docs/agentes-vna.md',
 ];
 
 async function validateFilesExist() {
@@ -124,12 +131,13 @@ async function validateJson() {
   const productCatalog = await readJson('content/product-catalog.json');
   const publicAssistant = await readJson('content/public-assistant.json');
   const auditor = await readJson('content/admin-auditor.json');
+  const legacyAdminAssistant = await readJson('content/agent-admin.json');
   const affiliate = await readJson('content/affiliate-disclosure.json');
 
   check(site.links?.youtube === 'https://www.youtube.com/@vidanoaltar.oficial', 'YouTube oficial incorreto.');
   check(site.links?.instagram === 'https://www.instagram.com/vidanoaltar.oficial', 'Instagram oficial incorreto.');
   check(site.links?.tiktok === 'https://www.tiktok.com/@vidanoaltar.oficial', 'TikTok oficial incorreto.');
-  check(site.links?.email === 'contato.vidanoaltaroficial@gmail.com', 'E-mail oficial incorreto.');
+  check(site.links?.email === officialEmail, 'E-mail oficial incorreto.');
   check(site.hero?.title === 'Presença que transforma gerações.', 'Hero precisa usar o slogan como título principal.');
   check(site.startHere?.description === 'Escolha um caminho para conhecer melhor o Vida no Altar.', 'Texto de Comece por aqui precisa seguir a copy aprovada.');
   check(site.projects?.description === 'O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.', 'Texto de Projetos precisa seguir a copy aprovada.');
@@ -138,7 +146,13 @@ async function validateJson() {
 
   check(core.name === 'VnA Intelligence Core', 'VnA Intelligence Core não identificado.');
   check(core.brand?.name === 'Vida no Altar', 'Marca institucional incorreta.');
-  check(Array.isArray(core.projects) && core.projects.length >= 3, 'Projetos institucionais ativos insuficientes.');
+  check(core.contact?.email === officialEmail, 'E-mail institucional do VnA Intelligence Core incorreto.');
+  check(core.officialAssets?.logo === 'public/images/logo-vida-no-altar.svg', 'Site público precisa registrar a logo SVG oficial.');
+  check(core.officialAssets?.studioLogoLegacy === 'Logo Vida no Altar.png', 'Studio precisa registrar a dependência atual da logo PNG legada.');
+  const coreActiveProjects = (core.projects || []).filter((project) => project.status === 'ativo').map((project) => project.name);
+  check(coreActiveProjects.length === activePublicProjects.length && activePublicProjects.every((name) => coreActiveProjects.includes(name)), 'VnA Intelligence Core precisa manter somente os três projetos públicos ativos atuais.');
+  const siteProjectNames = (site.projects?.items || []).map((project) => project.title);
+  check(siteProjectNames.length === activePublicProjects.length && activePublicProjects.every((name) => siteProjectNames.includes(name)), 'Site público precisa manter somente os três projetos atuais.');
 
   check(studio.name === 'VnA Studio', 'studio-core.json precisa nomear o VnA Studio.');
   check(studio.version === '0.4.0', 'studio-core.json precisa registrar versão 0.4.0.');
@@ -189,6 +203,7 @@ async function validateJson() {
   check(productCatalog.guidedBibleDiagnosis?.questions?.some((item) => item.key === 'churchTranslation'), 'Diagnóstico precisa perguntar tradução usada na igreja.');
   check(publicAssistant.name === 'Assistente VnA', 'Assistente Público incorreto.');
   check(publicAssistant.modes?.length >= 3, 'Assistente Público precisa manter modos públicos úteis.');
+  check(!legacyAdminAssistant.modes?.some((mode) => (mode.intents || []).some((intent) => /Biblioteca V\.A como projetos principais/.test(intent.response || ''))), 'Assistente Admin legado não pode apresentar Biblioteca V.A como projeto público principal atual.');
 
   check(auditor.name === 'Auditor VnA', 'Auditor precisa se apresentar como Auditor VnA.');
   check(auditor.type === 'studio-auditor', 'Auditor precisa ser módulo do VnA Studio.');
@@ -273,6 +288,10 @@ async function validateHtml() {
   check(files['index.html'].includes('"email": "contato.vidanoaltaroficial@gmail.com"'), 'JSON-LD precisa preservar o e-mail oficial.');
   check(files['index.html'].includes('Escolha um caminho para conhecer melhor o Vida no Altar.'), 'HTML precisa preservar a copy aprovada de Comece por aqui.');
   check(files['index.html'].includes('O Vida no Altar reúne conteúdos e iniciativas para ajudar uma geração a viver uma fé real no dia a dia.'), 'HTML precisa preservar a copy aprovada de Projetos.');
+  check((files['index.html'].match(/googletagmanager\.com\/gtag\/js\?id=G-DSF11804FZ/g) || []).length === 1, 'GA4 precisa manter um único loader G-DSF11804FZ.');
+  check((files['index.html'].match(/gtag\('config', 'G-DSF11804FZ'\)/g) || []).length === 1, 'GA4 precisa manter uma única configuração G-DSF11804FZ.');
+  check(files['404.html'].includes('<meta name="robots" content="noindex, nofollow"'), '404.html precisa impedir indexação.');
+  check(files['404.html'].includes('Página não encontrada'), '404.html precisa explicar o erro ao visitante.');
 
   check(files['admin/index.html'].includes('O Admin agora é VnA Studio'), '/admin/ precisa avisar migração.');
   check(files['admin/index.html'].includes('../studio/'), '/admin/ precisa apontar para /studio/.');
@@ -314,6 +333,9 @@ async function validateHtml() {
     check(files[path].includes('data-vna-root='), `${path} precisa informar raiz para carregar JSONs.`);
   }
   check(files['studio/editor/index.html'].includes('data-studio-prototype="home-editor"'), '/studio/editor/ precisa ter protótipo de edição da Home.');
+  check(files['studio/editor/index.html'].includes(`value="${officialEmail}"`) && files['studio/editor/index.html'].includes(`id="preview-contact-email">${officialEmail}`), '/studio/editor/ precisa usar o e-mail oficial atual no campo e no preview.');
+  check(activePublicProjects.every((name) => files['studio/editor/index.html'].includes(name)), '/studio/editor/ precisa representar os três projetos públicos ativos atuais.');
+  check(!files['studio/editor/index.html'].includes('<h4 id="preview-project-3-title">Biblioteca V.A</h4>'), '/studio/editor/ não pode apresentar Biblioteca V.A como projeto público ativo no preview.');
   check(files['studio/editor/index.html'].includes('data-studio-field="hero-title"'), '/studio/editor/ precisa ter campo de título do Hero.');
   check(files['studio/editor/index.html'].includes('Salvar rascunho local'), '/studio/editor/ precisa permitir salvar rascunho local.');
   check(files['studio/editor/index.html'].includes('Revisar alterações'), '/studio/editor/ precisa permitir revisar alterações.');
@@ -327,6 +349,8 @@ async function validateHtml() {
   check(files['studio/conteudos/index.html'].includes('Revisar conteúdo'), '/studio/conteudos/ precisa permitir revisar conteúdo.');
   check(files['studio/conteudos/index.html'].includes('Simular publicação'), '/studio/conteudos/ precisa permitir simular publicação.');
   check(files['studio/conteudos/index.html'].includes('preview-content-card') || files['studio/conteudos/index.html'].includes('Preview do card'), '/studio/conteudos/ precisa ter preview de card.');
+  check(files['studio/conteudos/index.html'].includes('<optgroup label="Projetos públicos ativos">'), '/studio/conteudos/ precisa separar projetos públicos ativos.');
+  check(files['studio/conteudos/index.html'].includes('<optgroup label="Projetos planejados ou futuros">'), '/studio/conteudos/ precisa identificar projetos planejados ou futuros.');
   check(files['studio/midia/index.html'].includes('data-studio-prototype="media-editor"'), '/studio/midia/ precisa ter editor visual simulado de mídia.');
   check(files['studio/midia/index.html'].includes('data-studio-field'), '/studio/midia/ precisa usar data-studio-field nos campos.');
   check(files['studio/midia/index.html'].includes('data-studio-field="image-opacity"'), '/studio/midia/ precisa ter controle de opacidade.');
@@ -359,6 +383,7 @@ async function validateHtml() {
     if (!(await exists(path))) missingRefs.push(ref);
   }
   check(missingRefs.length === 0, `Arquivos referenciados não encontrados: ${missingRefs.join(', ')}`);
+  check(!Object.values(files).some((text) => text.includes(oldContactEmail)), 'HTML funcional não pode manter o e-mail público antigo.');
 }
 
 async function validateDocsSafetyAndConfig() {
@@ -474,6 +499,14 @@ async function validateServerRoutes() {
       const body = await response.text();
       check(response.ok, `Rota ${route} retornou status ${response.status}.`);
       check(body.includes(expectedText), `Rota ${route} não contém o texto esperado.`);
+    }
+
+    for (const route of ['/esta-pagina-nao-existe-vna-test', '/public/images/arquivo-inexistente-vna-test.webp']) {
+      const response = await fetch(`${baseUrl}${route}`);
+      const body = await response.text();
+      check(response.status === 404, `Rota inexistente ${route} precisa retornar status 404.`);
+      check(response.headers.get('content-type')?.includes('text/html'), `Rota inexistente ${route} precisa retornar a página HTML de erro.`);
+      check(body.includes('Página não encontrada'), `Rota inexistente ${route} precisa exibir a página 404.`);
     }
   } finally {
     server.kill('SIGTERM');

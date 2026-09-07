@@ -262,13 +262,29 @@ Para desativar o widget público, remova do `index.html` o CSS e o script `vna-i
 
 ## Como trocar a logo
 
-O arquivo usado no header e no footer é:
+O site público usa a versão SVG oficial no header, no footer, no favicon e nos dados estruturados:
+
+~~~text
+public/images/logo-vida-no-altar.svg
+~~~
+
+O VnA Studio ainda usa a versão PNG legada:
 
 ~~~text
 Logo Vida no Altar.png
 ~~~
 
-Para trocar no futuro, substitua por uma nova PNG oficial, mantenha o nome do arquivo e rode `npm test`.
+Não remova esse PNG enquanto as telas do Studio continuarem referenciando-o. Depois de qualquer troca de asset, rode `npm test`.
+
+## Como trocar a imagem do Hero
+
+O Hero do site público, os previews do Studio e a configuração de conteúdo usam:
+
+~~~text
+public/images/hero-devocional.webp
+~~~
+
+Esse é o único arquivo oficial do Hero necessário em runtime.
 
 ## Como trocar a imagem da seção Sobre
 
@@ -297,6 +313,8 @@ Matheus, criador do Vida no Altar, segurando uma Bíblia
 Como é um site estático, ele pode ser publicado em GitHub Pages, Cloudflare Pages, Netlify, Vercel ou hospedagem estática equivalente.
 
 Para GitHub Pages, o repositório possui workflow de qualidade. Para Cloudflare Pages, publique a raiz do projeto como site estático, sem build obrigatório.
+
+O arquivo `404.html` na raiz impede que o Cloudflare Pages trate URLs e assets inexistentes como rotas de uma aplicação de página única. O servidor local reproduz esse comportamento com status HTTP 404.
 
 Antes de publicar:
 

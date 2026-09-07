@@ -158,9 +158,9 @@
         },
         {
           "id": "organize_project",
-          "keywords": ["organizar por projeto", "projeto", "café", "cafe", "evangelhos", "biblioteca"],
+          "keywords": ["organizar por projeto", "projeto", "café", "cafe", "evangelhos", "covers", "biblioteca", "conexão", "conexao", "kids"],
           "risk": "Médio",
-          "response": "Você está em Conteúdos. Organize cada item pelo projeto principal: Café no Altar, Conhecendo os Evangelhos, Biblioteca V.A, Covers, Conexão Gospel ou V.A Kids quando for futuro. Isso ajuda o visitante e o Assistente Público a encontrarem o caminho certo.",
+          "response": "Você está em Conteúdos. Os projetos públicos ativos são Café no Altar, Conhecendo os Evangelhos e Vida no Altar Covers. Biblioteca V.A e V.A Kids permanecem como planejados ou futuros. Conexão Gospel continua como frente em desenvolvimento, e Fé e Trabalho como frente editorial. Essa separação evita apresentar ao visitante algo que ainda não foi lançado.",
           "quickReplies": ["Como cadastrar um conteúdo?", "O que revisar antes de publicar?"]
         },
         {

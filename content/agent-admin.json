@@ -63,7 +63,7 @@
             "conexao",
             "kids"
           ],
-          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nLista projects.items\n\nSugestão:\nMantenha Café no Altar, Conhecendo os Evangelhos e Biblioteca V.A como projetos principais. Use featured: true nesses três e deixe os demais como apoio ou desenvolvimento.\n\nMotivo:\nIsso dá hierarquia e evita que tudo pareça ter o mesmo peso na comunicação.",
+          "response": "Arquivo:\ncontent/site-content.json\n\nO que editar:\nLista projects.items\n\nSugestão:\nMantenha Café no Altar, Conhecendo os Evangelhos e Vida no Altar Covers como projetos públicos atuais. Biblioteca V.A e V.A Kids devem permanecer identificados como planejados ou futuros enquanto não forem lançados.\n\nMotivo:\nIsso separa com clareza o que o Vida no Altar já entrega do que ainda está em planejamento.",
           "suggestedFiles": [
             "content/site-content.json"
           ]

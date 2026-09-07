@@ -6,6 +6,8 @@ Os Assistentes VnA são uma camada simples, estática e própria do Vida no Alta
 
 Eles não são IA generativa. As respostas são controladas em arquivos JSON e escolhidas por um motor de intenções baseado em palavras-chave e pontuação.
 
+> **Status:** esta documentação descreve a implementação legada preservada por compatibilidade. O site público e o VnA Studio usam atualmente o VnA Intelligence Core (`assets/vna-intelligence.js`), e o antigo Assistente Admin foi substituído pelo Auditor VnA. Nenhum HTML atual carrega `assets/vna-agents.js`.
+
 ## Arquitetura
 
 Arquivos principais:

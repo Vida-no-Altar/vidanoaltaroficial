@@ -1,0 +1,4 @@
+CREATE POLICY "Studio members view media files" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'vna-media' AND public.has_studio_access(auth.uid()));
+CREATE POLICY "Studio members upload media files" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'vna-media' AND public.has_studio_access(auth.uid()));
+CREATE POLICY "Studio members update media files" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'vna-media' AND public.has_studio_access(auth.uid())) WITH CHECK (bucket_id = 'vna-media' AND public.has_studio_access(auth.uid()));
+CREATE POLICY "Admins delete media files" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'vna-media' AND (public.has_role(auth.uid(), 'owner') OR public.has_role(auth.uid(), 'admin')));

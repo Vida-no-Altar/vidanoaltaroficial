@@ -1,0 +1,6 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { EditorialPage } from "@/components/editorial-page";
+import { createHead, projects, siteMeta } from "@/lib/vna-content";
+import studyImage from "@/assets/vna-study.jpg"; import worshipImage from "@/assets/vna-worship.jpg"; import heroImage from "@/assets/vna-bible-hero.jpg";
+export const Route=createFileRoute("/projetos")({head:()=>createHead(siteMeta.projects),component:ProjectsPage});
+function ProjectsPage(){const imgs=[heroImage,studyImage,worshipImage];return <EditorialPage eyebrow="Frentes ativas" title="Projetos do VnA" intro="Conteúdo que nasce da Palavra e encontra a vida real."><section className="site-container py-20 sm:py-28"><div className="space-y-20">{projects.map((p,i)=><article key={p.title} className="grid items-center gap-8 lg:grid-cols-2"><div className={i%2?"lg:order-2":""}><img src={imgs[i]} alt={p.title} width={1408} height={1104} loading="lazy" className="aspect-[4/3] w-full object-cover"/></div><div className="max-w-lg lg:px-10"><p className="eyebrow">0{i+1} · {p.eyebrow}</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">{p.title}</h2><p className="mt-5 text-lg leading-8 text-muted-foreground">{p.description}</p><div className="editorial-rule mt-8"/></div></article>)}</div></section></EditorialPage>}

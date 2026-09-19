@@ -1,0 +1,8 @@
+import type { LucideIcon } from "lucide-react";
+import { FilePlus2, ImageUp, LayoutTemplate, Plus } from "lucide-react";
+
+export const quickActions:{label:string;section:string;icon:LucideIcon}[]=[{label:"Novo conteúdo",section:"conteudos",icon:FilePlus2},{label:"Editar site",section:"editor",icon:LayoutTemplate},{label:"Enviar mídia",section:"midia",icon:ImageUp},{label:"Criar projeto",section:"projetos",icon:Plus}];
+export const pageSections=["Hero","Comece por aqui","Projetos","Sobre","Canais","Contato"];
+export const allowedSections=["paginas","editor","conteudos","midia","projetos","produtos","historico","usuarios","auditor","configuracoes"] as const;
+export type StudioSection=(typeof allowedSections)[number];
+export function studioMeta(section:StudioSection){const names:{[K in StudioSection]:[string,string]}={paginas:["Páginas","Edite as áreas publicadas no Site Oficial."],editor:["Editor visual","Ajuste o conteúdo e revise o resultado antes de publicar."],conteudos:["Conteúdos","Organize a produção editorial do Vida no Altar."],midia:["Biblioteca de mídia","Imagens e arquivos aprovados em um só lugar."],projetos:["Projetos","Gerencie frentes ativas e futuras."],produtos:["Produtos","Recomendações com propósito e transparência."],historico:["Histórico","Acompanhe alterações e versões publicadas."],usuarios:["Usuários e permissões","Controle os acessos ao Studio."],auditor:["Auditor VnA","Revisão editorial e operacional contextual."],configuracoes:["Configurações","Identidade, perfil e preferências do ecossistema."]};return names[section]}
